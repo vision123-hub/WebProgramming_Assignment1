@@ -1,0 +1,37 @@
+body {
+    font-family: sans-serif;
+    background-color: white;
+    padding: 40px;
+}
+
+.margin-box {
+    background-color: #fbbf24;
+    width: 500px;
+    padding: 30px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.border-box {
+    background-color: #475569;
+    padding: 25px;
+    color: white;
+}
+
+.padding-box {
+    background-color: #38bdf8;
+    padding: 25px;
+    color: #1e293b;
+}
+
+.content-box {
+    background-color: #8b5cf6;
+    padding: 35px;
+    color: white;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+}

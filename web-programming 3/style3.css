@@ -1,0 +1,48 @@
+body {
+    font-family: sans-serif;
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.palette {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.swatch {
+    width: 120px;
+    height: 120px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.red {
+    background-color: #EF4444;
+}
+
+.orange {
+    background-color: #F59E0B;
+}
+
+.green {
+    background-color: #10B981;
+}
+
+.blue {
+    background-color: #3B82F6;
+}
+
+.purple {
+    background-color: #8B5CF6;
+}
