@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2 - Hover Card Transition</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0fdfa;
+        }
+
+        .card {
+            width: 280px;
+            padding: 30px;
+            background-color: white;
+            border: 2px solid #14b8a6;
+            border-radius: 12px;
+            text-align: center;
+            color: #1e293b;
+
+            /* Required transition */
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .card h2 {
+            margin-bottom: 12px;
+            color: #0f766e;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Required hover effect */
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(15, 118, 110, 0.25);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Hover Me!</h2>
+
+        <p>
+            Move your mouse over this card
+            to see the transition effect.
+        </p>
+    </div>
+
+</body>
+</html>
+

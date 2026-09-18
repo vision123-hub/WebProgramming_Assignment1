@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Task 6 - Responsive Grid Page</title>
+
+    <style>
+
+        /* =========================
+           CSS VARIABLES
+        ========================= */
+
+        :root {
+            --primary: #0f766e;
+            --accent: #14b8a6;
+            --bg: #f0fdfa;
+            --text: #1e293b;
+            --radius: 12px;
+        }
+
+
+        /* =========================
+           DARK MODE
+        ========================= */
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #051a0a;
+                --text: #d4edda;
+            }
+        }
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+
+            font-family: Arial, sans-serif;
+
+            padding: 30px;
+        }
+
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        h1 {
+            color: var(--primary);
+
+            margin-bottom: 25px;
+
+            font-size: 2rem;
+        }
+
+
+        /* =========================
+           RESPONSIVE GRID
+        ========================= */
+
+        .grid {
+            display: grid;
+
+            /* One column on mobile */
+            grid-template-columns: 1fr;
+
+            gap: 16px;
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+        }
+
+
+        /* Three columns at 640px */
+        @media (min-width: 640px) {
+
+            .grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .card {
+            border: 2px solid var(--accent);
+
+            border-radius: var(--radius);
+
+            padding: 25px;
+
+            background-color: var(--bg);
+
+            color: var(--text);
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            min-height: 150px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        /* =========================
+           HOVER EFFECT
+        ========================= */
+
+        .card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 10px 28px
+                rgba(15, 118, 110, 0.18);
+        }
+
+
+        /* =========================
+           EMOJI ICON
+        ========================= */
+
+        .card[data-icon]::before {
+
+            content: attr(data-icon);
+
+            display: block;
+
+            font-size: 2.2rem;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =========================
+           SMALL SCREEN
+        ========================= */
+
+        @media (max-width: 639px) {
+
+            body {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .card {
+                min-height: 120px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <h1>My Skills</h1>
+
+
+    <div class="grid">
+
+
+        <div
+            class="card"
+            data-icon="🌐"
+        >
+            HTML5 — Structure
+        </div>
+
+
+        <div
+            class="card"
+            data-icon="🎨"
+        >
+            CSS3 — Styling
+        </div>
+
+
+        <div
+            class="card"
+            data-icon="⚡"
+        >
+            JavaScript — Behaviour
+        </div>
+
+
+        <div
+            class="card"
+            data-icon="📐"
+        >
+            Flexbox — 1D Layout
+        </div>
+
+
+        <div
+            class="card"
+            data-icon="🗂"
+        >
+            Grid — 2D Layout
+        </div>
+
+
+        <div
+            class="card"
+            data-icon="📱"
+        >
+            Responsive — Any Screen
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+

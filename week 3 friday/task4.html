@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4 - CSS Variables Theme</title>
+
+    <style>
+        /* CSS VARIABLES */
+        :root {
+            --primary: #0f766e;
+            --accent: #14b8a6;
+            --background: #f0fdfa;
+            --text: #1e293b;
+            --radius: 12px;
+        }
+
+        /* DARK MODE */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #051a0a;
+                --text: #d4edda;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px;
+
+            font-family: Arial, sans-serif;
+
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--text);
+            margin-bottom: 30px;
+        }
+
+        .card {
+            max-width: 500px;
+
+            padding: 25px;
+
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .button {
+            display: inline-block;
+
+            margin-top: 15px;
+            padding: 10px 20px;
+
+            background-color: var(--primary);
+            color: white;
+
+            border: none;
+            border-radius: var(--radius);
+
+            text-decoration: none;
+
+            transition: background-color 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>CSS Variables Theme</h1>
+
+    <p class="description">
+        This page uses CSS variables to keep the colors and
+        border radius consistent.
+    </p>
+
+    <div class="card">
+
+        <h2>My Themed Card</h2>
+
+        <p>
+            The colors, background, text, and border radius
+            are controlled using CSS variables.
+        </p>
+
+        <a href="#" class="button">
+            Learn More
+        </a>
+
+    </div>
+
+</body>
+</html>
+

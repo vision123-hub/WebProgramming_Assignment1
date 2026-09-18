@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My CSS Advanced Portfolio</title>
+
+    <style>
+
+        /* =========================
+           CSS VARIABLES
+        ========================= */
+
+        :root {
+            --primary: #0f766e;
+            --accent: #14b8a6;
+            --bg: #f0fdfa;
+            --text: #1e293b;
+            --card-bg: white;
+            --radius: 12px;
+        }
+
+
+        /* =========================
+           DARK MODE
+        ========================= */
+
+        @media (prefers-color-scheme: dark) {
+
+            :root {
+                --bg: #051a0a;
+                --text: #d4edda;
+                --card-bg: #102a18;
+            }
+
+        }
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background-color: var(--bg);
+            color: var(--text);
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           FIXED NAVIGATION
+        ========================= */
+
+        nav {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 15px 35px;
+
+            background-color: #1e293b;
+        }
+
+
+        nav .logo {
+            color: var(--accent);
+
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+
+        nav .links {
+            display: flex;
+            gap: 22px;
+        }
+
+
+        nav a {
+            color: #94a3b8;
+
+            text-decoration: none;
+
+            transition: color 0.2s ease;
+        }
+
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+
+        /* =========================
+           HERO ANIMATION
+        ========================= */
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            min-height: 450px;
+
+            padding: 150px 30px 80px;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--bg),
+                    #ccfbf1
+                );
+        }
+
+
+        .hero h1 {
+
+            color: var(--primary);
+
+            font-size: 2.7rem;
+
+            margin-bottom: 15px;
+
+            animation:
+                fadeIn 0.8s ease-out;
+        }
+
+
+        .hero p {
+
+            color: #64748b;
+
+            font-size: 1.1rem;
+
+            animation:
+                fadeIn 0.8s ease-out 0.2s both;
+        }
+
+
+        /* =========================
+           SKILLS SECTION
+        ========================= */
+
+        .skills-section {
+
+            padding: 0 30px 80px;
+
+        }
+
+
+        /* =========================
+           STICKY HEADING
+        ========================= */
+
+        .sticky-heading {
+
+            position: sticky;
+
+            top: 55px;
+
+            z-index: 10;
+
+            padding: 15px 0;
+
+            margin-bottom: 20px;
+
+            background-color: var(--bg);
+
+            color: var(--primary);
+
+            border-bottom:
+                3px solid var(--accent);
+
+            font-size: 1.5rem;
+        }
+
+
+        /* =========================
+           RESPONSIVE GRID
+        ========================= */
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 18px;
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+        }
+
+
+        /* 3 columns on larger screens */
+
+        @media (min-width: 640px) {
+
+            .grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+            }
+
+        }
+
+
+        /* =========================
+           SKILL CARDS
+        ========================= */
+
+        .card {
+
+            min-height: 170px;
+
+            padding: 25px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            background-color: var(--card-bg);
+
+            color: var(--text);
+
+            border:
+                2px solid var(--accent);
+
+            border-radius:
+                var(--radius);
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        /* =========================
+           CARD HOVER
+        ========================= */
+
+        .card:hover {
+
+            transform:
+                translateY(-6px);
+
+            box-shadow:
+                0 12px 28px
+                rgba(15, 118, 110, 0.25);
+        }
+
+
+        /* =========================
+           PSEUDO ELEMENT ICON
+        ========================= */
+
+        .card[data-icon]::before {
+
+            content:
+                attr(data-icon);
+
+            display: block;
+
+            font-size: 2.2rem;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =========================
+           ABOUT SECTION
+        ========================= */
+
+        .about {
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            padding: 50px 30px 80px;
+
+            text-align: center;
+        }
+
+
+        .about h2 {
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+        }
+
+
+        .about p {
+
+            color: var(--text);
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 639px) {
+
+            nav {
+
+                padding:
+                    14px 18px;
+
+            }
+
+
+            nav .links {
+
+                gap: 10px;
+
+            }
+
+
+            nav a {
+
+                font-size: 13px;
+
+            }
+
+
+            .hero {
+
+                padding:
+                    120px 20px 60px;
+
+            }
+
+
+            .hero h1 {
+
+                font-size: 2rem;
+
+            }
+
+
+            .skills-section {
+
+                padding:
+                    0 20px 60px;
+
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         FIXED NAVIGATION
+    ========================== -->
+
+    <nav>
+
+        <div class="logo">
+            Vision's Portfolio
+        </div>
+
+
+        <div class="links">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#skills">
+                Skills
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO SECTION
+    ========================== -->
+
+    <section
+        class="hero"
+        id="home"
+    >
+
+        <h1>
+            Hello, I am Vision Parajuli
+        </h1>
+
+
+        <p>
+            Computer Science ·
+            Gachon University
+        </p>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         SKILLS SECTION
+    ========================== -->
+
+    <section
+        class="skills-section"
+        id="skills"
+    >
+
+        <h2 class="sticky-heading">
+            My Skills
+        </h2>
+
+
+        <div class="grid">
+
+
+            <div
+                class="card"
+                data-icon="🐍"
+            >
+                Python
+            </div>
+
+
+            <div
+                class="card"
+                data-icon="☕"
+            >
+                Java
+            </div>
+
+
+            <div
+                class="card"
+                data-icon="💻"
+            >
+                C++
+            </div>
+
+
+            <div
+                class="card"
+                data-icon="🌐"
+            >
+                HTML
+            </div>
+
+
+            <div
+                class="card"
+                data-icon="🎨"
+            >
+                CSS
+            </div>
+
+
+            <div
+                class="card"
+                data-icon="📱"
+            >
+                Responsive Design
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ABOUT SECTION
+    ========================== -->
+
+    <section
+        class="about"
+        id="about"
+    >
+
+        <h2>
+            About Me
+        </h2>
+
+
+        <p>
+            I am a Computer Science student
+            at Gachon University.
+        </p>
+
+
+        <p>
+            My main programming skills are
+            Python, Java, and C++.
+        </p>
+
+
+        <p>
+            I also enjoy reading books and
+            watching dramas and movies.
+        </p>
+
+    </section>
+
+
+</body>
+
+</html>
+

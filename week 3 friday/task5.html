@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5 - Fixed Navigation Bar</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #1e293b;
+            background-color: #f0fdfa;
+        }
+
+        /* Fixed navigation bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+
+            background-color: #1e293b;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 16px 32px;
+        }
+
+        .logo {
+            color: #14b8a6;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 15px;
+
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #14b8a6;
+        }
+
+        /* Prevent content from hiding behind fixed nav */
+        main {
+            padding-top: 70px;
+        }
+
+        section {
+            min-height: 350px;
+            padding: 60px 40px;
+        }
+
+        section h1 {
+            color: #0f766e;
+            margin-bottom: 15px;
+        }
+
+        section p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        #home {
+            background-color: #f0fdfa;
+        }
+
+        #topics {
+            background-color: #ccfbf1;
+        }
+
+        #quiz {
+            background-color: #99f6e4;
+        }
+
+        #about {
+            background-color: #5eead4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Fixed Navigation -->
+    <nav>
+
+        <div class="logo">
+            Web Programming
+        </div>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#topics">Topics</a>
+            <a href="#quiz">Quiz</a>
+            <a href="#about">About</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Page Content -->
+    <main>
+
+        <section id="home">
+            <h1>Home</h1>
+            <p>
+                Welcome to my Web Programming page.
+                Scroll down to see that the navigation bar
+                stays fixed at the top.
+            </p>
+        </section>
+
+
+        <section id="topics">
+            <h1>Topics</h1>
+            <p>
+                This section contains information about
+                HTML, CSS, Flexbox, Grid, positioning,
+                transitions, and animations.
+            </p>
+        </section>
+
+
+        <section id="quiz">
+            <h1>Quiz</h1>
+            <p>
+                This is the quiz section of the page.
+                The navigation bar remains visible while
+                scrolling.
+            </p>
+        </section>
+
+
+        <section id="about">
+            <h1>About</h1>
+            <p>
+                This page demonstrates a fixed navigation
+                bar using CSS positioning and Flexbox.
+            </p>
+        </section>
+
+    </main>
+
+</body>
+</html>
+
