@@ -1,0 +1,282 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7fb;
+    color: #222;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.emoji {
+    font-size: 65px;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #252525;
+}
+
+header p {
+    margin-top: 10px;
+    color: #777;
+    font-size: 16px;
+}
+
+.joke-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.badge {
+    background: #fff0b3;
+    color: #765400;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#jokeNumber {
+    color: #999;
+    font-size: 13px;
+}
+
+.setup-box {
+    background: #f7f7ff;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 18px;
+}
+
+.punchline-box {
+    background: #e9fff2;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.label {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    color: #888;
+    margin-bottom: 12px;
+}
+
+#setup {
+    font-size: 23px;
+    line-height: 1.5;
+}
+
+#punchline {
+    font-size: 21px;
+    line-height: 1.5;
+    color: #198754;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.load-btn {
+    flex: 1;
+    background: #ffcf33;
+    color: #222;
+}
+
+.load-btn:hover {
+    background: #ffbd00;
+}
+
+.save-btn {
+    flex: 1;
+    background: #ffedf0;
+    color: #e63950;
+}
+
+.save-btn:hover:not(:disabled) {
+    background: #ffdce3;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.loading {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.spinner {
+    width: 45px;
+    height: 45px;
+    border: 5px solid #eee;
+    border-top: 5px solid #ffbf00;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.loading span {
+    display: block;
+    margin-top: 8px;
+    color: #888;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error {
+    background: #ffe8e8;
+    color: #c62828;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.favourites {
+    margin-top: 40px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title h2 {
+    font-size: 23px;
+}
+
+#favCount {
+    background: #ffe2e8;
+    color: #d63355;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.favourite-item {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.favourite-item h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.favourite-item p {
+    color: #198754;
+    line-height: 1.5;
+}
+
+.delete-btn {
+    background: #ffe8e8;
+    color: #d63333;
+    padding: 9px 13px;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+.empty-message {
+    text-align: center;
+    color: #999;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 45px;
+    color: #aaa;
+    font-size: 13px;
+}
+
+@media (max-width: 500px) {
+    header h1 {
+        font-size: 32px;
+    }
+
+    .joke-card {
+        padding: 20px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    #setup {
+        font-size: 20px;
+    }
+
+    #punchline {
+        font-size: 18px;
+    }
+}

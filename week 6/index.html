@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Factory 😂</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <div class="emoji">😂</div>
+            <h1>JOKE FACTORY</h1>
+            <p>Life is too short for boring jokes!</p>
+        </header>
+
+        <div class="joke-card">
+
+            <div class="card-top">
+                <span class="badge">🎤 COMEDY TIME</span>
+                <span id="jokeNumber">Ready to laugh?</span>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Loading…</p>
+                <span>Finding something funny!</span>
+            </div>
+
+            <div id="jokeContent">
+                <div class="setup-box">
+                    <p class="label">THE SETUP</p>
+                    <h2 id="setup">
+                        Click the button to get your first joke!
+                    </h2>
+                </div>
+
+                <div class="punchline-box">
+                    <p class="label">THE PUNCHLINE</p>
+                    <h3 id="punchline">
+                        Your daily dose of laughter awaits. 😎
+                    </h3>
+                </div>
+            </div>
+
+            <p id="errorMessage" class="error hidden"></p>
+
+            <div class="buttons">
+                <button id="loadBtn" class="load-btn">
+                    🎲 Load Joke
+                </button>
+
+                <button id="saveBtn" class="save-btn" disabled>
+                    ❤️ Save Favourite
+                </button>
+            </div>
+
+        </div>
+
+        <section class="favourites">
+
+            <div class="section-title">
+                <h2>❤️ My Favourite Jokes</h2>
+                <span id="favCount">0 saved</span>
+            </div>
+
+            <div id="favouritesList">
+                <p class="empty-message">
+                    No favourites yet. Save a joke you love!
+                </p>
+            </div>
+
+        </section>
+
+        <footer>
+            <p>Made for laughs, powered by JavaScript ✨</p>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

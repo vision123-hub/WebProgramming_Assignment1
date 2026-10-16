@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics - Week 5</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2ff;
+            color: #334155;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4338ca;
+        }
+
+        .box {
+            background-color: white;
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px #ddd;
+        }
+
+        h2 {
+            color: #4338ca;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4338ca;
+        }
+
+        .result {
+            margin-top: 15px;
+            line-height: 1.8;
+        }
+
+        .home {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>JavaScript Basics</h1>
+
+    <!-- Task 1: Changing Content -->
+    <div class="box">
+        <h2>1. Changing Content</h2>
+
+        <p id="message">Welcome to JavaScript!</p>
+
+        <button onclick="changeText()">Change Text</button>
+    </div>
+
+    <!-- Task 2: Reading User Input -->
+    <div class="box">
+        <h2>2. Reading User Input</h2>
+
+        <p>Enter your name:</p>
+
+        <input type="text" id="username" placeholder="Your name">
+
+        <button onclick="greetUser()">Greet</button>
+
+        <p id="greeting" class="result"></p>
+    </div>
+
+    <!-- Task 3: Conditions -->
+    <div class="box">
+        <h2>3. Conditions (if / else)</h2>
+
+        <p>Enter your exam score:</p>
+
+        <input type="number" id="score" placeholder="Score">
+
+        <button onclick="checkScore()">Check Result</button>
+
+        <p id="scoreResult" class="result"></p>
+    </div>
+
+    <!-- Task 4: For Loop -->
+    <div class="box">
+        <h2>4. JavaScript For Loop</h2>
+
+        <p>Enter a number:</p>
+
+        <input type="number" id="number" placeholder="Enter number">
+
+        <button onclick="showNumbers()">Show Numbers</button>
+
+        <p id="loopResult" class="result"></p>
+    </div>
+
+    <!-- Task 5: Arrays -->
+    <div class="box">
+        <h2>5. Loop Through an Array</h2>
+
+        <p>My favorite programming languages:</p>
+
+        <div id="arrayResult" class="result"></div>
+    </div>
+
+    <!-- Task 6: Local Storage -->
+    <div class="box">
+        <h2>6. Local Storage</h2>
+
+        <p>Save your favorite subject:</p>
+
+        <input type="text" id="subject" placeholder="Enter subject">
+
+        <button onclick="saveSubject()">Save</button>
+
+        <p id="savedSubject" class="result"></p>
+    </div>
+
+    <a href="index.html" class="home">Back to Week 5 Home</a>
+
+    <script>
+
+        // Task 1: Changing text
+        function changeText() {
+            document.getElementById("message").textContent =
+                "You changed the text using JavaScript!";
+        }
+
+        // Task 2: Reading input
+        function greetUser() {
+            let name = document.getElementById("username").value.trim();
+
+            if (name === "") {
+                document.getElementById("greeting").textContent =
+                    "Please enter your name.";
+            } else {
+                document.getElementById("greeting").textContent =
+                    "Hello, " + name + "! Welcome to my webpage.";
+            }
+        }
+
+        // Task 3: Conditions
+        function checkScore() {
+            let input = document.getElementById("score").value;
+            let score = Number(input);
+
+            if (input.trim() === "" || score < 0 || score > 100) {
+                document.getElementById("scoreResult").textContent =
+                    "Please enter a score between 0 and 100.";
+            } else if (score >= 60) {
+                document.getElementById("scoreResult").textContent =
+                    "Congratulations! You passed.";
+            } else {
+                document.getElementById("scoreResult").textContent =
+                    "You did not pass. Keep practicing!";
+            }
+        }
+
+        // Task 4: For loop
+        function showNumbers() {
+            let input = document.getElementById("number").value;
+            let number = Number(input);
+            let result = "";
+
+            if (input.trim() === "" ||
+                !Number.isInteger(number) ||
+                number < 1 || number > 100) {
+                document.getElementById("loopResult").textContent =
+                    "Please enter a whole number between 1 and 100.";
+                return;
+            }
+
+            for (let i = 1; i <= number; i++) {
+                result += i + " ";
+            }
+
+            document.getElementById("loopResult").textContent = result;
+        }
+
+        // Task 5: Arrays
+        let languages = ["Python", "Java", "C++", "JavaScript"];
+
+        let languageList = "";
+
+        for (let i = 0; i < languages.length; i++) {
+            languageList += languages[i] + "<br>";
+        }
+
+        document.getElementById("arrayResult").innerHTML = languageList;
+
+        // Task 6: Local Storage
+        function saveSubject() {
+            let subject = document.getElementById("subject").value.trim();
+
+            if (subject === "") {
+                document.getElementById("savedSubject").textContent =
+                    "Please enter a subject.";
+                return;
+            }
+
+            localStorage.setItem("favoriteSubject", subject);
+
+            document.getElementById("savedSubject").textContent =
+                "Saved subject: " + subject;
+        }
+
+        // Display saved subject when page loads
+        let saved = localStorage.getItem("favoriteSubject");
+
+        if (saved) {
+            document.getElementById("savedSubject").textContent =
+                "Saved subject: " + saved;
+        }
+
+    </script>
+
+</body>
+</html>

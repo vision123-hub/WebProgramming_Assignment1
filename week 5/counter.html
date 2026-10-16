@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Counter</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdf2f8;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px #ddd;
+        }
+
+        h1 {
+            color: #be185d;
+        }
+
+        #count {
+            font-size: 60px;
+            color: #333;
+            margin: 25px;
+        }
+
+        button {
+            padding: 12px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .add {
+            background-color: #16a34a;
+        }
+
+        .subtract {
+            background-color: #dc2626;
+        }
+
+        .reset {
+            background-color: #64748b;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>JavaScript Counter</h1>
+
+        <p>Click the buttons to change the number.</p>
+
+        <h2 id="count">0</h2>
+
+        <button class="add" onclick="increase()">+ Add</button>
+
+        <button class="subtract" onclick="decrease()">- Subtract</button>
+
+        <button class="reset" onclick="resetCounter()">Reset</button>
+
+        <br>
+
+        <a href="index.html">Back to Home</a>
+
+    </div>
+
+    <script>
+
+        let count = 0;
+
+        // Increase counter by 1
+        function increase() {
+            count++;
+            document.getElementById("count").textContent = count;
+        }
+
+        // Decrease counter by 1
+        function decrease() {
+            count--;
+            document.getElementById("count").textContent = count;
+        }
+
+        // Reset counter to 0
+        function resetCounter() {
+            count = 0;
+            document.getElementById("count").textContent = count;
+        }
+
+    </script>
+
+</body>
+</html>
