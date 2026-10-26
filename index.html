@@ -98,6 +98,22 @@
             transform: translateY(-2px);
         }
 
+        .week-seven {
+            margin-top: 25px;
+        }
+
+        .week-seven .tasks {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+        }
+
+        .week-seven .task-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            color: #2563eb;
+        }
+
         footer {
             margin-top: 50px;
             background: #1e293b;
@@ -235,17 +251,18 @@
 
         </div>
 
-        <div class="assignment-section" style="background: #ffffff; border-radius: 16px; padding: 2rem; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-top: 2rem; max-width: 1100px; margin-left: auto; margin-right: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-            <h2 style="font-size: 1.5rem; color: #1e3a8a; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem;">Week 7: Progressive Search Matrix</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
-                <a href="week 7/book-init.html" style="display: block; background-color: #eff6ff; color: #2563eb; padding: 0.85rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; font-size: 0.95rem; border: 1px solid transparent; transition: background-color 0.15s;">Task 1: Book Search</a>
-                <a href="week 7/book-layout.html" style="display: block; background-color: #eff6ff; color: #2563eb; padding: 0.85rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; font-size: 0.95rem; border: 1px solid transparent; transition: background-color 0.15s;">Task 2: Open Library</a>
-                <a href="week 7/book-query.html" style="display: block; background-color: #eff6ff; color: #2563eb; padding: 0.85rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; font-size: 0.95rem; border: 1px solid transparent; transition: background-color 0.15s;">Task 3: Search Behavior</a>
-                <a href="week 7/book-enhance.html" style="display: block; background-color: #eff6ff; color: #2563eb; padding: 0.85rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; font-size: 0.95rem; border: 1px solid transparent; transition: background-color 0.15s;">Task 4: Improved UI</a>
-                <a href="week 7/book-flow.html" style="display: block; background-color: #eff6ff; color: #2563eb; padding: 0.85rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; font-size: 0.95rem; border: 1px solid transparent; transition: background-color 0.15s;">Task 5: Refined Flow</a>
-                <a href="week 7/book-complete.html" style="display: block; background-color: #eff6ff; color: #2563eb; padding: 0.85rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; font-size: 0.95rem; border: 1px solid transparent; transition: background-color 0.15s;">Task 6: Complete Engine</a>
+        <section class="week-card week-seven">
+            <h3>Week 7: Progressive Search Matrix</h3>
+
+            <div class="tasks">
+                <a class="task-link" href="week 7/book-init.html">Task 1: Book Search</a>
+                <a class="task-link" href="week 7/book-layout.html">Task 2: Open Library</a>
+                <a class="task-link" href="week 7/book-query.html">Task 3: Search Behavior</a>
+                <a class="task-link" href="week 7/book-enhance.html">Task 4: Improved UI</a>
+                <a class="task-link" href="week 7/book-flow.html">Task 5: Refined Flow</a>
+                <a class="task-link" href="week 7/book-complete.html">Task 6: Complete Engine</a>
             </div>
-        </div>
+        </section>
 
         <div class="assignment-section" style="background: #ffffff; border-radius: 16px; padding: 2rem; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-top: 2rem; max-width: 1100px; margin-left: auto; margin-right: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
             <h2 style="font-size: 1.5rem; color: #1e3a8a; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem;">Week 8: Input Elements &amp; Data Validation</h2>
