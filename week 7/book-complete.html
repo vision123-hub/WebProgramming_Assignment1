@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Library Explorer Engine</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f8f9fa; color: #212529; padding-bottom: 4rem; }
+        .lookup-engine-banner { background-color: #1e293b; color: #ffffff; padding: 3.5rem 1rem; text-align: center; }
+        .lookup-engine-banner h1 { font-size: 2.25rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+        .lookup-engine-tagline { color: #94a3b8; font-size: 1rem; font-weight: 500; }
+        .lookup-engine-scaffold { max-width: 520px; margin: -1.75rem auto 0 auto; padding: 0 1rem; }
+        .lookup-engine-dock { background: #ffffff; padding: 1.25rem; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
+        .lookup-engine-field { flex: 1; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; outline: none; color: #0f172a; }
+        .lookup-engine-field:focus { border-color: #2563eb; }
+        .lookup-engine-btn { padding: 0.75rem 1.5rem; background-color: #0d6efd; color: #ffffff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .lookup-engine-btn:hover { background-color: #0b5ed7; }
+        .lookup-engine-status { font-size: 0.9rem; color: #2563eb; font-weight: 600; margin-left: 0.25rem; margin-bottom: 2rem; }
+        .lookup-engine-results-lbl { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <header class="lookup-engine-banner">
+        <h1>📚 Book Search</h1>
+        <p class="lookup-engine-tagline">Discover your next favorite book</p>
+    </header>
+    <main class="lookup-engine-scaffold">
+        <form class="lookup-engine-dock" onsubmit="triggerSearchQuery(event)">
+            <input type="text" id="targetQueryField" class="lookup-engine-field" placeholder="Search books..." required>
+            <button type="submit" class="lookup-engine-btn">Search</button>
+        </form>
+        <div class="lookup-engine-status" id="dynamicStatusLabel">Search by book title or author to get started.</div>
+        <h2 class="lookup-engine-results-lbl">Results</h2>
+    </main>
+    <script>
+        function triggerSearchQuery(event) {
+            event.preventDefault();
+            const inputVal = document.getElementById('targetQueryField').value.trim();
+            if (inputVal !== "") {
+                document.getElementById('dynamicStatusLabel').textContent = "Discover your next favorite book";
+            }
+        }
+    </script>
+</body>
+</html>

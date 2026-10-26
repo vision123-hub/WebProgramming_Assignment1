@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Lookup v2</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .lookup-stage-banner { background-color: #1e293b; color: #ffffff; padding: 3.5rem 1rem; text-align: center; }
+        .lookup-stage-banner h1 { font-size: 2rem; font-weight: 700; }
+        .lookup-stage-container { max-width: 500px; margin: 2.5rem auto; padding: 0 1rem; }
+        .lookup-stage-form { display: flex; gap: 0.5rem; }
+        .lookup-stage-input { flex: 1; padding: 0.65rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; outline: none; background: #ffffff; }
+        .lookup-stage-btn { padding: 0.65rem 1.25rem; background-color: #2563eb; color: #ffffff; border: none; border-radius: 6px; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <header class="lookup-stage-banner">
+        <h1>📚 Book Search</h1>
+    </header>
+    <main class="lookup-stage-container">
+        <form class="lookup-stage-form" onsubmit="event.preventDefault();">
+            <input type="text" class="lookup-stage-input" placeholder="Search volumes...">
+            <button type="submit" class="lookup-stage-btn">Search</button>
+        </form>
+    </main>
+</body>
+</html>
