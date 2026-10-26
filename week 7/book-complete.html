@@ -3,44 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Library Explorer Engine</title>
+    <title>Book Search - Step 1</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f8f9fa; color: #212529; padding-bottom: 4rem; }
-        .lookup-engine-banner { background-color: #1e293b; color: #ffffff; padding: 3.5rem 1rem; text-align: center; }
-        .lookup-engine-banner h1 { font-size: 2.25rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
-        .lookup-engine-tagline { color: #94a3b8; font-size: 1rem; font-weight: 500; }
-        .lookup-engine-scaffold { max-width: 520px; margin: -1.75rem auto 0 auto; padding: 0 1rem; }
-        .lookup-engine-dock { background: #ffffff; padding: 1.25rem; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
-        .lookup-engine-field { flex: 1; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; outline: none; color: #0f172a; }
-        .lookup-engine-field:focus { border-color: #2563eb; }
-        .lookup-engine-btn { padding: 0.75rem 1.5rem; background-color: #0d6efd; color: #ffffff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
-        .lookup-engine-btn:hover { background-color: #0b5ed7; }
-        .lookup-engine-status { font-size: 0.9rem; color: #2563eb; font-weight: 600; margin-left: 0.25rem; margin-bottom: 2rem; }
-        .lookup-engine-results-lbl { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-top: 1rem; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #0b1329;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 1.5rem;
+        }
+        .stage-one-heading { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+        .stage-one-desc { color: #94a3b8; font-size: 1.05rem; margin-bottom: 3rem; text-align: center; }
+        .engine-container-board {
+            background-color: #111c3a;
+            width: 100%;
+            max-width: 680px;
+            padding: 3rem 2.5rem;
+            border-radius: 12px;
+            border: 1px solid #1e295d;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .brand-title-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .brand-icon { font-size: 1.4rem; }
+        .brand-main-text { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
+        .brand-subtitle-text { color: #94a3b8; font-size: 0.95rem; margin-bottom: 2rem; }
+        .input-dock-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
+        .text-entry-field {
+            flex: 1;
+            padding: 0.85rem 1.25rem;
+            background-color: #172554;
+            border: 1px solid #1e3a8a;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .text-entry-field::placeholder { color: #64748b; }
+        .action-trigger-btn {
+            padding: 0.85rem 1.75rem;
+            background-color: #38bdf8;
+            color: #0b1329;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .status-info-string { color: #64748b; font-size: 0.85rem; margin-bottom: 2.5rem; display: block; }
+        .results-section-lbl { font-size: 1.35rem; font-weight: 700; text-align: left; border-bottom: 1px solid #1e295d; padding-bottom: 0.75rem; margin-bottom: 2.5rem; }
+        .empty-graphic-icon { font-size: 2rem; color: #64748b; margin-bottom: 1rem; display: inline-block; }
+        .empty-graphic-fallback-text { color: #64748b; font-size: 0.95rem; }
     </style>
 </head>
 <body>
-    <header class="lookup-engine-banner">
-        <h1>📚 Book Search</h1>
-        <p class="lookup-engine-tagline">Discover your next favorite book</p>
-    </header>
-    <main class="lookup-engine-scaffold">
-        <form class="lookup-engine-dock" onsubmit="triggerSearchQuery(event)">
-            <input type="text" id="targetQueryField" class="lookup-engine-field" placeholder="Search books..." required>
-            <button type="submit" class="lookup-engine-btn">Search</button>
+    <h1 class="stage-one-heading">Step 1</h1>
+    <p class="stage-one-desc">A first book search with a simple form and results.</p>
+    <div class="engine-container-board">
+        <div class="brand-title-row">
+            <span class="brand-icon">📚</span>
+            <h2 class="brand-main-text">Book Search</h2>
+        </div>
+        <p class="brand-subtitle-text">Discover books by title using the Open Library Search API.</p>
+        <form class="input-dock-row" onsubmit="event.preventDefault();">
+            <input type="text" class="text-entry-field" placeholder="e.g. The Great Gatsby, Dune, Kafka...">
+            <button type="submit" class="action-trigger-btn">Search</button>
         </form>
-        <div class="lookup-engine-status" id="dynamicStatusLabel">Search by book title or author to get started.</div>
-        <h2 class="lookup-engine-results-lbl">Results</h2>
-    </main>
-    <script>
-        function triggerSearchQuery(event) {
-            event.preventDefault();
-            const inputVal = document.getElementById('targetQueryField').value.trim();
-            if (inputVal !== "") {
-                document.getElementById('dynamicStatusLabel').textContent = "Discover your next favorite book";
-            }
-        }
-    </script>
+        <span class="status-info-string">Tip: Type any title or keyword and press enter</span>
+        <h3 class="results-section-lbl">Results</h3>
+        <div class="empty-graphic-container">
+            <span class="empty-graphic-icon">🔍</span>
+            <p class="empty-graphic-fallback-text">Enter a book title above to get started.</p>
+        </div>
+    </div>
 </body>
 </html>
