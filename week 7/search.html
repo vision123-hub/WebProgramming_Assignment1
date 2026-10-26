@@ -1,162 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Explorer Engine - Standalone</title>
-    <style>
-        /* Modern Dark Layout Variables */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0b1329;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 4rem 1.5rem;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 7 - Advanced Book Search</title>
 
-        /* Centralized Layout Board Container */
-        .search-engine-board {
-            background-color: #111c3a;
-            width: 100%;
-            max-width: 680px;
-            padding: 3rem 2.5rem;
-            border-radius: 12px;
-            border: 1px solid #1e295d;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        /* Primary Internal Icon Header */
-        .brand-title-group {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .brand-icon {
-            font-size: 1.4rem;
-        }
-        .brand-main-text {
-            font-size: 1.75rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-        .brand-subtitle-text {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            margin-bottom: 1.75rem;
-        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f5ff;
+      color: #252b46;
+    }
 
-        /* Interactive Search Control Block */
-        .input-dock-row {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        .text-entry-field {
-            flex: 1;
-            padding: 0.85rem 1.25rem;
-            background-color: #172554;
-            border: 1px solid #1e3a8a;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .text-entry-field:focus {
-            border-color: #38bdf8;
-        }
-        .text-entry-field::placeholder {
-            color: #64748b;
-        }
-        .action-trigger-btn {
-            padding: 0.85rem 1.75rem;
-            background-color: #38bdf8;
-            color: #0b1329;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.15s;
-        }
-        .action-trigger-btn:hover {
-            background-color: #7dd3fc;
-        }
+    header {
+      text-align: center;
+      background: #4355db;
+      color: white;
+      padding: 40px 20px;
+    }
 
-        /* Dynamic Blue Notice Label */
-        .status-info-string {
-            color: #2563eb;
-            font-size: 0.9rem;
-            margin-bottom: 2.5rem;
-            display: block;
-            font-weight: 600;
-        }
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 25px;
+    }
 
-        .results-section-lbl {
-            font-size: 1.35rem;
-            font-weight: 700;
-            text-align: left;
-            border-bottom: 1px solid #1e295d;
-            padding-bottom: 0.75rem;
-            margin-bottom: 2.5rem;
-        }
+    .search-area {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px #0001;
+    }
 
-        /* Empty State Indicator Graphics */
-        .empty-graphic-icon {
-            font-size: 2rem;
-            color: #64748b;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-        .empty-graphic-fallback-text {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-    </style>
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    input, select {
+      padding: 13px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input {
+      width: min(100%, 350px);
+    }
+
+    button {
+      padding: 13px 22px;
+      background: #4355db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2b3ab2;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
+
+    #status {
+      text-align: center;
+      margin: 25px 0;
+    }
+
+    #results {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .book {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 4px 12px #0001;
+    }
+
+    .book img {
+      width: 130px;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .book h2 {
+      font-size: 18px;
+    }
+
+    .book p {
+      font-size: 14px;
+    }
+
+    .book a {
+      color: #4355db;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+  </style>
 </head>
+
 <body>
 
-    <!-- Main Workspace Dashboard Card -->
-    <div class="search-engine-board">
-        
-        <div class="brand-title-group">
-            <span class="brand-icon">📚</span>
-            <h2 class="brand-main-text">Book Search</h2>
-        </div>
-        <p class="brand-subtitle-text">Discover books by title using the Open Library Search API.</p>
+  <header>
+    <h1>📚 Advanced Book Search</h1>
+    <p>Find books by title, author, or keyword!</p>
+  </header>
 
-        <form class="input-dock-row" onsubmit="event.preventDefault();">
-            <input 
-                type="text" 
-                class="text-entry-field" 
-                placeholder="Search books by title, author, or keyword..."
-                required
-            >
-            <button type="submit" class="action-trigger-btn">Search</button>
-        </form>
+  <main>
 
-        <span class="status-info-string">Search by book title or author to get started.</span>
+    <section class="search-area">
+      <form id="searchForm">
 
-        <h3 class="results-section-lbl">Results</h3>
+        <select id="searchType"
+                aria-label="Search category">
+          <option value="title">Book Title</option>
+          <option value="author">Author</option>
+          <option value="q">All Keywords</option>
+        </select>
 
-        <!-- Dynamic Lower Fallback Graphic Layout Area -->
-        <div class="empty-graphic-container">
-            <span class="empty-graphic-icon">🔍</span>
-            <p class="empty-graphic-fallback-text">Enter a book title to get started.</p>
-        </div>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Enter your search..."
+          required
+        >
 
-    </div>
+        <button id="searchButton" type="submit">
+          🔍 Search
+        </button>
+
+      </form>
+    </section>
+
+    <p id="status" role="status" aria-live="polite">
+      Enter a search to discover books.
+    </p>
+
+    <section id="results"></section>
+
+  </main>
+
+  <footer>
+    <p>Powered by Open Library API</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("searchInput");
+    const type = document.getElementById("searchType");
+    const button = document.getElementById("searchButton");
+    const status = document.getElementById("status");
+    const results = document.getElementById("results");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const query = input.value.trim();
+
+      if (!query) {
+        status.textContent = "Please enter a search term.";
+        return;
+      }
+
+      button.disabled = true;
+      results.replaceChildren();
+      status.textContent = "⏳ Searching Open Library...";
+
+      try {
+        const url = new URL(
+          "https://openlibrary.org/search.json"
+        );
+
+        url.searchParams.set(type.value, query);
+        url.searchParams.set("limit", "20");
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(
+            "HTTP error: " + response.status
+          );
+        }
+
+        const data = await response.json();
+
+        if (!data.docs || data.docs.length === 0) {
+          status.textContent =
+            "😕 No matching books found.";
+          return;
+        }
+
+        const total =
+          data.numFound ?? data.num_found ?? data.docs.length;
+
+        status.textContent =
+          `✅ Found ${total} matching books. Showing ${data.docs.length}.`;
+
+        data.docs.forEach(function(book) {
+          const card = document.createElement("article");
+          card.className = "book";
+
+          const image = document.createElement("img");
+
+          image.src = book.cover_i
+            ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
+            : "https://placehold.co/130x190?text=No+Cover";
+
+          image.alt = "Cover of " + book.title;
+          image.loading = "lazy";
+
+          const title = document.createElement("h2");
+          title.textContent =
+            book.title || "Unknown title";
+
+          const author = document.createElement("p");
+          author.textContent = "✍️ Author: " +
+            (book.author_name?.join(", ") || "Unknown");
+
+          const year = document.createElement("p");
+          year.textContent = "📅 First published: " +
+            (book.first_publish_year || "Unknown");
+
+          const link = document.createElement("a");
+
+          link.href =
+            "https://openlibrary.org" + book.key;
+
+          link.textContent = "View Book →";
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+
+          card.append(
+            image,
+            title,
+            author,
+            year,
+            link
+          );
+
+          results.appendChild(card);
+        });
+
+      } catch (error) {
+        status.textContent =
+          "❌ Unable to search books. Please try again.";
+        console.error(error);
+
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
 
 </body>
 </html>

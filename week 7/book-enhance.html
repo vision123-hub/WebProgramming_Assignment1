@@ -1,84 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Search - Step 2</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0b1329;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 4rem 1.5rem;
-        }
-        .stage-two-heading { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-        .stage-two-desc { color: #94a3b8; font-size: 1.05rem; margin-bottom: 3rem; text-align: center; }
-        .engine-container-board {
-            background-color: #111c3a;
-            width: 100%;
-            max-width: 680px;
-            padding: 3rem 2.5rem;
-            border-radius: 12px;
-            border: 1px solid #1e295d;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        .brand-title-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .brand-icon { font-size: 1.4rem; }
-        .brand-main-text { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
-        .brand-subtitle-text { color: #94a3b8; font-size: 0.95rem; margin-bottom: 2rem; }
-        .input-dock-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
-        .text-entry-field {
-            flex: 1;
-            padding: 0.85rem 1.25rem;
-            background-color: #172554;
-            border: 1px solid #1e3a8a;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 0.95rem;
-            outline: none;
-        }
-        .text-entry-field::placeholder { color: #64748b; }
-        .action-trigger-btn {
-            padding: 0.85rem 1.75rem;
-            background-color: #38bdf8;
-            color: #0b1329;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .status-info-string { color: #64748b; font-size: 0.85rem; margin-bottom: 2.5rem; display: block; }
-        .results-section-lbl { font-size: 1.35rem; font-weight: 700; text-align: left; border-bottom: 1px solid #1e295d; padding-bottom: 0.75rem; margin-bottom: 2.5rem; }
-        .empty-graphic-icon { font-size: 2rem; color: #64748b; margin-bottom: 1rem; display: inline-block; }
-        .empty-graphic-fallback-text { color: #64748b; font-size: 0.95rem; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 5 - Enhanced Book Search</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f5ff;
+      color: #25304b;
+    }
+
+    header {
+      background: #4355db;
+      color: white;
+      text-align: center;
+      padding: 35px 15px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    input {
+      padding: 13px;
+      width: min(100%, 350px);
+      border: 1px solid #bbb;
+      border-radius: 8px;
+    }
+
+    button {
+      background: #4355db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 13px 25px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #2838a4; }
+    button:disabled { opacity: 0.6; }
+
+    #status {
+      text-align: center;
+      margin: 25px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+      gap: 20px;
+    }
+
+    .book {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 5px 15px #0001;
+    }
+
+    .book img {
+      width: 130px;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .book h2 { font-size: 18px; }
+
+    .book a {
+      color: #4355db;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <h1 class="stage-two-heading">Step 2</h1>
-    <p class="stage-two-desc">Search by title and show matching books.</p>
-    <div class="engine-container-board">
-        <div class="brand-title-row">
-            <span class="brand-icon">📚</span>
-            <h2 class="brand-main-text">Book Search</h2>
-        </div>
-        <p class="brand-subtitle-text">Discover books by title using the Open Library Search API.</p>
-        <form class="input-dock-row" onsubmit="event.preventDefault();">
-            <input type="text" class="text-entry-field" placeholder="Enter book title (e.g. 1984, Hamlet, Dune)...">
-            <button type="submit" class="action-trigger-btn">Search</button>
-        </form>
-        <span class="status-info-string">Search for your favorite books!</span>
-        <h3 class="results-section-lbl">Results</h3>
-        <div class="empty-graphic-container">
-            <span class="empty-graphic-icon">🔍</span>
-            <p class="empty-graphic-fallback-text">Enter a book title to get started.</p>
-        </div>
-    </div>
+  <header>
+    <h1>📚 Book Explorer</h1>
+    <p>Search thousands of books for free!</p>
+  </header>
+
+  <main>
+    <form id="form">
+      <input id="query" type="search"
+             placeholder="Try Harry Potter..." required>
+      <button id="button" type="submit">Find Books</button>
+    </form>
+
+    <p id="status" role="status"></p>
+    <section id="results" class="grid"></section>
+  </main>
+
+  <script>
+    const form = document.getElementById("form");
+    const input = document.getElementById("query");
+    const button = document.getElementById("button");
+    const status = document.getElementById("status");
+    const results = document.getElementById("results");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const query = input.value.trim();
+      if (!query) return;
+
+      button.disabled = true;
+      status.textContent = "📖 Finding your books...";
+      results.replaceChildren();
+
+      try {
+        const url = new URL(
+          "https://openlibrary.org/search.json"
+        );
+
+        url.searchParams.set("title", query);
+        url.searchParams.set("limit", "12");
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        const data = await response.json();
+
+        if (!data.docs?.length) {
+          status.textContent = "No books found.";
+          return;
+        }
+
+        status.textContent =
+          `Found ${data.numFound ?? data.num_found ?? data.docs.length} matching books.`;
+
+        data.docs.forEach((book) => {
+          const card = document.createElement("article");
+          card.className = "book";
+
+          const image = document.createElement("img");
+
+          image.src = book.cover_i
+            ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
+            : "https://placehold.co/130x190?text=No+Cover";
+
+          image.alt = "Cover of " + book.title;
+          image.loading = "lazy";
+
+          const title = document.createElement("h2");
+          title.textContent = book.title || "Unknown title";
+
+          const author = document.createElement("p");
+          author.textContent = "✍️ " +
+            (book.author_name?.join(", ") || "Unknown author");
+
+          const year = document.createElement("p");
+          year.textContent = "📅 " +
+            (book.first_publish_year || "Unknown");
+
+          const link = document.createElement("a");
+          link.textContent = "View Book →";
+          link.href = "https://openlibrary.org" + book.key;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+
+          card.append(image, title, author, year, link);
+          results.appendChild(card);
+        });
+
+      } catch (error) {
+        status.textContent =
+          "❌ Unable to load books. Please try again.";
+        console.error(error);
+
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>

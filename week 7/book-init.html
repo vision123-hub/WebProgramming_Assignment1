@@ -1,84 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Search - Step 4</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0b1329;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 4rem 1.5rem;
-        }
-        .stage-four-heading { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-        .stage-four-desc { color: #94a3b8; font-size: 1.05rem; margin-bottom: 3rem; text-align: center; }
-        .engine-container-board {
-            background-color: #111c3a;
-            width: 100%;
-            max-width: 680px;
-            padding: 3rem 2.5rem;
-            border-radius: 12px;
-            border: 1px solid #1e295d;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        .brand-title-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .brand-icon { font-size: 1.4rem; }
-        .brand-main-text { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
-        .brand-subtitle-text { color: #94a3b8; font-size: 0.95rem; margin-bottom: 2rem; }
-        .input-dock-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
-        .text-entry-field {
-            flex: 1;
-            padding: 0.85rem 1.25rem;
-            background-color: #172554;
-            border: 1px solid #1e3a8a;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 0.95rem;
-            outline: none;
-        }
-        .text-entry-field::placeholder { color: #64748b; }
-        .action-trigger-btn {
-            padding: 0.85rem 1.75rem;
-            background-color: #38bdf8;
-            color: #0b1329;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .status-info-string { color: #64748b; font-size: 0.85rem; margin-bottom: 2.5rem; display: block; }
-        .results-section-lbl { font-size: 1.35rem; font-weight: 700; text-align: left; border-bottom: 1px solid #1e295d; padding-bottom: 0.75rem; margin-bottom: 2.5rem; }
-        .empty-graphic-icon { font-size: 2rem; color: #64748b; margin-bottom: 1rem; display: inline-block; }
-        .empty-graphic-fallback-text { color: #64748b; font-size: 0.95rem; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 1 - Book Search Setup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4ff;
+      text-align: center;
+      padding: 40px 15px;
+    }
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px #0001;
+    }
+    input {
+      padding: 12px;
+      width: 65%;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+    }
+    button {
+      padding: 12px 20px;
+      background: #4355db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #2939a5; }
+    #message { margin-top: 20px; }
+  </style>
 </head>
 <body>
-    <h1 class="stage-four-heading">Step 4</h1>
-    <p class="stage-four-desc">Show loading, empty results, and error states.</p>
-    <div class="engine-container-board">
-        <div class="brand-title-row">
-            <span class="brand-icon">📚</span>
-            <h2 class="brand-main-text">Book Search</h2>
-        </div>
-        <p class="brand-subtitle-text">Discover books by title using the Open Library Search API.</p>
-        <form class="input-dock-row" onsubmit="event.preventDefault();">
-            <input type="text" class="text-entry-field" placeholder="Search books...">
-            <button type="submit" class="action-trigger-btn">Search</button>
-        </form>
-        <span class="status-info-string">Search for your favorite books!</span>
-        <h3 class="results-section-lbl">Results</h3>
-        <div class="empty-graphic-container">
-            <span class="empty-graphic-icon">🔍</span>
-            <p class="empty-graphic-fallback-text">Enter a book title to get started.</p>
-        </div>
-    </div>
+  <div class="container">
+    <h1>📚 Book Finder</h1>
+    <p>Find your next favorite book!</p>
+
+    <form id="searchForm">
+      <input id="bookInput" type="search"
+             placeholder="Enter a book title..." required>
+      <button type="submit">Search</button>
+    </form>
+
+    <p id="message" role="status"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("bookInput");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const query = input.value.trim();
+
+      if (!query) {
+        message.textContent = "Please enter a book title.";
+        return;
+      }
+
+      message.textContent = "You searched for: " + query;
+    });
+  </script>
 </body>
 </html>

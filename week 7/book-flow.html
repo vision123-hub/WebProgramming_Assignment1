@@ -1,84 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Search - Step 3</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0b1329;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 4rem 1.5rem;
-        }
-        .stage-three-heading { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-        .stage-three-desc { color: #94a3b8; font-size: 1.05rem; margin-bottom: 3rem; text-align: center; }
-        .engine-container-board {
-            background-color: #111c3a;
-            width: 100%;
-            max-width: 680px;
-            padding: 3rem 2.5rem;
-            border-radius: 12px;
-            border: 1px solid #1e295d;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        .brand-title-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .brand-icon { font-size: 1.4rem; }
-        .brand-main-text { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
-        .brand-subtitle-text { color: #94a3b8; font-size: 0.95rem; margin-bottom: 2rem; }
-        .input-dock-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
-        .text-entry-field {
-            flex: 1;
-            padding: 0.85rem 1.25rem;
-            background-color: #172554;
-            border: 1px solid #1e3a8a;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 0.95rem;
-            outline: none;
-        }
-        .text-entry-field::placeholder { color: #64748b; }
-        .action-trigger-btn {
-            padding: 0.85rem 1.75rem;
-            background-color: #38bdf8;
-            color: #0b1329;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .status-info-string { color: #64748b; font-size: 0.85rem; margin-bottom: 2.5rem; display: block; }
-        .results-section-lbl { font-size: 1.35rem; font-weight: 700; text-align: left; border-bottom: 1px solid #1e295d; padding-bottom: 0.75rem; margin-bottom: 2.5rem; }
-        .empty-graphic-icon { font-size: 2rem; color: #64748b; margin-bottom: 1rem; display: inline-block; }
-        .empty-graphic-fallback-text { color: #64748b; font-size: 0.95rem; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 4 - Book Search Flow</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2ff;
+      padding: 30px 15px;
+      text-align: center;
+    }
+    .container {
+      max-width: 750px;
+      margin: auto;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+    }
+    input, button {
+      padding: 12px;
+      border-radius: 8px;
+      margin: 5px;
+    }
+    input { border: 1px solid #aaa; }
+    button {
+      border: none;
+      background: #4355db;
+      color: white;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
+    .book {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    .error { color: #b91c1c; }
+  </style>
 </head>
 <body>
-    <h1 class="stage-three-heading">Step 3</h1>
-    <p class="stage-three-desc">Add input validation and helpful messages.</p>
-    <div class="engine-container-board">
-        <div class="brand-title-row">
-            <span class="brand-icon">📚</span>
-            <h2 class="brand-main-text">Book Search</h2>
-        </div>
-        <p class="brand-subtitle-text">Discover books by title using the Open Library Search API.</p>
-        <form class="input-dock-row" onsubmit="event.preventDefault();">
-            <input type="text" class="text-entry-field" placeholder="Search by title (e.g., The Hobbit, 1984)...">
-            <button type="submit" class="action-trigger-btn">Search</button>
-        </form>
-        <span class="status-info-string">Search for your favorite books!</span>
-        <h3 class="results-section-lbl">Results</h3>
-        <div class="empty-graphic-container">
-            <span class="empty-graphic-icon">🔍</span>
-            <p class="empty-graphic-fallback-text">Enter a book title to get started.</p>
-        </div>
-    </div>
+  <main class="container">
+    <h1>📚 Book Search</h1>
+    <p>Discover books using Open Library.</p>
+
+    <form id="form">
+      <input id="query" type="search"
+             placeholder="Enter book title" required>
+      <button id="searchBtn" type="submit">Search</button>
+    </form>
+
+    <p id="status" role="status" aria-live="polite"></p>
+    <div id="results"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById("form");
+    const input = document.getElementById("query");
+    const button = document.getElementById("searchBtn");
+    const status = document.getElementById("status");
+    const results = document.getElementById("results");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const query = input.value.trim();
+      if (!query) return;
+
+      button.disabled = true;
+      status.className = "";
+      status.textContent = "⏳ Loading books...";
+      results.replaceChildren();
+
+      try {
+        const url = new URL(
+          "https://openlibrary.org/search.json"
+        );
+
+        url.searchParams.set("title", query);
+        url.searchParams.set("limit", "12");
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("HTTP error: " + response.status);
+        }
+
+        const data = await response.json();
+
+        if (!data.docs || data.docs.length === 0) {
+          status.textContent =
+            "😕 No books found. Try another title.";
+          return;
+        }
+
+        status.textContent =
+          `✅ Showing ${data.docs.length} books.`;
+
+        data.docs.forEach((book) => {
+          const card = document.createElement("article");
+          card.className = "book";
+
+          const title = document.createElement("h3");
+          title.textContent = book.title || "Unknown title";
+
+          const author = document.createElement("p");
+          author.textContent = "Author: " +
+            (book.author_name?.join(", ") || "Unknown");
+
+          const year = document.createElement("p");
+          year.textContent = "First published: " +
+            (book.first_publish_year || "Unknown");
+
+          card.append(title, author, year);
+          results.appendChild(card);
+        });
+
+      } catch (error) {
+        status.className = "error";
+        status.textContent =
+          "❌ Could not load books. Check your connection.";
+        console.error(error);
+
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
