@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progressive Pipeline - Phase 5</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, sans-serif; background-color: #f8f9fa; color: #212529; }
+        .st5-panel-banner { background-color: #1e293b; color: #ffffff; padding: 3.5rem 1rem; text-align: center; }
+        .st5-panel-banner h1 { font-size: 2rem; font-weight: 700; }
+        .st5-panel-scaffold { max-width: 500px; margin: -1.5rem auto 0 auto; padding: 0 1rem; }
+        .st5-panel-dock { background: #ffffff; padding: 1.25rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .st5-panel-input { flex: 1; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; outline: none; }
+        .st5-panel-btn { padding: 0.75rem 1.5rem; background-color: #0d6efd; color: #ffffff; border: none; border-radius: 6px; font-weight: 600; }
+        .st5-panel-hint { font-size: 0.9rem; color: #6c757d; margin-left: 0.25rem; margin-bottom: 2rem; }
+        .st5-panel-results { font-size: 1.5rem; font-weight: 700; color: #212529; }
+    </style>
+</head>
+<body>
+    <div class="st5-panel-banner">
+        <h1>📚 Book Search</h1>
+    </div>
+    <div class="st5-panel-scaffold">
+        <form class="st5-panel-dock" onsubmit="event.preventDefault();">
+            <input type="text" class="st5-panel-input" placeholder="Search books...">
+            <button type="submit" class="st5-panel-btn">Search</button>
+        </form>
+        <div class="st5-panel-hint">Search for your favorite books!</div>
+        <h2 class="st5-panel-results">Results</h2>
+    </div>
+</body>
+</html>

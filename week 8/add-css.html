@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Styles Demo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            padding: 3rem 2.5rem;
+        }
+        .demo-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+        }
+        .form-input-group {
+            margin-bottom: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .form-input-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #000000;
+        }
+        .input-box {
+            width: 100%;
+            padding: 0.65rem 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #212529;
+            outline: none;
+            background-color: #ffffff;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        .input-box::placeholder {
+            color: #adb5bd;
+            opacity: 1;
+        }
+        .input-box:focus {
+            border-color: #86b7fe;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+        .submit-trigger-btn {
+            display: inline-block;
+            padding: 0.65rem 1.25rem;
+            background-color: #0d6efd;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-it;
+            margin-top: 0.5rem;
+        }
+        .submit-trigger-btn:hover {
+            background-color: #0b5ed7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1 class="demo-title">Validation Styles Demo</h1>
+        <form onsubmit="event.preventDefault(); alert('Form structural validation passed successfully!');">
+            
+            <div class="form-input-group">
+                <label for="userEmail">Email (required)</label>
+                <input type="email" id="userEmail" class="input-box" required placeholder="name@example.com">
+            </div>
+
+            <div class="form-input-group">
+                <label for="userPassword">Password (min 8 chars)</label>
+                <input type="password" id="userPassword" class="input-box" required placeholder="At least 8 characters" minlength="8">
+            </div>
+
+            <div class="form-input-group">
+                <label for="userAge">Age (18–65)</label>
+                <input type="number" id="userAge" class="input-box" required placeholder="Your age" min="18" max="65">
+            </div>
+
+            <button type="submit" class="submit-trigger-btn">Check Validation</button>
+        </form>
+    </div>
+
+</body>
+</html>

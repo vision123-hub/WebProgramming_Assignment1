@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Registration Module</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: #ecf0ec; padding: 2.5rem 1rem; display: flex; justify-content: center; }
+        .record-card { background-color: #ffffff; width: 100%; max-width: 480px; padding: 2.5rem; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .record-lead-zone { text-align: center; margin-bottom: 2rem; }
+        .record-lead-zone h1 { color: #1e4638; font-size: 1.75rem; font-weight: 800; margin-bottom: 0.35rem; }
+        .record-lead-zone p { color: #4b5563; font-size: 0.875rem; }
+        .record-block { border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .record-block legend { font-size: 0.875rem; font-weight: 700; color: #111827; padding: 0 0.5rem; }
+        .record-node { margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; }
+        .record-node label { font-size: 0.85rem; font-weight: 700; color: #374151; }
+        .record-input, .record-select { width: 100%; padding: 0.7rem 0.85rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; font-size: 0.95rem; color: #111827; background-color: #ffffff; outline: none; }
+        .record-input:focus, .record-select:focus { border-color: #10b981; }
+        .record-input::placeholder { color: #9ca3af; }
+        .record-hint { font-size: 0.775rem; color: #6b7280; margin-top: 0.2rem; }
+    </style>
+</head>
+<body>
+    <div class="record-card">
+        <div class="record-lead-zone">
+            <h1>Student Registration</h1>
+            <p>Fill in your information to register.</p>
+        </div>
+        <form onsubmit="event.preventDefault();">
+            
+            <!-- SECTION ONE -->
+            <fieldset class="record-block">
+                <legend>Personal Info</legend>
+                <div class="record-node">
+                    <label for="sName">Full Name</label>
+                    <input type="text" id="sName" class="record-input" required placeholder="Enter your full name">
+                </div>
+                <div class="record-node">
+                    <label for="sId">Student ID</label>
+                    <input type="text" id="sId" class="record-input" required placeholder="202112345">
+                </div>
+                <div class="record-node">
+                    <label for="sDob">Date of Birth</label>
+                    <input type="date" id="sDob" class="record-input" required value="2026-10-26">
+                </div>
+                <div class="record-node">
+                    <label for="sMajor">Major</label>
+                    <select id="sMajor" class="record-select" required>
+                        <option value="" disabled selected>Select your major</option>
+                        <option value="cs">Computer Science & Engineering</option>
+                        <option value="ai">Artificial Intelligence</option>
+                        <option value="se">Software Engineering</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <!-- SECTION TWO -->
+            <fieldset class="record-block">
+                <legend>Account Info</legend>
+                <div class="record-node">
+                    <label for="sEmail">Email</label>
+                    <input type="email" id="sEmail" class="record-input" required placeholder="name@example.com">
+                </div>
+                <div class="record-node">
+                    <label for="sPass">Password</label>
+                    <input type="password" id="sPass" class="record-input" required placeholder="At least 8 characters" minlength="8">
+                </div>
+                <div class="record-node">
+                    <label for="sPhone">Phone</label>
+                    <input type="tel" id="sPhone" class="record-input" required placeholder="010-1234-5678" pattern="010-[0-9]{4}-[0-9]{4}">
+                    <div class="record-hint">Format: 010-1234-5678</div>
+                </div>
+            </fieldset>
+            
+        </form>
+    </div>
+</body>
+</html>
