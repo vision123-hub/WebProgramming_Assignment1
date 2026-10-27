@@ -166,7 +166,9 @@
             let input = document.getElementById("score").value;
             let score = Number(input);
 
-            if (input.trim() === "" || score < 0 || score > 100) {
+            if (input.trim() === "" ||
+                !Number.isFinite(score) ||
+                score < 0 || score > 100) {
                 document.getElementById("scoreResult").textContent =
                     "Please enter a score between 0 and 100.";
             } else if (score >= 60) {
@@ -220,18 +222,28 @@
                 return;
             }
 
-            localStorage.setItem("favoriteSubject", subject);
-
-            document.getElementById("savedSubject").textContent =
-                "Saved subject: " + subject;
+            try {
+                localStorage.setItem("favoriteSubject", subject);
+                document.getElementById("savedSubject").textContent =
+                    "Saved subject: " + subject;
+            } catch (error) {
+                document.getElementById("savedSubject").textContent =
+                    "Could not save your subject in this browser.";
+                console.error(error);
+            }
         }
 
         // Display saved subject when page loads
-        let saved = localStorage.getItem("favoriteSubject");
-
-        if (saved) {
+        try {
+            let saved = localStorage.getItem("favoriteSubject");
+            if (saved) {
+                document.getElementById("savedSubject").textContent =
+                    "Saved subject: " + saved;
+            }
+        } catch (error) {
             document.getElementById("savedSubject").textContent =
-                "Saved subject: " + saved;
+                "Could not read your saved subject in this browser.";
+            console.error(error);
         }
 
     </script>

@@ -19,6 +19,8 @@
         .record-input:focus, .record-select:focus { border-color: #10b981; }
         .record-input::placeholder { color: #9ca3af; }
         .record-hint { font-size: 0.775rem; color: #6b7280; margin-top: 0.2rem; }
+        .record-submit { padding: 0.75rem 1.25rem; background: #1e4638; color: #ffffff; border: 0; border-radius: 0.375rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
+        .record-submit:hover { background: #112921; }
     </style>
 </head>
 <body>
@@ -27,7 +29,7 @@
             <h1>Student Registration</h1>
             <p>Fill in your information to register.</p>
         </div>
-        <form onsubmit="event.preventDefault();">
+        <form onsubmit="event.preventDefault(); alert('Registration details validated successfully!');">
             
             <!-- SECTION ONE -->
             <fieldset class="record-block">
@@ -73,6 +75,7 @@
                 </div>
             </fieldset>
             
+            <button type="submit" class="record-submit">Submit Registration</button>
         </form>
     </div>
 </body>
