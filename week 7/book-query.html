@@ -56,12 +56,18 @@
     const input = document.getElementById("query");
     const status = document.getElementById("status");
     const results = document.getElementById("results");
+    let latestSearchId = 0;
 
     form.addEventListener("submit", async function(event) {
       event.preventDefault();
 
       const query = input.value.trim();
-      if (!query) return;
+      const searchId = ++latestSearchId;
+      if (!query) {
+        status.textContent = "Please enter a book title.";
+        results.replaceChildren();
+        return;
+      }
 
       status.textContent = "Searching books...";
       results.replaceChildren();
@@ -74,20 +80,22 @@
         const response = await fetch(url);
 
         if (!response.ok) {
-          throw new Error("API request failed.");
+          throw new Error("API request failed: " + response.status);
         }
 
         const data = await response.json();
+        if (searchId !== latestSearchId) return;
+        const books = data.docs || [];
 
-        if (data.docs.length === 0) {
+        if (books.length === 0) {
           status.textContent = "No books found.";
           return;
         }
 
         status.textContent =
-          `Found ${data.numFound ?? data.num_found ?? data.docs.length} books.`;
+          `Found ${data.numFound ?? data.num_found ?? books.length} books.`;
 
-        data.docs.forEach(function(book) {
+        books.forEach(function(book) {
           const div = document.createElement("div");
           div.className = "result";
 
@@ -103,8 +111,10 @@
         });
 
       } catch (error) {
-        status.textContent =
-          "Something went wrong. Please try again.";
+        if (searchId === latestSearchId) {
+          status.textContent =
+            "Something went wrong. Please try again.";
+        }
         console.error(error);
       }
     });

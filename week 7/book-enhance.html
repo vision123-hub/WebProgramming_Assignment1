@@ -116,7 +116,11 @@
       event.preventDefault();
 
       const query = input.value.trim();
-      if (!query) return;
+      if (!query) {
+        status.textContent = "Please enter a book title.";
+        results.replaceChildren();
+        return;
+      }
 
       button.disabled = true;
       status.textContent = "📖 Finding your books...";

@@ -331,6 +331,7 @@
 
     async function searchBooks(query) {
       currentView = "results";
+      currentBooks = [];
 
       searchButton.disabled = true;
       status.textContent = "⏳ Searching books...";
@@ -366,6 +367,8 @@
         displayBooks(currentBooks);
 
       } catch (error) {
+        currentBooks = [];
+        booksContainer.replaceChildren();
         status.textContent =
           "❌ Something went wrong. Please try again.";
         console.error(error);
@@ -398,9 +401,12 @@
 
       const query = input.value.trim();
 
-      if (query) {
-        searchBooks(query);
+      if (!query) {
+        status.textContent = "Please enter a book title.";
+        return;
       }
+
+      searchBooks(query);
     });
 
     favoritesButton.addEventListener(

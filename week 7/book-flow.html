@@ -68,7 +68,12 @@
       event.preventDefault();
 
       const query = input.value.trim();
-      if (!query) return;
+      if (!query) {
+        status.className = "";
+        status.textContent = "Please enter a book title.";
+        results.replaceChildren();
+        return;
+      }
 
       button.disabled = true;
       status.className = "";
