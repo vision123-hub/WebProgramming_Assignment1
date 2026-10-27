@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Country Demographics</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#dcfce7;color:#14532d;margin:0;padding:24px}
+main{max-width:900px;margin:20px auto}
+.panel,.card{background:white;padding:22px;border-radius:16px;box-shadow:0 5px 20px #0002}
+h1{color:#15803d}
+form{display:flex;gap:10px;flex-wrap:wrap}
+label{align-self:center}
+input,button{font:inherit;padding:12px;border-radius:8px}
+input{border:1px solid #aaa;flex:1;min-width:190px}
+button,a{background:#16a34a;color:white;border:0;padding:12px 18px;border-radius:8px;cursor:pointer;text-decoration:none}
+button:disabled{opacity:.5;cursor:wait}
+#results{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:18px}
+.card img{width:150px;max-width:100%;max-height:100px;object-fit:contain;border-radius:8px}
+#status{min-height:1.5em}
+.error{color:#b91c1c}.success{color:#166534}
+@media(max-width:520px){body{padding:14px}.panel,.card{padding:16px}form{display:grid;grid-template-columns:1fr}input{width:100%}}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">← Week 6</a>
+<h1>🌍 Country Demographics</h1>
+<p>Search country details using the public REST Countries API.</p>
+<section class="panel">
+<form id="form">
+<label for="query">Country name</label>
+<input id="query" placeholder="Try Nepal or Canada" required maxlength="80">
+<button id="btn" type="submit">Search countries</button>
+</form>
+<p id="status" role="status" aria-live="polite">Enter a country name to search.</p>
+<section id="results" aria-label="Country search results"></section>
+</section>
+</main>
+<script>
+const form = document.getElementById("form");
+const queryInput = document.getElementById("query");
+const button = document.getElementById("btn");
+const status = document.getElementById("status");
+const results = document.getElementById("results");
+
+function addDetail(card, label, value) {
+  const detail = document.createElement("p");
+  detail.textContent = `${label}: ${value || "Unavailable"}`;
+  card.append(detail);
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  const query = queryInput.value.trim();
+  if (!query) return;
+  button.disabled = true;
+  results.replaceChildren();
+  status.className = "";
+  status.textContent = "Loading country results…";
+  try {
+    const url = new URL(`https://restcountries.com/v3.1/name/${encodeURIComponent(query)}`);
+    url.searchParams.set("fields", "name,capital,population,region,flags");
+    const response = await fetch(url);
+    const payload = await response.json();
+    if (!response.ok) {
+      const message = payload.message || `Request failed with HTTP ${response.status}`;
+      throw new Error(message);
+    }
+    if (!Array.isArray(payload)) {
+      const message = payload.errors?.map(error => error.message).filter(Boolean).join(" ")
+        || payload.message
+        || "The API returned an unexpected response.";
+      throw new Error(message);
+    }
+    if (payload.length === 0) {
+      status.textContent = "No matching countries were found.";
+      return;
+    }
+    const fragment = document.createDocumentFragment();
+    for (const country of payload) {
+      const card = document.createElement("article");
+      card.className = "card";
+      const title = document.createElement("h2");
+      title.textContent = country.name?.common || country.name?.official || "Unknown country";
+      const flagUrl = country.flags?.svg || country.flags?.png;
+      if (flagUrl) {
+        const flag = document.createElement("img");
+        flag.src = flagUrl;
+        flag.alt = `Flag of ${title.textContent}`;
+        flag.loading = "lazy";
+        card.append(flag);
+      }
+      card.append(title);
+      addDetail(card, "Capital", country.capital?.join(", "));
+      addDetail(card, "Region", country.region);
+      addDetail(card, "Population", Number.isFinite(country.population) ? country.population.toLocaleString() : "");
+      fragment.append(card);
+    }
+    results.append(fragment);
+    status.className = "success";
+    status.textContent = `Loaded ${payload.length} countr${payload.length === 1 ? "y" : "ies"}.`;
+  } catch (error) {
+    status.className = "error";
+    status.textContent = `Could not load country data: ${error.message}. Please try again later if the API is unavailable.`;
+    console.error(error);
+  } finally {
+    button.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

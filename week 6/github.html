@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub Repositories</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f1f5f9;color:#0f172a;margin:0;padding:24px}
+main{max-width:1000px;margin:auto}
+form{display:flex;gap:10px;flex-wrap:wrap}
+input,select,button{font:inherit;padding:12px;border-radius:8px}
+input{border:1px solid #94a3b8;flex:1;min-width:200px}
+select{border:1px solid #94a3b8}
+button,a{border:0;background:#111827;color:white;text-decoration:none;padding:12px 16px;border-radius:8px;cursor:pointer}
+button:disabled{opacity:.55}
+#results{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:15px;margin-top:18px}
+.repo{background:white;padding:20px;border-radius:14px;box-shadow:0 4px 14px #0f172a12}
+.repo h2{font-size:1.1rem;overflow-wrap:anywhere}
+.meta{display:flex;gap:14px;flex-wrap:wrap;color:#475569}
+#status{min-height:1.5em}
+.error{color:#b91c1c}.success{color:#166534}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">← Week 6</a>
+<h1>🐙 GitHub Repositories</h1>
+<p>Search public repositories with the GitHub REST API.</p>
+<form id="form">
+<label for="query">Search repositories</label>
+<input id="query" value="javascript" required maxlength="100" autocomplete="off">
+<label for="sort">Sort by</label>
+<select id="sort">
+<option value="stars">Stars</option>
+<option value="forks">Forks</option>
+<option value="updated">Recently updated</option>
+</select>
+<button id="search" type="submit">Search</button>
+</form>
+<p id="status" role="status" aria-live="polite">Search public repositories.</p>
+<section id="results" aria-label="Repository search results"></section>
+</main>
+<script>
+const form = document.getElementById("form");
+const queryInput = document.getElementById("query");
+const sortSelect = document.getElementById("sort");
+const searchButton = document.getElementById("search");
+const status = document.getElementById("status");
+const results = document.getElementById("results");
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  const query = queryInput.value.trim();
+  if (!query) return;
+  searchButton.disabled = true;
+  results.replaceChildren();
+  status.className = "";
+  status.textContent = "Searching GitHub…";
+  try {
+    const url = new URL("https://api.github.com/search/repositories");
+    url.search = new URLSearchParams({
+      q: query,
+      sort: sortSelect.value,
+      order: "desc",
+      per_page: "12"
+    });
+    const response = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+    if (!response.ok) throw new Error(`GitHub request failed with HTTP ${response.status}`);
+    const data = await response.json();
+    if (!Array.isArray(data.items)) throw new Error("GitHub returned an unexpected response.");
+    if (data.items.length === 0) {
+      status.textContent = "No repositories matched that search.";
+      return;
+    }
+    const fragment = document.createDocumentFragment();
+    for (const repository of data.items) {
+      const card = document.createElement("article");
+      card.className = "repo";
+      const title = document.createElement("h2");
+      title.textContent = repository.full_name;
+      const description = document.createElement("p");
+      description.textContent = repository.description || "No description provided.";
+      const meta = document.createElement("p");
+      meta.className = "meta";
+      meta.textContent = `★ ${repository.stargazers_count.toLocaleString()} · Forks ${repository.forks_count.toLocaleString()}${repository.language ? ` · ${repository.language}` : ""}`;
+      const link = document.createElement("a");
+      link.href = repository.html_url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "View repository";
+      card.append(title, description, meta, link);
+      fragment.append(card);
+    }
+    results.append(fragment);
+    status.className = "success";
+    status.textContent = `Showing ${data.items.length} of ${data.total_count.toLocaleString()} matching repositories.`;
+  } catch (error) {
+    status.className = "error";
+    status.textContent = `Could not search GitHub: ${error.message}`;
+    console.error(error);
+  } finally {
+    searchButton.disabled = false;
+  }
+});
+
+form.requestSubmit();
+</script>
+</body>
+</html>

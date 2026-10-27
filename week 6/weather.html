@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather Tracker</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#ecfeff;color:#164e63;margin:0;padding:24px}
+main{max-width:850px;margin:auto}
+.panel,.day{background:#fff;border-radius:14px;padding:20px;box-shadow:0 4px 14px #164e6312}
+form{display:flex;gap:10px;flex-wrap:wrap}
+input,button{font:inherit;padding:12px;border-radius:8px}
+input{border:1px solid #94a3b8;flex:1;min-width:190px}
+button,a{border:0;background:#0891b2;color:#fff;text-decoration:none;padding:12px 16px;border-radius:8px;cursor:pointer}
+button:disabled{opacity:.55}
+#current{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+#forecast{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:16px}
+.day{padding:16px}
+.value{font-size:1.4rem;font-weight:bold}
+#status{min-height:1.5em}
+.error{color:#b91c1c}.success{color:#166534}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">← Week 6</a>
+<h1>🌤️ Weather Tracker</h1>
+<p>Current conditions and a three-day forecast from Open-Meteo.</p>
+<section class="panel">
+<form id="form">
+<label for="city">City</label>
+<input id="city" name="city" value="Kathmandu" required maxlength="80" autocomplete="off">
+<button id="search" type="submit">Get weather</button>
+</form>
+<p id="status" role="status" aria-live="polite">Enter a city to view its weather.</p>
+<div id="weather" hidden>
+<h2 id="place"></h2>
+<section id="current" aria-label="Current weather"></section>
+<h2>Three-day forecast</h2>
+<section id="forecast" aria-label="Three-day forecast"></section>
+</div>
+</section>
+</main>
+<script>
+const form = document.getElementById("form");
+const cityInput = document.getElementById("city");
+const searchButton = document.getElementById("search");
+const status = document.getElementById("status");
+const weather = document.getElementById("weather");
+
+function weatherDescription(code) {
+  const descriptions = {
+    0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+    45: "Fog", 48: "Depositing rime fog", 51: "Light drizzle", 53: "Moderate drizzle",
+    55: "Dense drizzle", 56: "Freezing drizzle", 57: "Heavy freezing drizzle",
+    61: "Slight rain", 63: "Moderate rain", 65: "Heavy rain", 66: "Freezing rain",
+    67: "Heavy freezing rain", 71: "Slight snow", 73: "Moderate snow", 75: "Heavy snow",
+    77: "Snow grains", 80: "Rain showers", 81: "Moderate showers", 82: "Violent showers",
+    85: "Snow showers", 86: "Heavy snow showers", 95: "Thunderstorm",
+    96: "Thunderstorm with hail", 99: "Thunderstorm with heavy hail"
+  };
+  return descriptions[code] || "Unknown conditions";
+}
+
+function makeMetric(label, value) {
+  const card = document.createElement("article");
+  card.className = "day";
+  const name = document.createElement("p");
+  name.textContent = label;
+  const reading = document.createElement("p");
+  reading.className = "value";
+  reading.textContent = value;
+  card.append(name, reading);
+  return card;
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  const city = cityInput.value.trim();
+  if (!city) return;
+  searchButton.disabled = true;
+  weather.hidden = true;
+  status.className = "";
+  status.textContent = "Finding the city and loading its forecast…";
+  try {
+    const geocodeUrl = new URL("https://geocoding-api.open-meteo.com/v1/search");
+    geocodeUrl.search = new URLSearchParams({ name: city, count: "1", language: "en", format: "json" });
+    const placeResponse = await fetch(geocodeUrl);
+    if (!placeResponse.ok) throw new Error(`City lookup failed with HTTP ${placeResponse.status}`);
+    const placeData = await placeResponse.json();
+    const place = placeData.results?.[0];
+    if (!place) {
+      status.textContent = "No matching city was found. Try another name.";
+      return;
+    }
+
+    const forecastUrl = new URL("https://api.open-meteo.com/v1/forecast");
+    forecastUrl.search = new URLSearchParams({
+      latitude: String(place.latitude),
+      longitude: String(place.longitude),
+      current: "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m",
+      daily: "temperature_2m_max,temperature_2m_min,precipitation_probability_max",
+      timezone: "auto",
+      forecast_days: "3"
+    });
+    const forecastResponse = await fetch(forecastUrl);
+    if (!forecastResponse.ok) throw new Error(`Forecast request failed with HTTP ${forecastResponse.status}`);
+    const data = await forecastResponse.json();
+    if (!data.current || !Array.isArray(data.daily?.time)) {
+      throw new Error("The forecast API returned an unexpected response.");
+    }
+
+    document.getElementById("place").textContent =
+      `${place.name}${place.admin1 ? `, ${place.admin1}` : ""}, ${place.country}`;
+    const current = document.getElementById("current");
+    current.replaceChildren(
+      makeMetric("Conditions", weatherDescription(data.current.weather_code)),
+      makeMetric("Temperature", `${data.current.temperature_2m} ${data.current_units.temperature_2m}`),
+      makeMetric("Feels like", `${data.current.apparent_temperature} ${data.current_units.apparent_temperature}`),
+      makeMetric("Humidity", `${data.current.relative_humidity_2m}${data.current_units.relative_humidity_2m}`),
+      makeMetric("Wind", `${data.current.wind_speed_10m} ${data.current_units.wind_speed_10m}`)
+    );
+    const forecast = document.getElementById("forecast");
+    forecast.replaceChildren(...data.daily.time.map((date, index) => {
+      const day = document.createElement("article");
+      day.className = "day";
+      const label = document.createElement("h3");
+      label.textContent = new Date(`${date}T12:00:00`).toLocaleDateString(undefined, {
+        weekday: "long", month: "short", day: "numeric"
+      });
+      const range = document.createElement("p");
+      range.textContent = `${data.daily.temperature_2m_min[index]}° / ${data.daily.temperature_2m_max[index]}°`;
+      const rain = document.createElement("p");
+      rain.textContent = `Precipitation chance: ${data.daily.precipitation_probability_max[index] ?? "—"}%`;
+      day.append(label, range, rain);
+      return day;
+    }));
+    weather.hidden = false;
+    status.className = "success";
+    status.textContent = "Weather loaded successfully.";
+  } catch (error) {
+    status.className = "error";
+    status.textContent = `Could not load weather: ${error.message}`;
+    console.error(error);
+  } finally {
+    searchButton.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
