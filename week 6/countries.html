@@ -27,7 +27,7 @@ button:disabled{opacity:.5;cursor:wait}
 <main>
 <a href="index.html">← Week 6</a>
 <h1>🌍 Country Demographics</h1>
-<p>Search country details using the public REST Countries API.</p>
+<p>Search country details using public World Bank country data.</p>
 <section class="panel">
 <form id="form">
 <label for="query">Country name</label>
@@ -51,6 +51,34 @@ function addDetail(card, label, value) {
   card.append(detail);
 }
 
+async function fetchJson(url, serviceName, options = {}) {
+  let response;
+  try {
+    const { headers, ...requestOptions } = options;
+    response = await fetch(url, {
+      ...requestOptions,
+      headers: { Accept: "application/json", ...headers }
+    });
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(`Network or browser CORS error while contacting ${serviceName}. Check your connection and browser console.`);
+    }
+    throw error;
+  }
+  if (!response.ok) {
+    throw new Error(`${serviceName} returned HTTP ${response.status}.`);
+  }
+  try {
+    return await response.json();
+  } catch {
+    throw new Error(`${serviceName} returned invalid JSON.`);
+  }
+}
+
+function normalizeName(name) {
+  return name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
+
 form.addEventListener("submit", async event => {
   event.preventDefault();
   const query = queryInput.value.trim();
@@ -60,50 +88,92 @@ form.addEventListener("submit", async event => {
   status.className = "";
   status.textContent = "Loading country results…";
   try {
-    const url = new URL(`https://restcountries.com/v3.1/name/${encodeURIComponent(query)}`);
-    url.searchParams.set("fields", "name,capital,population,region,flags");
-    const response = await fetch(url);
-    const payload = await response.json();
-    if (!response.ok) {
-      const message = payload.message || `Request failed with HTTP ${response.status}`;
-      throw new Error(message);
+    const catalog = await fetchJson(
+      "https://api.worldbank.org/v2/country?format=json&per_page=300",
+      "World Bank country API"
+    );
+    if (!Array.isArray(catalog) || !Array.isArray(catalog[1])) {
+      throw new Error("World Bank country API returned an unexpected response.");
     }
-    if (!Array.isArray(payload)) {
-      const message = payload.errors?.map(error => error.message).filter(Boolean).join(" ")
-        || payload.message
-        || "The API returned an unexpected response.";
-      throw new Error(message);
+    const countries = catalog[1].filter(country =>
+      country.region?.value && country.region.value !== "Aggregates" && country.iso2Code
+    );
+    const aliases = {
+      "south korea": "KOR",
+      "korea, south": "KOR",
+      "korea south": "KOR",
+      "republic of korea": "KOR",
+      "north korea": "PRK",
+      "korea, north": "PRK"
+    };
+    const queryName = normalizeName(query);
+    const aliasCode = aliases[queryName];
+    let matches = aliasCode
+      ? countries.filter(country => country.id === aliasCode)
+      : countries.filter(country => normalizeName(country.name) === queryName);
+    if (matches.length === 0) {
+      matches = countries.filter(country => normalizeName(country.name).startsWith(queryName));
     }
-    if (payload.length === 0) {
-      status.textContent = "No matching countries were found.";
+    if (matches.length === 0) {
+      matches = countries.filter(country => normalizeName(country.name).includes(queryName));
+    }
+    matches = matches.slice(0, 12);
+    if (matches.length === 0) {
+      status.textContent = `No country found for “${query}”. Check the spelling and try again.`;
       return;
     }
+
+    const countriesWithPopulation = await Promise.all(matches.map(async country => {
+      const [populationData, currencyData] = await Promise.all([
+        fetchJson(
+          `https://api.worldbank.org/v2/country/${encodeURIComponent(country.id)}/indicator/SP.POP.TOTL?format=json&per_page=1`,
+          "World Bank population API"
+        ),
+        fetchJson("https://countries.trevorblades.com/", "Country currency API", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: `{ country(code: "${country.iso2Code}") { currency } }`
+          })
+        })
+      ]);
+      if (!Array.isArray(populationData) || !Array.isArray(populationData[1])) {
+        throw new Error("World Bank population API returned an unexpected response.");
+      }
+      if (currencyData.errors || !currencyData.data) {
+        throw new Error("Country currency API returned an unexpected response.");
+      }
+      return {
+        country,
+        population: populationData[1][0]?.value,
+        currency: currencyData.data.country?.currency
+      };
+    }));
+
     const fragment = document.createDocumentFragment();
-    for (const country of payload) {
+    for (const { country, population, currency } of countriesWithPopulation) {
       const card = document.createElement("article");
       card.className = "card";
       const title = document.createElement("h2");
-      title.textContent = country.name?.common || country.name?.official || "Unknown country";
-      const flagUrl = country.flags?.svg || country.flags?.png;
-      if (flagUrl) {
-        const flag = document.createElement("img");
-        flag.src = flagUrl;
-        flag.alt = `Flag of ${title.textContent}`;
-        flag.loading = "lazy";
-        card.append(flag);
-      }
+      title.textContent = country.id === "KOR" ? "South Korea" : country.name;
+      const flag = document.createElement("img");
+      flag.src = `https://flagcdn.com/w160/${country.iso2Code.toLowerCase()}.png`;
+      flag.alt = `Flag of ${title.textContent}`;
+      flag.loading = "lazy";
+      card.append(flag);
       card.append(title);
-      addDetail(card, "Capital", country.capital?.join(", "));
-      addDetail(card, "Region", country.region);
-      addDetail(card, "Population", Number.isFinite(country.population) ? country.population.toLocaleString() : "");
+      addDetail(card, "Capital", country.capitalCity);
+      addDetail(card, "Region", country.region.value.trim());
+      addDetail(card, "Population", Number.isFinite(population) ? population.toLocaleString() : "");
+      addDetail(card, "Currency", currency);
       fragment.append(card);
     }
     results.append(fragment);
     status.className = "success";
-    status.textContent = `Loaded ${payload.length} countr${payload.length === 1 ? "y" : "ies"}.`;
+    status.textContent = `Loaded ${countriesWithPopulation.length} countr${countriesWithPopulation.length === 1 ? "y" : "ies"}.`;
   } catch (error) {
     status.className = "error";
-    status.textContent = `Could not load country data: ${error.message}. Please try again later if the API is unavailable.`;
+    status.textContent = `Could not load country data: ${error.message}`;
     console.error(error);
   } finally {
     button.disabled = false;

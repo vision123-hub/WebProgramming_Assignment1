@@ -66,6 +66,9 @@ form.addEventListener("submit", async event => {
       per_page: "12"
     });
     const response = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+    if (response.status === 403 || response.status === 429) {
+      throw new Error("GitHub API rate limit reached. Wait a few minutes and try again.");
+    }
     if (!response.ok) throw new Error(`GitHub request failed with HTTP ${response.status}`);
     const data = await response.json();
     if (!Array.isArray(data.items)) throw new Error("GitHub returned an unexpected response.");
@@ -97,7 +100,9 @@ form.addEventListener("submit", async event => {
     status.textContent = `Showing ${data.items.length} of ${data.total_count.toLocaleString()} matching repositories.`;
   } catch (error) {
     status.className = "error";
-    status.textContent = `Could not search GitHub: ${error.message}`;
+    status.textContent = error instanceof TypeError
+      ? "Could not connect to GitHub. Check your internet connection or Safari/network settings."
+      : `Could not search GitHub: ${error.message}`;
     console.error(error);
   } finally {
     searchButton.disabled = false;

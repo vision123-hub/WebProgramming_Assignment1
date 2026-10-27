@@ -86,9 +86,12 @@ form.addEventListener("submit", async event => {
   try {
     const geocodeUrl = new URL("https://geocoding-api.open-meteo.com/v1/search");
     geocodeUrl.search = new URLSearchParams({ name: city, count: "1", language: "en", format: "json" });
-    const placeResponse = await fetch(geocodeUrl);
+    const placeResponse = await fetch(geocodeUrl.toString());
     if (!placeResponse.ok) throw new Error(`City lookup failed with HTTP ${placeResponse.status}`);
     const placeData = await placeResponse.json();
+    if (placeData.results !== undefined && !Array.isArray(placeData.results)) {
+      throw new Error("The city lookup API returned an unexpected response.");
+    }
     const place = placeData.results?.[0];
     if (!place) {
       status.textContent = "No matching city was found. Try another name.";
@@ -101,13 +104,16 @@ form.addEventListener("submit", async event => {
       longitude: String(place.longitude),
       current: "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m",
       daily: "temperature_2m_max,temperature_2m_min,precipitation_probability_max",
+      temperature_unit: "celsius",
       timezone: "auto",
       forecast_days: "3"
     });
-    const forecastResponse = await fetch(forecastUrl);
+    const forecastResponse = await fetch(forecastUrl.toString());
     if (!forecastResponse.ok) throw new Error(`Forecast request failed with HTTP ${forecastResponse.status}`);
     const data = await forecastResponse.json();
-    if (!data.current || !Array.isArray(data.daily?.time)) {
+    if (!data.current || !data.current_units || !Array.isArray(data.daily?.time)
+      || !Array.isArray(data.daily?.temperature_2m_min)
+      || !Array.isArray(data.daily?.temperature_2m_max)) {
       throw new Error("The forecast API returned an unexpected response.");
     }
 
@@ -141,7 +147,9 @@ form.addEventListener("submit", async event => {
     status.textContent = "Weather loaded successfully.";
   } catch (error) {
     status.className = "error";
-    status.textContent = `Could not load weather: ${error.message}`;
+    status.textContent = error instanceof TypeError
+      ? "Could not connect to the weather service. Check your internet connection or whether Safari/network settings are blocking the request."
+      : `Could not load weather: ${error.message}`;
     console.error(error);
   } finally {
     searchButton.disabled = false;

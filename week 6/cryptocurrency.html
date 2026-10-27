@@ -48,6 +48,7 @@ const coinsElement = document.getElementById("coins");
 async function loadCoins() {
   const currency = currencySelect.value;
   refreshButton.disabled = true;
+  coinsElement.replaceChildren();
   status.className = "";
   status.textContent = "Loading cryptocurrency prices…";
   try {
@@ -96,9 +97,11 @@ async function loadCoins() {
       const percentage = Number(coin.price_change_percentage_24h);
       change.className = Number.isFinite(percentage) && percentage < 0 ? "negative" : "positive";
       change.textContent = `24-hour change: ${Number.isFinite(percentage) ? `${percentage.toFixed(2)}%` : "Unavailable"}`;
-      const rank = document.createElement("p");
-      rank.textContent = `Market cap rank: ${coin.market_cap_rank ?? "Unavailable"}`;
-      card.append(heading, price, change, rank);
+      const marketCap = document.createElement("p");
+      marketCap.textContent = `Market capitalization: ${
+        Number.isFinite(coin.market_cap) ? formatter.format(coin.market_cap) : "Unavailable"
+      }`;
+      card.append(heading, price, change, marketCap);
       fragment.append(card);
     }
     coinsElement.append(fragment);
@@ -106,7 +109,11 @@ async function loadCoins() {
     status.textContent = `Showing ${coins.length} currencies. Updated ${new Date().toLocaleTimeString()}.`;
   } catch (error) {
     status.className = "error";
-    status.textContent = `Could not load market data: ${error.message}`;
+    status.textContent = error instanceof TypeError
+      ? "Could not connect to CoinGecko. Check your connection, or try again later if the public API is unavailable."
+      : error.message.includes("HTTP 429")
+        ? "CoinGecko is rate-limiting requests. Please wait a moment before trying again."
+        : `Could not load market data: ${error.message}`;
     console.error(error);
   } finally {
     refreshButton.disabled = false;
