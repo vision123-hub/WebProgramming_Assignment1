@@ -12,6 +12,24 @@
             padding: 0;
         }
 
+        .skip-link {
+            position: absolute;
+            top: -4rem;
+            left: 1rem;
+            z-index: 1000;
+            padding: 0.75rem 1rem;
+            background: #ffffff;
+            color: #1e293b;
+            border: 2px solid #1e3a8a;
+            border-radius: 0.25rem;
+        }
+
+        .skip-link:focus {
+            top: 1rem;
+            outline: 3px solid #facc15;
+            outline-offset: 2px;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #f1f5f9;
@@ -51,7 +69,7 @@
         }
 
         .intro p {
-            color: #64748b;
+            color: #475569;
             font-size: 17px;
         }
 
@@ -89,7 +107,7 @@
             border-radius: 8px;
             text-align: center;
             font-weight: bold;
-            transition: 0.2s;
+            transition: transform 0.2s;
         }
 
         .task-link:hover {
@@ -137,12 +155,14 @@
 
 <body>
 
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <header>
         <h1>Web Programming Assignments</h1>
         <p>My Web Programming Course Work</p>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
 
         <div class="intro">
             <h2>Assignment Collection</h2>

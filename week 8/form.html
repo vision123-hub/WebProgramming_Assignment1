@@ -12,6 +12,8 @@
             --body-bg: #f0f4f1;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1000; padding: 0.75rem 1rem; background: #ffffff; color: #111827; border: 2px solid #1e4638; border-radius: 0.25rem; }
+        .skip-link:focus { top: 1rem; outline: 3px solid #facc15; outline-offset: 2px; }
         body { font-family: system-ui, sans-serif; background: var(--body-bg); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 1.5rem; }
         .auth-container { background: var(--surface-card); width: 100%; max-width: 400px; padding: 2.75rem 2.25rem; border-radius: 1rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04); }
         .auth-header { text-align: center; color: var(--brand-color); font-size: 1.65rem; font-weight: 800; margin-bottom: 2.25rem; }
@@ -27,7 +29,8 @@
     </style>
 </head>
 <body>
-    <div class="auth-container">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main class="auth-container" id="main-content" tabindex="-1">
         <h2 class="auth-header">Sign In</h2>
         <form onsubmit="event.preventDefault(); alert('Authentication parameters serialized.');">
             <div class="auth-row">
@@ -44,6 +47,6 @@
             </label>
             <button type="submit" class="auth-action-trigger">Sign In</button>
         </form>
-    </div>
+    </main>
 </body>
 </html>

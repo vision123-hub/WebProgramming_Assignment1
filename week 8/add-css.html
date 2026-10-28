@@ -10,6 +10,22 @@
             margin: 0;
             padding: 0;
         }
+        .skip-link {
+            position: absolute;
+            top: -4rem;
+            left: 1rem;
+            z-index: 1000;
+            padding: 0.75rem 1rem;
+            background: #ffffff;
+            color: #212529;
+            border: 2px solid #0d6efd;
+            border-radius: 0.25rem;
+        }
+        .skip-link:focus {
+            top: 1rem;
+            outline: 3px solid #facc15;
+            outline-offset: 2px;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #f8f9fa;
@@ -58,6 +74,20 @@
             outline: 0;
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
         }
+        form.was-validated .input-box:valid {
+            border-color: #15803d;
+        }
+        form.was-validated .input-box:invalid {
+            border-color: #b91c1c;
+        }
+        .validation-feedback {
+            color: #b91c1c;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .validation-feedback[hidden] {
+            display: none;
+        }
         .submit-trigger-btn {
             display: inline-block;
             padding: 0.65rem 1.25rem;
@@ -78,9 +108,11 @@
 </head>
 <body>
 
-    <div class="form-container">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <main class="form-container" id="main-content" tabindex="-1">
         <h1 class="demo-title">Validation Styles Demo</h1>
-        <form onsubmit="event.preventDefault(); alert('Form structural validation passed successfully!');">
+        <form id="validation-form" novalidate>
             
             <div class="form-input-group">
                 <label for="userEmail">Email (required)</label>
@@ -97,9 +129,56 @@
                 <input type="number" id="userAge" class="input-box" required placeholder="Your age" min="18" max="65">
             </div>
 
+            <p class="validation-feedback" id="validation-feedback" role="alert" aria-live="assertive" hidden></p>
             <button type="submit" class="submit-trigger-btn">Check Validation</button>
         </form>
-    </div>
+    </main>
 
+    <script>
+        const validationForm = document.getElementById("validation-form");
+        const validationFeedback = document.getElementById("validation-feedback");
+        const validationFields = Array.from(validationForm.querySelectorAll(".input-box"));
+
+        function updateValidationFeedback() {
+            const invalidFields = validationFields.filter((field) => !field.validity.valid);
+            validationFields.forEach((field) => {
+                if (field.validity.valid) {
+                    field.removeAttribute("aria-invalid");
+                    field.removeAttribute("aria-describedby");
+                } else {
+                    field.setAttribute("aria-invalid", "true");
+                }
+            });
+
+            const firstInvalidField = invalidFields[0];
+            validationFeedback.hidden = !firstInvalidField;
+            validationFeedback.textContent = firstInvalidField
+                ? firstInvalidField.validationMessage
+                : "";
+            if (firstInvalidField) {
+                firstInvalidField.setAttribute("aria-describedby", "validation-feedback");
+            }
+            return firstInvalidField;
+        }
+
+        validationForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            validationForm.classList.add("was-validated");
+            const firstInvalidField = updateValidationFeedback();
+            if (firstInvalidField) {
+                firstInvalidField.focus();
+                return;
+            }
+            alert("Form structural validation passed successfully!");
+        });
+
+        validationFields.forEach((field) => {
+            field.addEventListener("input", () => {
+                if (validationForm.classList.contains("was-validated")) {
+                    updateValidationFeedback();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
