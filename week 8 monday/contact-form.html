@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1 { margin-top: 0; color: #174c73; }
+        .field { display: grid; gap: 0.35rem; margin: 1rem 0; }
+        label, legend { font-weight: 700; }
+        fieldset { margin: 1.25rem 0; padding: 1rem; border: 1px solid #d6dfe5; border-radius: 0.65rem; }
+        legend { padding: 0 0.4rem; color: #174c73; }
+        input, textarea { width: 100%; padding: 0.7rem; border: 1px solid #62717d; border-radius: 0.35rem; font: inherit; }
+        textarea { min-height: 9rem; resize: vertical; }
+        input:focus, textarea:focus { outline: 3px solid #9ed5f6; border-color: #174c73; }
+        .hint { color: #465563; font-size: 0.9rem; }
+        .error { color: #a32121; font-weight: 600; }
+        .error[hidden] { display: none; }
+        .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+        button { padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        button[type="reset"] { background: #465563; }
+        button:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        #form-message { margin-top: 1rem; font-weight: 700; }
+        @media (max-width: 35rem) { main { padding: 1.25rem; } }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Contact Us</h1>
+    <p>Have an inquiry or project idea? Fill in the details and check that your message is ready to send.</p>
+    <form id="contact-form" novalidate>
+        <fieldset>
+            <legend>About You</legend>
+            <div class="field">
+                <label for="contact-name">Your Name <span aria-hidden="true">*</span></label>
+                <input id="contact-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="50" aria-describedby="contact-name-hint contact-name-error">
+                <span class="hint" id="contact-name-hint">Enter 2 to 50 characters.</span>
+                <span class="error" id="contact-name-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="contact-email">Email Address <span aria-hidden="true">*</span></label>
+                <input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="contact-email-hint contact-email-error">
+                <span class="hint" id="contact-email-hint">Enter a valid email address, such as name@example.com.</span>
+                <span class="error" id="contact-email-error" hidden></span>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Your Message</legend>
+            <div class="field">
+                <label for="contact-subject">Subject Line <span aria-hidden="true">*</span></label>
+                <input id="contact-subject" name="subject" type="text" required minlength="3" maxlength="100" aria-describedby="contact-subject-hint contact-subject-error">
+                <span class="hint" id="contact-subject-hint">A short summary of your inquiry.</span>
+                <span class="error" id="contact-subject-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="contact-message">Message <span aria-hidden="true">*</span></label>
+                <textarea id="contact-message" name="message" required minlength="20" maxlength="1000" aria-describedby="contact-message-hint contact-message-error"></textarea>
+                <span class="hint" id="contact-message-hint">Write at least 20 characters.</span>
+                <span class="error" id="contact-message-error" hidden></span>
+            </div>
+        </fieldset>
+        <div class="actions">
+            <button type="submit">Send Message</button>
+            <button type="reset">Reset</button>
+        </div>
+        <p id="form-message" role="status" aria-live="polite"></p>
+    </form>
+</main>
+<script>
+    const form = document.getElementById("contact-form");
+    const fields = Array.from(form.querySelectorAll("input, textarea"));
+    const message = document.getElementById("form-message");
+
+    function errorFor(field) {
+        if (field.validity.valueMissing) return "This field is required.";
+        if (field.validity.typeMismatch) return "Enter a valid email address.";
+        if (field.validity.tooShort) return `Enter at least ${field.minLength} characters.`;
+        if (field.validity.tooLong) return `Use no more than ${field.maxLength} characters.`;
+        if (field.validity.patternMismatch) return field.title || "Use the requested format.";
+        return "Check this value and try again.";
+    }
+
+    function updateError(field) {
+        const error = document.getElementById(`${field.id}-error`);
+        const invalid = !field.validity.valid;
+        field.setAttribute("aria-invalid", String(invalid));
+        error.textContent = invalid ? errorFor(field) : "";
+        error.hidden = !invalid;
+    }
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        fields.forEach(updateError);
+        const firstInvalid = fields.find((field) => !field.validity.valid);
+        if (firstInvalid) {
+            message.textContent = "Please correct the marked fields and try again.";
+            firstInvalid.focus();
+            return;
+        }
+        message.textContent = "Thanks! Your message has been validated. This demo does not send data to a server.";
+    });
+
+    fields.forEach((field) => field.addEventListener("input", () => {
+        if (field.hasAttribute("aria-invalid")) updateError(field);
+    }));
+
+    form.addEventListener("reset", () => {
+        window.setTimeout(() => {
+            fields.forEach((field) => {
+                field.removeAttribute("aria-invalid");
+                const error = document.getElementById(`${field.id}-error`);
+                error.textContent = "";
+                error.hidden = true;
+            });
+            message.textContent = "";
+        });
+    });
+</script>
+</body>
+</html>

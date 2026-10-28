@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grouping Form Fields</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; }
+        h1 { color: #174c73; }
+        fieldset { margin: 1.25rem 0; padding: 1rem; border: 1px solid #8997a2; border-radius: 0.5rem; }
+        legend { padding: 0 0.4rem; font-weight: 700; }
+        .field { display: grid; gap: 0.35rem; margin: 0.85rem 0; }
+        label { font-weight: 700; }
+        input, select { padding: 0.7rem; border: 1px solid #62717d; border-radius: 0.35rem; font: inherit; }
+        input:focus, select:focus, button:focus-visible { outline: 3px solid #9ed5f6; outline-offset: 2px; }
+        button { padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        #result { margin-top: 1rem; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Grouping Fields</h1>
+    <p>Use <code>&lt;fieldset&gt;</code> to group related controls and <code>&lt;legend&gt;</code> to give the group a name.</p>
+    <form id="grouped-form">
+        <fieldset>
+            <legend>Personal Information</legend>
+            <div class="field"><label for="group-name">Full Name</label><input id="group-name" name="name" type="text" required></div>
+            <div class="field">
+                <label for="group-major">Academic Major</label>
+                <select id="group-major" name="major" required>
+                    <option value="">Choose a major</option>
+                    <option value="computer-science">Computer Science</option>
+                    <option value="software-engineering">Software Engineering</option>
+                </select>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Contact Information</legend>
+            <div class="field"><label for="group-email">Email</label><input id="group-email" name="email" type="email" autocomplete="email" required></div>
+        </fieldset>
+        <button type="submit">Submit choices</button>
+    </form>
+    <p id="result" role="status" aria-live="polite"></p>
+    <p><a href="../../index.html">← Back to Index</a></p>
+</main>
+<script>
+    document.getElementById("grouped-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const values = new FormData(event.currentTarget);
+        document.getElementById("result").textContent = `Registration details are valid for ${values.get("name")} (${values.get("major")}).`;
+    });
+</script>
+</body>
+</html>

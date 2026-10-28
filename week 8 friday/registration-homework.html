@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Homework</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 46rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1 { margin-top: 0; color: #174c73; }
+        fieldset { margin: 1.25rem 0; padding: 1rem; border: 1px solid #8997a2; border-radius: 0.5rem; }
+        legend { padding: 0 0.4rem; font-weight: 700; }
+        .field { display: grid; gap: 0.35rem; margin: 0.85rem 0; }
+        label { font-weight: 700; }
+        input, select { width: 100%; padding: 0.7rem; border: 1px solid #62717d; border-radius: 0.35rem; background: #fff; color: #17212b; font: inherit; }
+        input:focus, select:focus { outline: 3px solid #9ed5f6; border-color: #174c73; }
+        .hint { color: #465563; font-size: 0.9rem; }
+        .field-error { color: #a32121; font-weight: 600; }
+        .field-error[hidden] { display: none; }
+        #message { padding: 0.75rem; border-radius: 0.35rem; font-weight: 700; }
+        #message:empty { display: none; }
+        #message.error { background: #fff0f0; color: #871b1b; }
+        #message.success { background: #edf8ef; color: #14532d; }
+        .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        button { padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        button[type="reset"] { background: #465563; }
+        button:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        @media (max-width: 35rem) { main { padding: 1.25rem; } }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Student Registration</h1>
+    <p>Complete this accessible registration form. Your browser checks the required information before the demo confirms it.</p>
+    <form id="homework-form" novalidate>
+        <fieldset>
+            <legend>Personal details</legend>
+            <div class="field">
+                <label for="homework-name">Full name (required)</label>
+                <input id="homework-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" aria-describedby="homework-name-error">
+                <span class="field-error" id="homework-name-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="homework-id">Student ID (required)</label>
+                <input id="homework-id" name="studentId" type="text" inputmode="numeric" required minlength="9" maxlength="9" pattern="[0-9]{9}" title="Enter exactly 9 digits." aria-describedby="homework-id-hint homework-id-error">
+                <span class="hint" id="homework-id-hint">Enter exactly nine digits.</span>
+                <span class="field-error" id="homework-id-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="homework-email">Email address (required)</label>
+                <input id="homework-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="homework-email-error">
+                <span class="field-error" id="homework-email-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="homework-password">Password (required, at least 8 characters)</label>
+                <input id="homework-password" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="64" aria-describedby="homework-password-error">
+                <span class="field-error" id="homework-password-error" hidden></span>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Course details</legend>
+            <div class="field">
+                <label for="homework-course">Program (required)</label>
+                <select id="homework-course" name="course" required aria-describedby="homework-course-error">
+                    <option value="">Choose a program</option>
+                    <option value="web-programming">Web Programming</option>
+                    <option value="computer-science">Computer Science</option>
+                    <option value="software-engineering">Software Engineering</option>
+                </select>
+                <span class="field-error" id="homework-course-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="homework-year">Expected graduation year (2026–2035)</label>
+                <input id="homework-year" name="graduationYear" type="number" min="2026" max="2035" required aria-describedby="homework-year-error">
+                <span class="field-error" id="homework-year-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="homework-phone">Phone number (required)</label>
+                <input id="homework-phone" name="phone" type="tel" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Use the format 123-456-7890." autocomplete="tel" aria-describedby="homework-phone-hint homework-phone-error">
+                <span class="hint" id="homework-phone-hint">Use the format 123-456-7890.</span>
+                <span class="field-error" id="homework-phone-error" hidden></span>
+            </div>
+        </fieldset>
+        <p id="message" role="status" aria-live="polite"></p>
+        <div class="actions">
+            <button type="submit">Submit registration</button>
+            <button type="reset">Reset form</button>
+        </div>
+    </form>
+    <p><a href="../../index.html">← Back to Index</a></p>
+</main>
+<script>
+    const form = document.getElementById("homework-form");
+    const fields = Array.from(form.querySelectorAll("input, select"));
+    const message = document.getElementById("message");
+
+    function errorFor(field) {
+        if (field.validity.valueMissing) return "This field is required.";
+        if (field.validity.typeMismatch) return "Enter a valid email address.";
+        if (field.validity.tooShort) return `Enter at least ${field.minLength} characters.`;
+        if (field.validity.tooLong) return `Use no more than ${field.maxLength} characters.`;
+        if (field.validity.rangeUnderflow) return `Enter a value of at least ${field.min}.`;
+        if (field.validity.rangeOverflow) return `Enter a value no greater than ${field.max}.`;
+        if (field.validity.patternMismatch) return field.title || "Use the requested format.";
+        return "Check this value and try again.";
+    }
+
+    function updateError(field) {
+        const error = document.getElementById(`${field.id}-error`);
+        const invalid = !field.validity.valid;
+        field.setAttribute("aria-invalid", String(invalid));
+        error.textContent = invalid ? errorFor(field) : "";
+        error.hidden = !invalid;
+    }
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        fields.forEach(updateError);
+        const firstInvalid = fields.find((field) => !field.validity.valid);
+        if (firstInvalid) {
+            message.className = "error";
+            message.textContent = "Please correct the marked fields before submitting.";
+            firstInvalid.focus();
+            return;
+        }
+        message.className = "success";
+        message.textContent = "Registration details are valid. This classroom demo does not send data to a server.";
+    });
+
+    fields.forEach((field) => {
+        const updateAfterEdit = () => {
+            if (!field.hasAttribute("aria-invalid")) return;
+            updateError(field);
+            if (fields.every((item) => item.validity.valid)) {
+                message.className = "";
+                message.textContent = "";
+            }
+        };
+        field.addEventListener("input", updateAfterEdit);
+        field.addEventListener("change", updateAfterEdit);
+    });
+
+    form.addEventListener("reset", () => {
+        window.setTimeout(() => {
+            fields.forEach((field) => {
+                field.removeAttribute("aria-invalid");
+                const error = document.getElementById(`${field.id}-error`);
+                error.textContent = "";
+                error.hidden = true;
+            });
+            message.textContent = "";
+            message.className = "";
+        });
+    });
+</script>
+</body>
+</html>

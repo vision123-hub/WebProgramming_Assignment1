@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Input Types</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 46rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; }
+        h1 { color: #174c73; }
+        form { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+        .field { display: grid; align-content: start; gap: 0.35rem; }
+        label, legend { font-weight: 700; }
+        input, select { max-width: 100%; padding: 0.65rem; border: 1px solid #62717d; border-radius: 0.35rem; font: inherit; }
+        input:focus, select:focus, button:focus-visible { outline: 3px solid #9ed5f6; outline-offset: 2px; }
+        fieldset { border: 1px solid #8997a2; border-radius: 0.4rem; }
+        button { justify-self: start; padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        #result { grid-column: 1 / -1; }
+        #color-result { display: block; min-height: 1.5em; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>HTML5 Input Types</h1>
+    <p>Semantic input types provide suitable controls, browser parsing, and mobile keyboards. Try text, email, password, date, and color inputs below.</p>
+    <form id="types-form">
+        <div class="field"><label for="type-text">type="text" — Standard text</label><input id="type-text" name="text" type="text" placeholder="Enter text" required></div>
+        <div class="field"><label for="type-email">type="email" — Email address</label><input id="type-email" name="email" type="email" placeholder="student@example.edu" autocomplete="email" required></div>
+        <div class="field"><label for="type-password">type="password" — Masks characters</label><input id="type-password" name="password" type="password" placeholder="At least 8 characters" minlength="8" required></div>
+        <div class="field"><label for="type-date">type="date" — Native date picker</label><input id="type-date" name="date" type="date" required></div>
+        <div class="field">
+            <label for="type-color">type="color" — System color picker</label>
+            <input id="type-color" name="color" type="color" value="#174c73">
+            <output id="color-result" for="type-color" aria-live="polite">Selected color: #174c73</output>
+        </div>
+        <button type="submit">Check input types</button>
+        <output id="result" role="status" aria-live="polite"></output>
+    </form>
+    <p><a href="../../index.html">← Back to Index</a></p>
+</main>
+<script>
+    const typeForm = document.getElementById("types-form");
+    const colorPicker = document.getElementById("type-color");
+    const colorResult = document.getElementById("color-result");
+
+    colorPicker.addEventListener("input", () => {
+        colorResult.textContent = `Selected color: ${colorPicker.value}`;
+    });
+
+    typeForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        document.getElementById("result").textContent = "The browser accepted the required values for these input types.";
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 9 Website Accessibility Audit</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #1f2933;
+            background: #f3f6f8;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; line-height: 1.65; }
+        .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; border-radius: 0.35rem; }
+        .skip-link:focus { top: 1rem; outline: 3px solid #d48200; outline-offset: 3px; }
+        main { max-width: 56rem; margin: 0 auto; padding: clamp(1.25rem, 4vw, 2.5rem); background: #fff; border-radius: 0.8rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1, h2 { color: #174c73; line-height: 1.25; }
+        h1 { margin-top: 0; }
+        h2 { margin-top: 2rem; }
+        .scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; margin: 1rem 0; }
+        .score { padding: 1rem; border: 1px solid #b8c5ce; border-radius: 0.5rem; }
+        .score strong { display: block; font-size: 2rem; color: #174c73; }
+        figure { margin: 1.25rem 0 2rem; }
+        figure img { display: block; width: 100%; height: auto; border: 1px solid #c5cdd3; border-radius: 0.35rem; }
+        figcaption { margin-top: 0.5rem; color: #465563; font-size: 0.95rem; }
+        li { margin: 0.8rem 0; }
+        .note { padding: 1rem; border-left: 0.3rem solid #b87900; background: #fff8e8; }
+        a { color: #075985; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        @media (max-width: 35rem) { body { padding: 0.75rem; } }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Week 9: Website Accessibility Audit</h1>
+
+    <section aria-labelledby="introduction-heading">
+        <h2 id="introduction-heading">Introduction</h2>
+        <p>I used Lighthouse to check the accessibility of my course website. The before and after audits were run on the same live homepage with Lighthouse 13.6.0, mobile emulation, and simulated throttling.</p>
+        <p>Website audited: <a href="https://vision123-hub.github.io/WebProgramming_Assignment1/">Web Programming Assignments</a>.</p>
+    </section>
+
+    <section aria-labelledby="before-heading">
+        <h2 id="before-heading">Original score</h2>
+        <div class="scores">
+            <div class="score"><strong>90/100</strong>Accessibility score before the fixes</div>
+        </div>
+        <figure>
+            <img src="screenshots/accessibility-before.png" alt="Genuine Lighthouse report screenshot of the course website before the improvements, showing an accessibility score of 90.">
+            <figcaption>BEFORE: Lighthouse Accessibility score 90/100.</figcaption>
+        </figure>
+    </section>
+
+    <section aria-labelledby="fixes-heading">
+        <h2 id="fixes-heading">Accessibility fixes</h2>
+        <ol>
+            <li><strong>Homepage introduction contrast:</strong> Lighthouse flagged the introduction paragraph because its text and background did not have enough contrast. I darkened the text color so it is easier to read.</li>
+            <li><strong>Week 3 Task 5 link contrast:</strong> The same contrast audit also flagged this link while its colors changed. I kept its movement effect but stopped the text and background colors from transitioning through low-contrast combinations.</li>
+            <li><strong>Main landmark:</strong> Lighthouse reported that the original Week 8 pages did not have a main landmark. I added a semantic <code>&lt;main&gt;</code> region to those pages so assistive technology can identify the primary content.</li>
+        </ol>
+        <p class="note"><strong>Audit detail:</strong> The saved initial reports show two failed Lighthouse audit categories, not three different audit names. The contrast category listed two affected homepage elements, and the missing-main-landmark category was reported on four Week 8 pages. The three items above describe three verified problem instances and their fixes without counting them as three separate audit categories.</p>
+    </section>
+
+    <section aria-labelledby="final-heading">
+        <h2 id="final-heading">Final score</h2>
+        <div class="scores">
+            <div class="score"><strong>100/100</strong>Accessibility score after the fixes</div>
+        </div>
+        <figure>
+            <img src="screenshots/accessibility-after.png" alt="Genuine Lighthouse report screenshot of the course website after the improvements, showing an accessibility score of 100.">
+            <figcaption>AFTER: Lighthouse Accessibility score 100/100.</figcaption>
+        </figure>
+    </section>
+
+    <section aria-labelledby="skip-link-heading">
+        <h2 id="skip-link-heading">Skip link and conclusion</h2>
+        <p>I added a “Skip to main content” link to the site. I tested it using the keyboard: Tab reaches the link, and Enter moves focus to the main content.</p>
+        <p>The homepage score increased from 90 to 100. The screenshots above are the saved Lighthouse report captures, and both audits used the same URL and settings.</p>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Validation Attributes</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; }
+        h1 { color: #174c73; }
+        .field { display: grid; gap: 0.35rem; margin: 1rem 0; }
+        label { font-weight: 700; }
+        input { padding: 0.7rem; border: 1px solid #62717d; border-radius: 0.35rem; font: inherit; }
+        input:focus, button:focus-visible { outline: 3px solid #9ed5f6; outline-offset: 2px; }
+        .hint { color: #465563; font-size: 0.92rem; }
+        button { padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Validation Attributes</h1>
+    <p>HTML5 validation attributes prevent invalid submissions with built-in browser checks, without JavaScript.</p>
+    <form id="attributes-form" action="" method="get">
+        <div class="field">
+            <label for="validation-name">Name (required, at least 3 characters)</label>
+            <input id="validation-name" name="name" type="text" placeholder="At least 3 characters" required minlength="3" autocomplete="name">
+        </div>
+        <div class="field">
+            <label for="validation-id">Student ID (9-digit pattern)</label>
+            <input id="validation-id" name="studentId" type="text" placeholder="9-digit ID (e.g. 202112345)" required minlength="9" maxlength="9" pattern="[0-9]{9}" inputmode="numeric" title="Enter exactly 9 digits.">
+        </div>
+        <div class="field">
+            <label for="validation-score">Course Score (0–100)</label>
+            <input id="validation-score" name="score" type="number" placeholder="0 - 100" required min="0" max="100">
+        </div>
+        <button type="submit">Test HTML5 Constraints</button>
+    </form>
+    <p><a href="../../index.html">← Back to Index</a></p>
+</main>
+</body>
+</html>

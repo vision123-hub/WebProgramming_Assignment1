@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labels and Accessibility</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; }
+        h1 { color: #174c73; }
+        .field { display: grid; gap: 0.35rem; margin: 1rem 0; }
+        .label-example { margin: 1rem 0; padding: 1rem; border: 1px solid #d6dfe5; border-radius: 0.5rem; }
+        label { font-weight: 700; }
+        input, select { padding: 0.7rem; border: 1px solid #62717d; border-radius: 0.35rem; font: inherit; }
+        input:focus, select:focus, button:focus-visible, a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .hint { color: #465563; font-size: 0.92rem; }
+        button { padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        #result { font-weight: 700; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Labels and Accessibility</h1>
+    <p>Labels give form controls accessible names and larger click targets. Press Tab to move through the controls, and use Space or arrow keys where appropriate.</p>
+    <section class="label-example" aria-labelledby="explicit-label-heading">
+        <h2 id="explicit-label-heading">Method 1: Explicit label and input linking</h2>
+        <label for="explicit-example">Clicking this label focuses the input</label>
+        <input id="explicit-example" name="explicitExample" type="text">
+    </section>
+    <section class="label-example" aria-labelledby="implicit-label-heading">
+        <h2 id="implicit-label-heading">Method 2: Wrapping a control in its label</h2>
+        <label>
+            <input id="implicit-example" name="updates" type="checkbox" value="yes">
+            Clicking anywhere in this sentence checks the box
+        </label>
+    </section>
+    <form id="accessible-form">
+        <div class="field">
+            <label for="accessible-name">Full name</label>
+            <input id="accessible-name" name="name" type="text" autocomplete="name" required aria-describedby="accessible-name-hint">
+            <span class="hint" id="accessible-name-hint">Enter the name you use for class.</span>
+        </div>
+        <div class="field">
+            <label for="accessible-email">Email address</label>
+            <input id="accessible-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+            <label for="accessible-topic">Topic</label>
+            <select id="accessible-topic" name="topic" required>
+                <option value="">Choose one</option>
+                <option value="question">Question</option>
+                <option value="feedback">Feedback</option>
+            </select>
+        </div>
+        <button type="submit">Send</button>
+    </form>
+    <p id="result" role="status" aria-live="polite"></p>
+    <p><a href="../../index.html">← Back to Index</a></p>
+</main>
+<script>
+    document.getElementById("accessible-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        document.getElementById("result").textContent = "The labelled form is complete.";
+    });
+</script>
+</body>
+</html>

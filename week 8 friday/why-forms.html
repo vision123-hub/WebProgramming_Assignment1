@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Forms?</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; }
+        h1 { color: #174c73; }
+        .purpose { margin: 1.25rem 0; padding: 1rem; border-left: 0.3rem solid #174c73; background: #eef5fb; }
+        .field { display: grid; gap: 0.35rem; margin: 1rem 0; }
+        label { font-weight: 700; }
+        input { width: 100%; padding: 0.7rem; border: 1px solid #62717d; border-radius: 0.35rem; font: inherit; }
+        input:focus, button:focus-visible, a:focus-visible { outline: 3px solid #9ed5f6; outline-offset: 2px; }
+        button { padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        #result { min-height: 1.5em; font-weight: 700; }
+        .back-link { display: inline-block; margin-top: 1rem; color: #174c73; }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Why Forms?</h1>
+    <p>HTML forms are a bridge between people and web applications. They collect user input as named values for tasks such as signing in, searching, sending messages, and registering.</p>
+    <section class="purpose" aria-labelledby="purpose-heading">
+        <h2 id="purpose-heading">Core purpose</h2>
+        <p>Forms organize information, provide built-in input controls and validation, and let users submit data to a destination.</p>
+    </section>
+    <h2>Interactive example: Search the web</h2>
+    <p>Enter a query and submit it to open Google search results in a new tab.</p>
+    <form id="search-form" action="https://www.google.com/search" method="get" target="_blank" rel="noopener">
+        <div class="field">
+            <label for="search-query">Search query</label>
+            <input id="search-query" name="q" type="search" placeholder="Type a query and press Search Google" required>
+        </div>
+        <button type="submit">Search Google</button>
+    </form>
+    <p id="result" role="status" aria-live="polite"></p>
+    <a class="back-link" href="../../index.html">← Back to Index</a>
+</main>
+<script>
+    document.getElementById("search-form").addEventListener("submit", (event) => {
+        const query = new FormData(event.currentTarget).get("q");
+        document.getElementById("result").textContent = `Opening Google results for “${query}”.`;
+    });
+</script>
+</body>
+</html>

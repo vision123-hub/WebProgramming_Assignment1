@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Validation Pseudo-Classes</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; }
+        h1 { color: #174c73; }
+        .field { display: grid; gap: 0.35rem; margin: 1rem 0; }
+        label { font-weight: 700; }
+        input { width: 100%; padding: 0.7rem; border: 2px solid #62717d; border-radius: 0.35rem; font: inherit; }
+        input:required { border-left: 0.45rem solid #174c73; }
+        input:focus-visible { outline: 3px solid #d48200; outline-offset: 2px; }
+        input:valid:not(:placeholder-shown) { background-color: #edf8ef; border-color: #28723b; }
+        input:invalid:not(:focus):not(:placeholder-shown) { background-color: #fff0f0; border-color: #a32121; }
+        .hint { color: #465563; font-size: 0.92rem; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>CSS Validation Pseudo-Classes</h1>
+    <p>CSS pseudo-classes can give immediate feedback while a person types. Try a partial email address and then complete it, or enter a password shorter than eight characters.</p>
+    <form id="css-form">
+        <div class="field">
+            <label for="css-email">Email (required)</label>
+            <input id="css-email" name="email" type="email" placeholder="name@example.com" required aria-describedby="css-email-hint">
+            <span class="hint" id="css-email-hint">A completed valid address turns green; an invalid completed value turns red.</span>
+        </div>
+        <div class="field">
+            <label for="css-password">Password (at least 8 characters)</label>
+            <input id="css-password" name="password" type="password" placeholder="Enter at least 8 characters" minlength="8" required aria-describedby="css-password-hint">
+            <span class="hint" id="css-password-hint">The browser checks the minimum length; CSS styles the validity state.</span>
+        </div>
+    </form>
+    <p><a href="../../index.html">← Back to Index</a></p>
+</main>
+</body>
+</html>

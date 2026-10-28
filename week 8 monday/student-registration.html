@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 44rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1 { margin-top: 0; color: #174c73; }
+        fieldset { margin: 1.25rem 0; padding: 1rem; border: 1px solid #8997a2; border-radius: 0.5rem; }
+        legend { padding: 0 0.4rem; font-weight: 700; }
+        .field { display: grid; gap: 0.35rem; margin: 0.85rem 0; }
+        label { font-weight: 700; }
+        input, select { width: 100%; padding: 0.7rem; border: 1px solid #62717d; border-radius: 0.35rem; background: #fff; color: #17212b; font: inherit; }
+        input:focus, select:focus { outline: 3px solid #9ed5f6; border-color: #174c73; }
+        .hint { color: #465563; font-size: 0.9rem; }
+        .error { color: #a32121; font-weight: 600; }
+        .error[hidden], #form-message:empty { display: none; }
+        .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+        button { padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        button[type="reset"] { background: #465563; }
+        button:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        #form-message { padding: 0.75rem; border-radius: 0.35rem; font-weight: 700; }
+        #form-message.error-message { background: #fff0f0; color: #871b1b; }
+        #form-message.success-message { background: #edf8ef; color: #14532d; }
+        @media (max-width: 35rem) { main { padding: 1.25rem; } }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Student Registration</h1>
+    <p>Enter your personal and course information. Required fields are marked in their labels.</p>
+    <form id="registration-form" novalidate>
+        <fieldset>
+            <legend>Personal Information</legend>
+            <div class="field">
+                <label for="student-name">Full name (required)</label>
+                <input id="student-name" name="fullName" type="text" autocomplete="name" required minlength="2" maxlength="80" aria-describedby="student-name-error">
+                <span class="error" id="student-name-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="student-id">Student ID (required)</label>
+                <input id="student-id" name="studentId" type="text" inputmode="numeric" required pattern="[0-9]{9}" minlength="9" maxlength="9" title="Enter exactly 9 digits." aria-describedby="student-id-hint student-id-error">
+                <span class="hint" id="student-id-hint">Enter your 9-digit student ID.</span>
+                <span class="error" id="student-id-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="student-birth-date">Date of Birth (optional)</label>
+                <input id="student-birth-date" name="birthDate" type="date" max="2010-12-31" aria-describedby="student-birth-date-hint student-birth-date-error">
+                <span class="hint" id="student-birth-date-hint">If provided, enter a date no later than December 31, 2010.</span>
+                <span class="error" id="student-birth-date-error" hidden></span>
+            </div>
+            <div class="field">
+                <label for="student-program">Intended Major (required)</label>
+                <select id="student-program" name="program" required aria-describedby="student-program-error">
+                    <option value="">Choose your major</option>
+                    <option value="computer-science">Computer Science</option>
+                    <option value="artificial-intelligence">Artificial Intelligence</option>
+                    <option value="software-engineering">Software Engineering</option>
+                </select>
+                <span class="error" id="student-program-error" hidden></span>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Account Information</legend>
+            <div class="field">
+                <label for="student-email">Email address (required)</label>
+                <input id="student-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="student-email-error">
+                <span class="error" id="student-email-error" hidden></span>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Registration Details</legend>
+            <div class="field">
+                <label for="student-level">Study level (required)</label>
+                <select id="student-level" name="studyLevel" required aria-describedby="student-level-error">
+                    <option value="">Choose your level</option>
+                    <option value="undergraduate">Undergraduate</option>
+                    <option value="graduate">Graduate</option>
+                </select>
+                <span class="error" id="student-level-error" hidden></span>
+            </div>
+        </fieldset>
+        <p id="form-message" role="status" aria-live="polite"></p>
+        <div class="actions">
+            <button type="submit">Submit Registration</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+</main>
+<script>
+    const form = document.getElementById("registration-form");
+    const fields = Array.from(form.querySelectorAll("input, select"));
+    const message = document.getElementById("form-message");
+
+    function errorFor(field) {
+        if (field.validity.valueMissing) return "This field is required.";
+        if (field.validity.typeMismatch) return "Enter a valid email address.";
+        if (field.validity.tooShort) return `Enter at least ${field.minLength} characters.`;
+        if (field.validity.tooLong) return `Use no more than ${field.maxLength} characters.`;
+        if (field.validity.rangeOverflow) return `Choose a date on or before ${field.max}.`;
+        if (field.validity.rangeUnderflow) return `Choose a date on or after ${field.min}.`;
+        if (field.validity.patternMismatch) return field.title || "Use the requested format.";
+        return "Check this value and try again.";
+    }
+
+    function updateError(field) {
+        const error = document.getElementById(`${field.id}-error`);
+        const invalid = !field.validity.valid;
+        field.setAttribute("aria-invalid", String(invalid));
+        error.textContent = invalid ? errorFor(field) : "";
+        error.hidden = !invalid;
+    }
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        fields.forEach(updateError);
+        const firstInvalid = fields.find((field) => !field.validity.valid);
+        message.className = firstInvalid ? "error-message" : "success-message";
+        if (firstInvalid) {
+            message.textContent = "Please correct the marked fields before submitting.";
+            firstInvalid.focus();
+            return;
+        }
+        message.textContent = "Registration details are valid. This classroom demo does not send data to a server.";
+    });
+
+    fields.forEach((field) => field.addEventListener("input", () => {
+        if (field.hasAttribute("aria-invalid")) updateError(field);
+    }));
+    fields.forEach((field) => field.addEventListener("change", () => {
+        if (field.hasAttribute("aria-invalid")) updateError(field);
+    }));
+
+    form.addEventListener("reset", () => {
+        window.setTimeout(() => {
+            fields.forEach((field) => {
+                field.removeAttribute("aria-invalid");
+                const error = document.getElementById(`${field.id}-error`);
+                error.textContent = "";
+                error.hidden = true;
+            });
+            message.textContent = "";
+            message.className = "";
+        });
+    });
+</script>
+</body>
+</html>

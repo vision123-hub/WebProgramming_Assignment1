@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The HTML Form Element</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; background: #f3f6f8; color: #17212b; font: 1rem/1.5 system-ui, sans-serif; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 0.75rem; }
+        h1 { color: #174c73; }
+        .field { display: grid; gap: 0.35rem; margin: 1rem 0; }
+        label { font-weight: 700; }
+        input { padding: 0.7rem; border: 1px solid #62717d; border-radius: 0.35rem; font: inherit; }
+        input:focus, button:focus-visible { outline: 3px solid #9ed5f6; outline-offset: 2px; }
+        button { padding: 0.7rem 1rem; border: 0; border-radius: 0.35rem; background: #174c73; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        code { background: #eef3f6; padding: 0.1rem 0.25rem; }
+        pre { overflow-x: auto; padding: 1rem; border-radius: 0.4rem; background: #101a2d; color: #eef4ff; }
+        #result { min-height: 1.5em; padding: 0.75rem; background: #edf8ef; overflow-wrap: anywhere; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>The Form Element</h1>
+    <p>A <code>&lt;form&gt;</code> groups controls for submission. <code>action</code> specifies the destination and <code>method</code> specifies how the browser sends values. Each submitted control needs a <code>name</code>.</p>
+    <p><code>GET</code> appends named values to the URL and is useful for searches. <code>POST</code> sends values in the request body and is commonly used for account or private form submissions. A real destination is needed to process either request.</p>
+    <pre><code>&lt;form action="/submit" method="POST"&gt;
+  &lt;input name="username" type="text"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+    <p>This working classroom example uses <code>GET</code>. JavaScript shows the query string locally instead of sending it to a server.</p>
+    <form id="search-form" action="" method="get">
+        <div class="field">
+            <label for="search-term">Username</label>
+            <input id="search-term" name="username" type="text" placeholder="Enter a username" required>
+        </div>
+        <button type="submit">Submit (GET Request)</button>
+    </form>
+    <p id="result" role="status" aria-live="polite">Submit to see the query values this form collects.</p>
+    <a href="../../index.html">← Back to Index</a>
+</main>
+<script>
+    document.getElementById("search-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const values = new URLSearchParams(new FormData(event.currentTarget));
+        document.getElementById("result").textContent = `GET query string: ?${values.toString()}`;
+    });
+</script>
+</body>
+</html>
