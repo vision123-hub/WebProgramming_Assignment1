@@ -47,14 +47,8 @@
         <button type="submit">Submit choices</button>
     </form>
     <p id="result" role="status" aria-live="polite"></p>
-    <p><a href="../../index.html">← Back to Index</a></p>
+    <p><a href="../index.html">← Back to Index</a></p>
 </main>
-<script>
-    document.getElementById("grouped-form").addEventListener("submit", (event) => {
-        event.preventDefault();
-        const values = new FormData(event.currentTarget);
-        document.getElementById("result").textContent = `Registration details are valid for ${values.get("name")} (${values.get("major")}).`;
-    });
-</script>
+<script src="script.js" defer></script>
 </body>
 </html>

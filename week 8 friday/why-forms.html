@@ -40,13 +40,8 @@
         <button type="submit">Search Google</button>
     </form>
     <p id="result" role="status" aria-live="polite"></p>
-    <a class="back-link" href="../../index.html">← Back to Index</a>
+    <a class="back-link" href="../index.html">← Back to Index</a>
 </main>
-<script>
-    document.getElementById("search-form").addEventListener("submit", (event) => {
-        const query = new FormData(event.currentTarget).get("q");
-        document.getElementById("result").textContent = `Opening Google results for “${query}”.`;
-    });
-</script>
+<script src="script.js" defer></script>
 </body>
 </html>

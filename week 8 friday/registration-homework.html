@@ -46,8 +46,8 @@
             </div>
             <div class="field">
                 <label for="homework-id">Student ID (required)</label>
-                <input id="homework-id" name="studentId" type="text" inputmode="numeric" required minlength="9" maxlength="9" pattern="[0-9]{9}" title="Enter exactly 9 digits." aria-describedby="homework-id-hint homework-id-error">
-                <span class="hint" id="homework-id-hint">Enter exactly nine digits.</span>
+                <input id="homework-id" name="studentId" type="text" inputmode="numeric" required aria-describedby="homework-id-hint homework-id-error">
+                <span class="hint" id="homework-id-hint">Enter your student ID using digits 0–9 only.</span>
                 <span class="field-error" id="homework-id-error" hidden></span>
             </div>
             <div class="field">
@@ -91,71 +91,8 @@
             <button type="reset">Reset form</button>
         </div>
     </form>
-    <p><a href="../../index.html">← Back to Index</a></p>
+    <p><a href="../index.html">← Back to Index</a></p>
 </main>
-<script>
-    const form = document.getElementById("homework-form");
-    const fields = Array.from(form.querySelectorAll("input, select"));
-    const message = document.getElementById("message");
-
-    function errorFor(field) {
-        if (field.validity.valueMissing) return "This field is required.";
-        if (field.validity.typeMismatch) return "Enter a valid email address.";
-        if (field.validity.tooShort) return `Enter at least ${field.minLength} characters.`;
-        if (field.validity.tooLong) return `Use no more than ${field.maxLength} characters.`;
-        if (field.validity.rangeUnderflow) return `Enter a value of at least ${field.min}.`;
-        if (field.validity.rangeOverflow) return `Enter a value no greater than ${field.max}.`;
-        if (field.validity.patternMismatch) return field.title || "Use the requested format.";
-        return "Check this value and try again.";
-    }
-
-    function updateError(field) {
-        const error = document.getElementById(`${field.id}-error`);
-        const invalid = !field.validity.valid;
-        field.setAttribute("aria-invalid", String(invalid));
-        error.textContent = invalid ? errorFor(field) : "";
-        error.hidden = !invalid;
-    }
-
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        fields.forEach(updateError);
-        const firstInvalid = fields.find((field) => !field.validity.valid);
-        if (firstInvalid) {
-            message.className = "error";
-            message.textContent = "Please correct the marked fields before submitting.";
-            firstInvalid.focus();
-            return;
-        }
-        message.className = "success";
-        message.textContent = "Registration details are valid. This classroom demo does not send data to a server.";
-    });
-
-    fields.forEach((field) => {
-        const updateAfterEdit = () => {
-            if (!field.hasAttribute("aria-invalid")) return;
-            updateError(field);
-            if (fields.every((item) => item.validity.valid)) {
-                message.className = "";
-                message.textContent = "";
-            }
-        };
-        field.addEventListener("input", updateAfterEdit);
-        field.addEventListener("change", updateAfterEdit);
-    });
-
-    form.addEventListener("reset", () => {
-        window.setTimeout(() => {
-            fields.forEach((field) => {
-                field.removeAttribute("aria-invalid");
-                const error = document.getElementById(`${field.id}-error`);
-                error.textContent = "";
-                error.hidden = true;
-            });
-            message.textContent = "";
-            message.className = "";
-        });
-    });
-</script>
+<script src="script.js" defer></script>
 </body>
 </html>

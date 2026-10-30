@@ -59,13 +59,8 @@
         <button type="submit">Send</button>
     </form>
     <p id="result" role="status" aria-live="polite"></p>
-    <p><a href="../../index.html">← Back to Index</a></p>
+    <p><a href="../index.html">← Back to Index</a></p>
 </main>
-<script>
-    document.getElementById("accessible-form").addEventListener("submit", (event) => {
-        event.preventDefault();
-        document.getElementById("result").textContent = "The labelled form is complete.";
-    });
-</script>
+<script src="script.js" defer></script>
 </body>
 </html>

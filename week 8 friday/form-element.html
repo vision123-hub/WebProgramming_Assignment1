@@ -41,14 +41,8 @@
         <button type="submit">Submit (GET Request)</button>
     </form>
     <p id="result" role="status" aria-live="polite">Submit to see the query values this form collects.</p>
-    <a href="../../index.html">← Back to Index</a>
+    <a href="../index.html">← Back to Index</a>
 </main>
-<script>
-    document.getElementById("search-form").addEventListener("submit", (event) => {
-        event.preventDefault();
-        const values = new URLSearchParams(new FormData(event.currentTarget));
-        document.getElementById("result").textContent = `GET query string: ?${values.toString()}`;
-    });
-</script>
+<script src="script.js" defer></script>
 </body>
 </html>

@@ -41,21 +41,8 @@
         <button type="submit">Check input types</button>
         <output id="result" role="status" aria-live="polite"></output>
     </form>
-    <p><a href="../../index.html">← Back to Index</a></p>
+    <p><a href="../index.html">← Back to Index</a></p>
 </main>
-<script>
-    const typeForm = document.getElementById("types-form");
-    const colorPicker = document.getElementById("type-color");
-    const colorResult = document.getElementById("color-result");
-
-    colorPicker.addEventListener("input", () => {
-        colorResult.textContent = `Selected color: ${colorPicker.value}`;
-    });
-
-    typeForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        document.getElementById("result").textContent = "The browser accepted the required values for these input types.";
-    });
-</script>
+<script src="script.js" defer></script>
 </body>
 </html>
