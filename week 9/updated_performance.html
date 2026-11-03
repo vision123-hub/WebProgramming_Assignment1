@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Week 9 Lighthouse performance and SEO report with verified baseline findings, updates, and test evidence.">
+    <meta name="theme-color" content="#f3f6f8">
+    <title>Week 9 Monday - Performance &amp; SEO Report</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <style>
+        :root { color-scheme: light; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2933; background: #f3f6f8; }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; line-height: 1.6; }
+        main { max-width: 56rem; margin: 0 auto; padding: clamp(1.25rem, 4vw, 2.5rem); background: #fff; border-radius: 0.8rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1, h2 { color: #174c73; line-height: 1.25; }
+        h1 { margin-top: 0; }
+        section { margin-top: 2rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.65rem; border: 1px solid #b8c5ce; text-align: left; vertical-align: top; }
+        a { color: #075985; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+        .note { padding: 1rem; border-left: 0.3rem solid #b87900; background: #fff8e8; }
+        @media (max-width: 35rem) { body { padding: 0.75rem; } th, td { padding: 0.45rem; } }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Week 9 Monday: Performance &amp; SEO</h1>
+    <p>This report uses Lighthouse 13.6.0 on the existing portfolio and its Week 9 accessibility report. Results below are from saved audit files; local preview results are labeled separately from the deployed baseline.</p>
+
+    <section aria-labelledby="setup-heading">
+        <h2 id="setup-heading">Test setup</h2>
+        <ul>
+            <li>Deployed website: <a href="https://vision123-hub.github.io/WebProgramming_Assignment1/">Web Programming Assignments</a>.</li>
+            <li>Audit pages: the deployed homepage baseline; local before-and-after audits of <a href="accessibility-report.html">the Week 9 accessibility report page</a>; and a final local audit of the homepage.</li>
+            <li>Run date: November 4, 2026 (JST); Lighthouse 13.6.0, mobile emulation, 412 × 823 viewport, device scale factor 1.75, simulated throttling.</li>
+            <li>Before/after report-page audits used the same local preview URL. The deployed homepage baseline and local final audit are separate runs and are labeled as such.</li>
+        </ul>
+    </section>
+
+    <section aria-labelledby="baseline-heading">
+        <h2 id="baseline-heading">Original results</h2>
+        <p>The deployed homepage audit scored Performance 100, Accessibility 100, Best Practices 96, and SEO 100. Its FCP was 0.8 s, LCP 0.8 s, Speed Index 1.1 s, TBT 0 ms, and CLS 0. It had no failed Performance audits. It did request <code>https://vision123-hub.github.io/favicon.ico</code>, which returned 404.</p>
+        <p>A separate local baseline audit of the Week 9 report scored Performance 100, Accessibility 100, Best Practices 96, and SEO 91. FCP was 0.6 s, LCP 0.8 s, Speed Index 0.6 s, TBT 0 ms, and CLS 0.</p>
+        <p>Five confirmed findings on the report page were: (1) the LCP screenshot was lazy-loaded and lacked high fetch priority; (2) the 1600 × 1200 before screenshot was oversized for its mobile display; (3) the after screenshot was also oversized; (4) the page requested a missing favicon; and (5) it had no meta description. Lighthouse estimated 152 KiB of image savings across both screenshots, displayed at about 606 × 454 on the emulated mobile viewport.</p>
+        <p class="note">The homepage itself already scored 100 for Performance and had no failed Performance audits. These five findings belong to the separate Week 9 report-page audit, not the homepage.</p>
+    </section>
+
+    <section aria-labelledby="changes-heading">
+        <h2 id="changes-heading">Verified changes made</h2>
+        <ol>
+            <li>Load the above-the-fold “before” screenshot eagerly to resolve the lazy-loaded LCP image finding.</li>
+            <li>Set <code>fetchpriority="high"</code> on that LCP screenshot.</li>
+            <li>Serve a 640-pixel responsive source for the before screenshot.</li>
+            <li>Serve a 960-pixel responsive source for the before screenshot on wider displays.</li>
+            <li>Serve 640-pixel and 960-pixel responsive sources for the after screenshot; keep that below-the-fold image lazy-loaded.</li>
+            <li>Add the correct relative favicon to the report page.</li>
+            <li>Add a descriptive meta description to the report page.</li>
+        </ol>
+        <p>The before and after screenshots are unchanged full-resolution originals. The 640-pixel and 960-pixel derivatives are separate responsive assets.</p>
+    </section>
+
+    <section aria-labelledby="after-heading">
+        <h2 id="after-heading">After audit and reflection</h2>
+        <p>The local report-page after audit scored 100 in Performance, Accessibility, Best Practices, and SEO. FCP was 0.6 s, LCP 1.1 s, Speed Index 0.6 s, TBT 0 ms, and CLS 0. A repeated run returned the same metrics. The first run's LCP was 0.3 s slower than the baseline, so this audit does not show an LCP time improvement even though the LCP discovery finding cleared.</p>
+        <p>The two downloaded responsive screenshots transferred 35,274 bytes and 33,292 bytes, down from 95,653 bytes and 86,241 bytes for the originals in the baseline run (about 110.7 KiB less combined). Lighthouse's image-delivery insight still estimated 47 KiB of additional savings from the 640-pixel files. Its cache-lifetime insight estimated 67 KiB, but the local preview server did not set cache headers; this cache result is a testing limitation, not a confirmed GitHub Pages issue.</p>
+        <p>The final local homepage audit scored 100 in all four categories: Performance, Accessibility, Best Practices, and SEO. FCP, LCP, and Speed Index were each 0.8 s; TBT was 0 ms and CLS was 0. Local tests do not verify the currently deployed GitHub Pages version.</p>
+        <p>Reflection: responsive sources substantially reduced the actual image bytes requested, and the LCP, favicon, and SEO audit findings cleared. The Performance score was already 100 and remained 100; the slower LCP timing and remaining image/cache estimates show why a perfect category score does not mean every opportunity is gone.</p>
+        <figure>
+            <img src="screenshots/performance-before.jpg" alt="Mobile Lighthouse final screenshot of the Week 9 report page before the performance updates." width="250" height="498" loading="lazy" decoding="async">
+            <figcaption>Before: local Week 9 report-page Lighthouse capture.</figcaption>
+        </figure>
+        <figure>
+            <img src="screenshots/performance-after.jpg" alt="Mobile Lighthouse final screenshot of the Week 9 report page after the performance updates." width="250" height="498" loading="lazy" decoding="async">
+            <figcaption>After: local Week 9 report-page Lighthouse capture.</figcaption>
+        </figure>
+    </section>
+
+    <section aria-labelledby="evidence-heading">
+        <h2 id="evidence-heading">Saved evidence</h2>
+        <ul>
+            <li><a href="lighthouse-reports/performance-before.report.html">Homepage baseline Lighthouse report</a></li>
+            <li><a href="lighthouse-reports/accessibility-page-before.report.html">Week 9 report-page baseline Lighthouse report</a></li>
+            <li><a href="screenshots/performance-before.jpg">Week 9 report-page before screenshot</a></li>
+            <li><a href="lighthouse-reports/accessibility-page-after.report.html">Week 9 report-page after Lighthouse report</a></li>
+            <li><a href="lighthouse-reports/accessibility-page-after-repeat">Repeated Week 9 report-page after Lighthouse JSON</a></li>
+            <li><a href="lighthouse-reports/homepage-after.report.html">Updated homepage local Lighthouse report</a></li>
+            <li><a href="screenshots/performance-after.jpg">Week 9 report-page after screenshot</a></li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

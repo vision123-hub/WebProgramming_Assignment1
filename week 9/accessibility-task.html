@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Week 9 Friday accessibility task: verified portfolio improvements, keyboard skip-link check, and Lighthouse evidence.">
+    <meta name="theme-color" content="#f3f6f8">
+    <title>Week 9 Friday - Accessibility Task</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <style>
+        :root { color-scheme: light; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2933; background: #f3f6f8; }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; line-height: 1.6; }
+        main { max-width: 56rem; margin: 0 auto; padding: clamp(1.25rem, 4vw, 2.5rem); background: #fff; border-radius: 0.8rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1, h2 { color: #174c73; line-height: 1.25; }
+        h1 { margin-top: 0; }
+        section { margin-top: 2rem; }
+        a { color: #075985; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+        .note { padding: 1rem; border-left: 0.3rem solid #b87900; background: #fff8e8; }
+        @media (max-width: 35rem) { body { padding: 0.75rem; } }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Week 9 Friday: Accessibility Task</h1>
+    <p>This task reuses the portfolio updates and evidence already completed for this project. The original accessibility report and screenshots are kept unchanged.</p>
+
+    <section aria-labelledby="improvements-heading">
+        <h2 id="improvements-heading">Verified accessibility improvements</h2>
+        <ol>
+            <li>Improved the homepage introduction text contrast after Lighthouse flagged it.</li>
+            <li>Kept the Week 3 Task 5 link movement effect while preventing its text and background colors from transitioning through low-contrast combinations.</li>
+            <li>Added a semantic <code>&lt;main&gt;</code> landmark to the Week 8 pages where Lighthouse had reported it missing.</li>
+        </ol>
+        <p>The existing Lighthouse report records an accessibility score change from 90/100 before the improvements to 100/100 after them.</p>
+    </section>
+
+    <section aria-labelledby="skip-heading">
+        <h2 id="skip-heading">Skip-to-content check</h2>
+        <p>Keyboard test: on the local portfolio, Tab focused “Skip to main content”; Enter moved focus to the <code>&lt;main id="main-content"&gt;</code> landmark and changed the URL fragment to <code>#main-content</code>.</p>
+        <p class="note">Tested in the browser on November 4, 2026. A separate assistive-technology screen-reader test was not performed.</p>
+    </section>
+
+    <section aria-labelledby="evidence-heading">
+        <h2 id="evidence-heading">Existing report and evidence</h2>
+        <ul>
+            <li><a href="accessibility-report.html">Read the complete accessibility audit report</a></li>
+            <li><a href="screenshots/accessibility-before.png">View the original before screenshot</a></li>
+            <li><a href="screenshots/accessibility-after.png">View the original after screenshot</a></li>
+            <li><a href="../index.html#main-content">Open the updated portfolio</a></li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

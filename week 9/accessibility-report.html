@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A Week 9 accessibility audit of the Web Programming portfolio, documenting verified fixes and before-and-after Lighthouse evidence.">
     <title>Week 9 Website Accessibility Audit</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <style>
         :root {
             color-scheme: light;
@@ -49,7 +51,7 @@
             <div class="score"><strong>90/100</strong>Accessibility score before the fixes</div>
         </div>
         <figure>
-            <img src="screenshots/accessibility-before.png" alt="Genuine Lighthouse report screenshot of the course website before the improvements, showing an accessibility score of 90.">
+            <img src="screenshots/accessibility-before.png" srcset="screenshots/accessibility-before-640.png 640w, screenshots/accessibility-before-960.png 960w, screenshots/accessibility-before.png 1600w" sizes="(max-width: 56rem) calc(100vw - 4rem), 51rem" alt="Genuine Lighthouse report screenshot of the course website before the improvements, showing an accessibility score of 90." width="1600" height="1200" fetchpriority="high" decoding="async">
             <figcaption>BEFORE: Lighthouse Accessibility score 90/100.</figcaption>
         </figure>
     </section>
@@ -70,7 +72,7 @@
             <div class="score"><strong>100/100</strong>Accessibility score after the fixes</div>
         </div>
         <figure>
-            <img src="screenshots/accessibility-after.png" alt="Genuine Lighthouse report screenshot of the course website after the improvements, showing an accessibility score of 100.">
+            <img src="screenshots/accessibility-after.png" srcset="screenshots/accessibility-after-640.png 640w, screenshots/accessibility-after-960.png 960w, screenshots/accessibility-after.png 1600w" sizes="(max-width: 56rem) calc(100vw - 4rem), 51rem" alt="Genuine Lighthouse report screenshot of the course website after the improvements, showing an accessibility score of 100." width="1600" height="1200" loading="lazy" decoding="async">
             <figcaption>AFTER: Lighthouse Accessibility score 100/100.</figcaption>
         </figure>
     </section>

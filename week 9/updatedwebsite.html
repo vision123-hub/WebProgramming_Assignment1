@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The updated Web Programming portfolio, with accessible navigation and links to completed course assignments.">
+    <meta name="theme-color" content="#f3f6f8">
+    <title>Week 9 - Updated Portfolio Website</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <style>
+        :root { color-scheme: light; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2933; background: #f3f6f8; }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; line-height: 1.6; }
+        main { max-width: 56rem; margin: 0 auto; padding: clamp(1.25rem, 4vw, 2.5rem); background: #fff; border-radius: 0.8rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1, h2 { color: #174c73; line-height: 1.25; }
+        h1 { margin-top: 0; }
+        a { color: #075985; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
+        .skip-link:focus { top: 1rem; }
+        .button { display: inline-block; margin: 0.5rem 0; padding: 0.7rem 1rem; border-radius: 0.35rem; background: #174c73; color: #fff; font-weight: 700; text-decoration: none; }
+        @media (max-width: 35rem) { body { padding: 0.75rem; } }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Updated Portfolio Website</h1>
+    <p>The course portfolio is maintained at the project root rather than copied into this Week 9 folder. This page links to that original site so assignment pages and relative paths continue to use one portfolio.</p>
+    <p><a class="button" href="../index.html">Open the updated portfolio</a></p>
+    <h2>Accessibility and navigation updates</h2>
+    <ul>
+        <li>A visible-on-focus skip link provides direct access to the portfolio’s main content.</li>
+        <li>The brand link uses its visible text as its accessible name.</li>
+        <li>The root favicon is referenced using a GitHub Pages-compatible relative path.</li>
+    </ul>
+    <p><a href="accessibility-task.html">Read the Week 9 accessibility task</a></p>
+</main>
+</body>
+</html>
