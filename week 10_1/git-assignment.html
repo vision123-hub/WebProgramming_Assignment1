@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Week 10_1 practical Git assignment covering repository setup, staging, commits, history, branches, merging, and GitHub publishing.">
+    <meta name="theme-color" content="#f3f6f8">
+    <title>Week 10_1: Git and GitHub</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <style>
+        :root { color-scheme: light; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2933; background: #f3f6f8; }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; line-height: 1.65; }
+        main { max-width: 56rem; margin: 0 auto; padding: clamp(1.25rem, 4vw, 2.5rem); background: #fff; border-radius: 0.8rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1, h2 { color: #174c73; line-height: 1.25; }
+        h1 { margin-top: 0; }
+        h2 { margin-top: 2rem; }
+        a { color: #075985; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+        code { overflow-wrap: anywhere; }
+        pre { overflow-x: auto; margin: 1rem 0; padding: 1rem; border: 1px solid #d7e0e6; border-radius: 0.45rem; background: #f6f8fa; color: #243746; font-size: 0.9rem; line-height: 1.55; }
+        section { margin-top: 2rem; }
+        li { margin: 0.55rem 0; }
+        .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; border-radius: 0.35rem; }
+        .skip-link:focus { top: 1rem; outline: 3px solid #d48200; outline-offset: 3px; }
+        .note { padding: 1rem; border-left: 0.3rem solid #b87900; background: #fff8e8; }
+        .commit-list { padding-left: 1.5rem; }
+        .page-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #d7e0e6; }
+        @media (max-width: 35rem) { body { padding: 0.75rem; } pre { font-size: 0.8rem; } }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Week 10_1: Git and GitHub</h1>
+    <p>This assignment documents practical version-control work: creating and connecting repositories, recording changes, reviewing history, collaborating with branches, and publishing a personal portfolio.</p>
+
+    <section aria-labelledby="setup-heading">
+        <h2 id="setup-heading">1. Create a repository and connect GitHub</h2>
+        <p>A Git repository stores a project's files and the history of changes. GitHub hosts a remote copy so it can be backed up and shared. For a new local project, I can initialize Git and connect the remote repository:</p>
+        <pre><code>cd my-project
+git init -b main
+git remote add origin https://github.com/USER/REPOSITORY.git
+git remote -v</code></pre>
+        <p>If a repository already exists on GitHub and has commits, cloning it is usually the safer start; cloning creates the local repository and configures <code>origin</code> automatically:</p>
+        <pre><code>git clone https://github.com/USER/REPOSITORY.git
+cd REPOSITORY</code></pre>
+        <p class="note">I should not run <code>git init</code> again in an existing repository or replace a project's remote without a reason. I first check the repository root, current branch, status, and remote.</p>
+    </section>
+
+    <section aria-labelledby="status-heading">
+        <h2 id="status-heading">2. Check the working tree with git status</h2>
+        <p><code>git status</code> shows the current branch and whether files are modified, staged, deleted, or untracked. Checking status before and after each Git operation helps me avoid including unrelated work.</p>
+        <pre><code>git status
+git status --short --branch</code></pre>
+        <p>Untracked files are not included in a commit until I explicitly add them. Existing local changes should be reviewed and preserved rather than discarded.</p>
+    </section>
+
+    <section aria-labelledby="staging-heading">
+        <h2 id="staging-heading">3. Stage and commit a focused change</h2>
+        <p><code>git add</code> selects changes for the next commit. Staging specific paths is safer than staging every file when unrelated changes are present. A commit records the staged snapshot with a short, descriptive message.</p>
+        <pre><code>git add index.html styles.css
+git status
+git commit -m "Describe the portfolio improvement"</code></pre>
+        <p>Each commit should represent a real, reviewable improvement. I check the staged files before committing so the message accurately describes what it contains.</p>
+    </section>
+
+    <section aria-labelledby="history-heading">
+        <h2 id="history-heading">4. Review the commit history with git log</h2>
+        <p><code>git log</code> shows previous commits, their messages, authors, and dates. The compact format is useful for quickly counting and reviewing meaningful work.</p>
+        <pre><code>git log --oneline
+git log --oneline --decorate</code></pre>
+        <p>A history is useful only when commits contain genuine changes. Empty commits or invented messages do not demonstrate completed work.</p>
+    </section>
+
+    <section aria-labelledby="branches-heading">
+        <h2 id="branches-heading">5. Create and switch branches</h2>
+        <p>A branch lets me develop a change separately from the main line. <code>git branch</code> lists branches; <code>git checkout -b</code> creates a branch and switches to it. <code>git checkout</code> can also switch to an existing branch.</p>
+        <pre><code>git branch
+git checkout -b feature/update-readme
+# make and commit a focused change
+git checkout main</code></pre>
+        <p>I can also use <code>git switch -c feature/update-readme</code> to create and switch to a branch. Before switching, I check the working tree and commit or safely preserve work in progress.</p>
+    </section>
+
+    <section aria-labelledby="merge-heading">
+        <h2 id="merge-heading">6. Merge completed work</h2>
+        <p>After a branch is reviewed and its changes are ready, I switch to the branch that should receive them, then merge the feature branch into it.</p>
+        <pre><code>git checkout main
+git merge feature/update-readme
+git status</code></pre>
+        <p>If Git reports a conflict, I inspect the conflicted files, resolve the conflicting sections, stage the resolutions, and complete the merge commit if Git requests one. I do not overwrite work without understanding the conflict.</p>
+    </section>
+
+    <section aria-labelledby="sync-heading">
+        <h2 id="sync-heading">7. Pull from and push to GitHub</h2>
+        <p><code>git pull</code> retrieves remote commits and integrates them into the current branch. I pull before starting work when the shared branch may have advanced. <code>git push</code> sends my local commits to GitHub.</p>
+        <pre><code>git pull origin main
+git push -u origin main</code></pre>
+        <p>The <code>-u</code> option sets the upstream the first time I push a branch. Later, I can use <code>git push</code> and <code>git pull</code>. If local and remote histories diverge, I read Git's message, review both histories, and resolve the situation deliberately rather than force-pushing.</p>
+    </section>
+
+    <section aria-labelledby="portfolio-heading">
+        <h2 id="portfolio-heading">8. Practical project: my personal GitHub portfolio</h2>
+        <p>I developed and published my portfolio in <a href="https://github.com/vision123-hub/portfolio">vision123-hub/portfolio on GitHub</a>. I used Git to track real improvements, create descriptive commits, inspect the history, and push the completed work to <code>origin main</code>. The portfolio includes its introduction and project work, a circular sunset photograph, an animated cat, social-sharing metadata, a favicon, and a branded not-found page.</p>
+        <p>The meaningful commit history contains these six changes, shown from oldest to newest:</p>
+        <ol class="commit-list">
+            <li><code>a47f7a3</code> — Create luxury pink and black portfolio foundation</li>
+            <li><code>8c194f8</code> — Add portfolio project documentation</li>
+            <li><code>7cc7898</code> — Complete portfolio cat and photo presentation</li>
+            <li><code>e2dafe9</code> — Add portfolio social sharing metadata</li>
+            <li><code>a56d200</code> — Add matching portfolio favicon</li>
+            <li><code>edbc29a</code> — Add branded GitHub Pages not-found page</li>
+        </ol>
+    </section>
+
+    <section aria-labelledby="requirement-heading">
+        <h2 id="requirement-heading">9. Meaningful commit requirement and reflection</h2>
+        <p>The assignment requirement was at least five meaningful Git commits. My portfolio has six commits, so it exceeds the requirement by one. Each commit corresponds to actual portfolio work rather than an empty or fabricated change.</p>
+        <p>I learned that Git status helps me understand what will be recorded, staging lets me select the exact change, and commits make a useful project history. Branches support isolated work, merging brings finished work together, and pull/push keep local and GitHub copies synchronized. Reviewing the remote and history after publishing confirms what was actually delivered.</p>
+    </section>
+
+    <nav class="page-links" aria-label="Related coursework">
+        <a href="../index.html">Course homepage</a>
+        <a href="../week%209/accessibility-task.html">Previous: Week 9 Accessibility Task</a>
+    </nav>
+</main>
+</body>
+</html>
