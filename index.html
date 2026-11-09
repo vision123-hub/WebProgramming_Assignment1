@@ -90,6 +90,15 @@
         .site-nav { display: flex; flex-wrap: wrap; gap: clamp(1rem, 3vw, 2rem); }
         .site-nav a { color: var(--muted); font-size: 0.88rem; text-decoration: none; transition: color 180ms ease; }
         .site-nav a:hover { color: var(--violet); }
+        .site-nav a.portfolio-link {
+            padding: 0.35rem 0.7rem;
+            border: 1px solid #ded5f3;
+            border-radius: 0.6rem;
+            background: #fff;
+            color: #5636a1;
+            font-weight: 700;
+        }
+        .site-nav a.portfolio-link:hover { border-color: #bda9e8; background: #f4efff; color: #5636a1; }
         .hero {
             position: relative;
             z-index: 1;
@@ -305,6 +314,7 @@
                 <a href="#skills">Skills</a>
                 <a href="#assignments">Assignments</a>
                 <a href="#projects">Projects</a>
+                <a class="portfolio-link" href="https://vision123-hub.github.io/portfolio/" target="_blank" rel="noopener noreferrer">Personal Portfolio <span aria-hidden="true">↗</span></a>
             </nav>
         </div>
         <div class="hero" id="top">
