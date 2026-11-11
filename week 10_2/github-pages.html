@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Week 10_2 practical GitHub Pages assignment covering deployment, missing pages, and a custom 404 response.">
+    <meta name="theme-color" content="#f3f6f8">
+    <title>Week 10_2: GitHub Pages</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <style>
+        :root { color-scheme: light; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2933; background: #f3f6f8; }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 2rem 1rem; line-height: 1.65; }
+        main { max-width: 56rem; margin: 0 auto; padding: clamp(1.25rem, 4vw, 2.5rem); background: #fff; border-radius: 0.8rem; box-shadow: 0 0.5rem 1.5rem #17212b12; }
+        h1, h2 { color: #174c73; line-height: 1.25; }
+        h1 { margin-top: 0; }
+        h2 { margin-top: 2rem; }
+        a { color: #075985; }
+        a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
+        code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+        code { overflow-wrap: anywhere; }
+        pre { overflow-x: auto; margin: 1rem 0; padding: 1rem; border: 1px solid #d7e0e6; border-radius: 0.45rem; background: #f6f8fa; color: #243746; font-size: 0.9rem; line-height: 1.55; }
+        section { margin-top: 2rem; }
+        li { margin: 0.55rem 0; }
+        .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; border-radius: 0.35rem; }
+        .skip-link:focus { top: 1rem; outline: 3px solid #d48200; outline-offset: 3px; }
+        .note { padding: 1rem; border-left: 0.3rem solid #b87900; background: #fff8e8; }
+        .page-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #d7e0e6; }
+        @media (max-width: 35rem) { body { padding: 0.75rem; } pre { font-size: 0.8rem; } }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+    <h1>Week 10_2: GitHub Pages</h1>
+    <p>GitHub Pages publishes a static website from a GitHub repository. This exercise uses the existing <a href="https://github.com/vision123-hub/WebProgramming_Assignment1">WebProgramming_Assignment1 repository</a>; it does not create another repository or move any coursework.</p>
+
+    <section aria-labelledby="publish-heading">
+        <h2 id="publish-heading">1. Configure Pages and publish the website</h2>
+        <p>This course website is published from the repository's <code>main</code> branch and repository root. Its project-site address is <a href="https://vision123-hub.github.io/WebProgramming_Assignment1/">https://vision123-hub.github.io/WebProgramming_Assignment1/</a>. A project site includes the repository name in its URL, so files should use relative paths such as <code>week%2010_2/github-pages.html</code>.</p>
+        <ol>
+            <li>Open the repository on GitHub and select <strong>Settings</strong>, then <strong>Pages</strong>.</li>
+            <li>Under <strong>Build and deployment</strong>, choose <strong>Deploy from a branch</strong>, select <code>main</code> and <code>/(root)</code>, then save.</li>
+            <li>Wait for the Pages deployment in the repository's <strong>Actions</strong> tab to complete, then open the published site URL and check the page and its navigation.</li>
+        </ol>
+        <p class="note">Pages is already serving the existing course site. These Week 10 additions are local until they are committed and pushed to <code>main</code>; deployment of these changes and the live checks below must therefore happen after publishing them.</p>
+    </section>
+
+    <section aria-labelledby="missing-heading">
+        <h2 id="missing-heading">2. Request a missing page</h2>
+        <p>A URL that does not match a published file should return an HTTP <code>404 Not Found</code> response. Before adding a custom page, test a deliberately nonexistent path in a browser and note the hosting provider's default not-found response.</p>
+        <pre><code>curl -i https://vision123-hub.github.io/WebProgramming_Assignment1/this-page-does-not-exist.html</code></pre>
+        <p>Check both the response status and the page body. A useful not-found page should explain the problem and give visitors a working route back to the site.</p>
+    </section>
+
+    <section aria-labelledby="custom-heading">
+        <h2 id="custom-heading">3. Create and deploy a custom 404 page</h2>
+        <p>GitHub Pages automatically uses a file named <code>404.html</code> at the published root for missing paths. This repository includes a custom page with a clear message and links back to the homepage and assignments. Relative links work under the repository's project-site path.</p>
+        <pre><code>git status --short
+git add 404.html
+git diff --cached
+git commit -m "Add a custom GitHub Pages 404 page"
+git push origin main</code></pre>
+        <p>After the push, wait for the Pages workflow to finish. Then request a different nonexistent URL and verify that the custom content appears while the HTTP response remains <code>404 Not Found</code>. The file itself can also be opened directly at <code>.../404.html</code>; that direct file request returns <code>200 OK</code>, so it does not replace testing an actually missing URL.</p>
+        <p class="note">The commands above are an example of a direct push. For the class pull-request workflow, publish a feature branch and merge it into <code>main</code> through a reviewed PR instead. Do not stage unrelated existing work.</p>
+    </section>
+
+    <section aria-labelledby="reflection-heading">
+        <h2 id="reflection-heading">4. Reflection</h2>
+        <p>GitHub Pages provides hosting for static files directly from a repository. Testing a real missing URL confirms both the status code and the user experience; a branded <code>404.html</code> helps visitors recover without hiding that the requested page was not found.</p>
+    </section>
+
+    <nav class="page-links" aria-label="Related coursework">
+        <a href="../index.html">Course homepage</a>
+        <a href="../week%2010_1/git-assignment.html">Previous: Week 10_1 Git and GitHub</a>
+    </nav>
+</main>
+</body>
+</html>

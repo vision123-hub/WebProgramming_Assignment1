@@ -101,8 +101,28 @@ git push -u origin main</code></pre>
         <p>The <code>-u</code> option sets the upstream the first time I push a branch. Later, I can use <code>git push</code> and <code>git pull</code>. If local and remote histories diverge, I read Git's message, review both histories, and resolve the situation deliberately rather than force-pushing.</p>
     </section>
 
+    <section aria-labelledby="pull-request-heading">
+        <h2 id="pull-request-heading">8. Collaborate with a GitHub pull request</h2>
+        <p>A pull request (PR) proposes changes from a branch for review before they are merged into <code>main</code>. For example, I can make a small documentation improvement on a feature branch, publish that branch, and ask for review:</p>
+        <pre><code>git switch -c feature/coursework-update
+# Make and save a focused change
+git add path/to/changed-file.html
+git diff --cached
+git commit -m "Document coursework update"
+git push -u origin feature/coursework-update</code></pre>
+        <ol>
+            <li>On GitHub, open the repository and choose <strong>Pull requests</strong>, then <strong>New pull request</strong>.</li>
+            <li>Set the base to <code>main</code> and compare it with <code>feature/coursework-update</code>. Review the changed-file list and diff, add a clear title and description, and create the PR.</li>
+            <li>Review the PR's changes and checks. Leave comments or request changes if needed; when it is ready, select <strong>Merge pull request</strong> and confirm.</li>
+            <li>Update the local main branch after the merge:</li>
+        </ol>
+        <pre><code>git switch main
+git pull origin main</code></pre>
+        <p class="note">Creating and merging the PR are GitHub actions: use the GitHub website (or GitHub CLI) after pushing the branch. Before staging, inspect <code>git status</code> and stage only the intended files. For a file that also has unrelated local edits, use <code>git add -p</code> and review <code>git diff --cached</code> so those edits stay out of the PR.</p>
+    </section>
+
     <section aria-labelledby="portfolio-heading">
-        <h2 id="portfolio-heading">8. Practical project: my personal GitHub portfolio</h2>
+        <h2 id="portfolio-heading">9. Practical project: my personal GitHub portfolio</h2>
         <p>I developed and published my portfolio in <a href="https://github.com/vision123-hub/portfolio">vision123-hub/portfolio on GitHub</a>. I used Git to track real improvements, create descriptive commits, inspect the history, and push the completed work to <code>origin main</code>. The portfolio includes its introduction and project work, a circular sunset photograph, an animated cat, social-sharing metadata, a favicon, and a branded not-found page.</p>
         <p>The meaningful commit history contains these six changes, shown from oldest to newest:</p>
         <ol class="commit-list">
@@ -116,7 +136,7 @@ git push -u origin main</code></pre>
     </section>
 
     <section aria-labelledby="requirement-heading">
-        <h2 id="requirement-heading">9. Meaningful commit requirement and reflection</h2>
+        <h2 id="requirement-heading">10. Meaningful commit requirement and reflection</h2>
         <p>The assignment requirement was at least five meaningful Git commits. My portfolio has six commits, so it exceeds the requirement by one. Each commit corresponds to actual portfolio work rather than an empty or fabricated change.</p>
         <p>I learned that Git status helps me understand what will be recorded, staging lets me select the exact change, and commits make a useful project history. Branches support isolated work, merging brings finished work together, and pull/push keep local and GitHub copies synchronized. Reviewing the remote and history after publishing confirms what was actually delivered.</p>
     </section>
@@ -124,6 +144,7 @@ git push -u origin main</code></pre>
     <nav class="page-links" aria-label="Related coursework">
         <a href="../index.html">Course homepage</a>
         <a href="../week%209/accessibility-task.html">Previous: Week 9 Accessibility Task</a>
+        <a href="../week%2010_2/github-pages.html">Next: Week 10_2 GitHub Pages</a>
     </nav>
 </main>
 </body>
