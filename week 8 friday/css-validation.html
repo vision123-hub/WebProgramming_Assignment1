@@ -16,6 +16,9 @@
         input:focus-visible { outline: 3px solid #d48200; outline-offset: 2px; }
         input:valid:not(:placeholder-shown) { background-color: #edf8ef; border-color: #28723b; }
         input:invalid:not(:focus):not(:placeholder-shown) { background-color: #fff0f0; border-color: #a32121; }
+        .evidence-figure { margin: 2rem 0 0; }
+        .evidence-figure img { display: block; width: 100%; height: auto; border-radius: 0.5rem; }
+        .evidence-figure figcaption { margin-top: 0.65rem; color: #465563; font-size: 0.92rem; }
         .hint { color: #465563; font-size: 0.92rem; }
         a:focus-visible { outline: 3px solid #d48200; outline-offset: 3px; }
         .skip-link { position: absolute; top: -4rem; left: 1rem; z-index: 1; padding: 0.7rem 1rem; background: #fff; color: #123b59; border: 2px solid #123b59; }
@@ -39,6 +42,10 @@
             <span class="hint" id="css-password-hint">The browser checks the minimum length; CSS styles the validity state.</span>
         </div>
     </form>
+    <figure class="evidence-figure">
+        <img src="../assets/screenshots/week8-validation-feedback.png" width="1440" height="900" loading="lazy" decoding="async" alt="Deployed CSS validation exercise with browser-typed incomplete email and short password shown in invalid styles.">
+        <figcaption>Deployed validation feedback for harmless test input: the incomplete email and short password are marked invalid.</figcaption>
+    </figure>
     <p><a href="../index.html">← Back to Index</a></p>
 </main>
 <script src="script.js" defer></script>

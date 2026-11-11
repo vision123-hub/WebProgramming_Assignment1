@@ -263,6 +263,16 @@
         .assignment-day h3 { margin: 0 0 0.8rem; color: #6f687d; font-size: 0.95rem; }
         .assignment-day .tasks { grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); }
         .week-nine .tasks { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+        .evidence-groups { display: grid; gap: 2.5rem; }
+        .evidence-group h3 { margin: 0 0 1rem; color: var(--text); font-size: 1.2rem; letter-spacing: -0.025em; }
+        .evidence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; }
+        .evidence-card { overflow: hidden; margin: 0; border: 1px solid var(--line); border-radius: 1rem; background: linear-gradient(145deg, #fff, #fbfaff); box-shadow: 0 14px 38px rgba(68, 49, 111, 0.055); }
+        .evidence-card > a { display: block; overflow: hidden; background: var(--surface-raised); }
+        .evidence-card img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+        .evidence-card figcaption { padding: 1rem 1rem 1.1rem; }
+        .evidence-card figcaption a { color: #5636a1; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+        .evidence-card figcaption p { margin: 0.45rem 0 0; color: var(--muted); font-size: 0.86rem; }
+        .evidence-card:focus-within { outline: 3px solid var(--blue); outline-offset: 3px; }
         footer { padding: 1.7rem 0 2.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; text-align: center; }
         @keyframes arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes float { 0%, 100% { transform: translateY(0) rotate(1.2deg); } 50% { transform: translateY(-10px) rotate(0deg); } }
@@ -314,6 +324,7 @@
                 <a href="#skills">Skills</a>
                 <a href="#assignments">Assignments</a>
                 <a href="#projects">Projects</a>
+                <a href="#evidence">Screenshots</a>
                 <a class="portfolio-link" href="https://vision123-hub.github.io/portfolio/" target="_blank" rel="noopener noreferrer">Personal Portfolio <span aria-hidden="true">↗</span></a>
             </nav>
         </div>
@@ -569,6 +580,107 @@
                     <p>A Week 9 report focused on evaluating and improving accessible experiences.</p>
                     <span class="project-arrow" aria-hidden="true">Explore project →</span>
                 </a>
+            </div>
+        </section>
+
+        <section class="section" id="evidence" aria-labelledby="evidence-heading">
+            <div class="section-heading">
+                <h2 id="evidence-heading">My Coursework Screenshots</h2>
+                <p>A few screenshots of my assignments as I worked through the course. Click a screenshot or its title to open that page.</p>
+            </div>
+            <div class="evidence-groups">
+                <div class="evidence-group">
+                    <h3>Weeks 2–4: HTML and CSS</h3>
+                    <div class="evidence-grid">
+                        <figure class="evidence-card">
+                            <a href="index.html"><img src="assets/screenshots/homepage.png" width="1440" height="900" loading="lazy" decoding="async" alt="Desktop capture of the deployed coursework homepage hero and navigation."></a>
+                            <figcaption><a href="index.html">My homepage</a><p>The top of my homepage, with my introduction and navigation.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="index.html#assignments"><img src="assets/screenshots/homepage-assignment-navigation.png" width="1440" height="900" loading="lazy" decoding="async" alt="Deployed homepage scrolled to its weekly assignment navigation cards."></a>
+                            <figcaption><a href="index.html#assignments">Assignment list</a><p>The weekly links on my homepage.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%202%20monday/assignment1.html"><img src="assets/screenshots/week2-html-assignment.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 2 deployed HTML exercise showing its Gachon heading."></a>
+                            <figcaption><a href="week%202%20monday/assignment1.html">Week 2: first HTML page</a><p>My first page from the course.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%203%20monday/task3.html"><img src="assets/screenshots/week3-css-exercise.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 3 CSS colour palette exercise with five coloured swatches."></a>
+                            <figcaption><a href="week%203%20monday/task3.html">Week 3: colour palette</a><p>A CSS exercise with five colours.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%204%20monday/task2.html"><img src="assets/screenshots/week4-layout-exercise.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 4 profile-card layout exercise with a dark-mode control."></a>
+                            <figcaption><a href="week%204%20monday/task2.html">Week 4: profile card</a><p>A profile layout with a dark-mode button.</p></figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="evidence-group">
+                    <h3>Weeks 5–7: JavaScript, APIs, and search</h3>
+                    <div class="evidence-grid">
+                        <figure class="evidence-card">
+                            <a href="week%205/counter.html"><img src="assets/screenshots/week5-javascript-counter.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 5 JavaScript counter after two Add button interactions, displaying 2."></a>
+                            <figcaption><a href="week%205/counter.html">Week 5: counter</a><p>The counter after I clicked Add twice.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%206/api-tasks.html"><img src="assets/screenshots/week6-api-applications.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 6 page linking six browser-based API applications."></a>
+                            <figcaption><a href="week%206/api-tasks.html">Week 6: API exercises</a><p>The page linking my six API projects.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%206/weather.html"><img src="assets/screenshots/week6-weather-results.png" width="1440" height="900" loading="lazy" decoding="async" alt="Live Kathmandu weather conditions and a three-day forecast loaded from Open-Meteo."></a>
+                            <figcaption><a href="week%206/weather.html">Week 6: weather app</a><p>Weather for Kathmandu loaded from Open-Meteo.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%206/dogs.html"><img src="assets/screenshots/week6-random-dog.png" width="1440" height="900" loading="lazy" decoding="async" alt="Random Dog exercise after its button loaded a real dog photo from the Dog CEO API."></a>
+                            <figcaption><a href="week%206/dogs.html">Week 6: random dog</a><p>A dog photo loaded from the Dog CEO API.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%207/search.html"><img src="assets/screenshots/week7-book-search-results.png" width="1440" height="900" loading="lazy" decoding="async" alt="Open Library results for a real search for The Hobbit."></a>
+                            <figcaption><a href="week%207/search.html">Week 7: book search</a><p>Search results for “The Hobbit” from Open Library.</p></figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="evidence-group">
+                    <h3>Weeks 8–9: forms and website improvements</h3>
+                    <div class="evidence-grid">
+                        <figure class="evidence-card">
+                            <a href="week%208%20monday/contact-form.html"><img src="assets/screenshots/week8-contact-form.png" width="1440" height="900" loading="lazy" decoding="async" alt="Contact form filled with fictional example details; the form was not submitted."></a>
+                            <figcaption><a href="week%208%20monday/contact-form.html">Week 8: contact form</a><p>Example details in the form. I did not submit it.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%208%20friday/css-validation.html"><img src="assets/screenshots/week8-validation-feedback.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 8 CSS validation exercise showing red invalid states for an incomplete email and short password."></a>
+                            <figcaption><a href="week%208%20friday/css-validation.html">Week 8: form validation</a><p>An incomplete email and short password show the invalid styles.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%209/updatedwebsite.html"><img src="assets/screenshots/week9-updated-website.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 9 updated website assignment linking back to the published course portfolio."></a>
+                            <figcaption><a href="week%209/updatedwebsite.html">Week 9: updated website</a><p>The assignment page linking back to my homepage.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%209/accessibility-task.html"><img src="assets/screenshots/week9-accessibility-work.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 9 accessibility task documenting verified accessibility improvements."></a>
+                            <figcaption><a href="week%209/accessibility-task.html">Week 9: accessibility</a><p>Notes and links from my accessibility task.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%209/updated_performance.html"><img src="assets/screenshots/week9-performance-work.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 9 performance and SEO report on the deployed coursework site."></a>
+                            <figcaption><a href="week%209/updated_performance.html">Week 9: performance and SEO</a><p>My report with its Lighthouse results.</p></figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="evidence-group">
+                    <h3>Week 10: GitHub and publishing</h3>
+                    <div class="evidence-grid">
+                        <figure class="evidence-card">
+                            <a href="week%2010_1/git-assignment.html"><img src="assets/screenshots/week10-1-git-assignment.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 10_1 Git and GitHub assignment showing practical version-control exercises."></a>
+                            <figcaption><a href="week%2010_1/git-assignment.html">Week 10_1: Git and GitHub</a><p>My notes and exercises on Git and GitHub.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="week%2010_2/github-pages.html"><img src="assets/screenshots/week10-2-github-pages.png" width="1440" height="900" loading="lazy" decoding="async" alt="Week 10_2 GitHub Pages assignment covering publishing and custom error pages."></a>
+                            <figcaption><a href="week%2010_2/github-pages.html">Week 10_2: GitHub Pages</a><p>My notes on publishing the site and making a 404 page.</p></figcaption>
+                        </figure>
+                        <figure class="evidence-card">
+                            <a href="this-deployed-page-does-not-exist-evidence.html"><img src="assets/screenshots/custom-404-page.png" width="1440" height="900" loading="lazy" decoding="async" alt="Custom deployed 404 page shown after requesting a missing coursework route."></a>
+                            <figcaption><a href="this-deployed-page-does-not-exist-evidence.html">Custom 404 page</a><p>What appears when I open a page that does not exist.</p></figcaption>
+                        </figure>
+                    </div>
+                </div>
             </div>
         </section>
 
