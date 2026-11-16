@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#fbfaff">
-    <meta name="description" content="SeoulMate is a group project travel guide for exploring Seoul with local guides, group tours, and a personalized day planner.">
-    <title>SeoulMate | Week 11 Group Project</title>
+    <meta name="description" content="SeoulMate is a team project travel companion for discovering Seoul through local guides, group tours, day planning, and practical travel information.">
+    <title>SeoulMate | Team Project</title>
     <style>
         :root {
             color-scheme: light;
@@ -78,13 +78,8 @@
         .eyebrow { margin: 0 0 0.9rem; color: #704bc9; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
         h1, h2, h3, p { overflow-wrap: anywhere; }
         h1 { margin: 0; font-size: clamp(3rem, 8vw, 5.8rem); letter-spacing: -0.075em; line-height: 1; }
-        .hero-copy { max-width: 700px; margin: 1.25rem 0 0; color: #625c70; font-size: clamp(1.05rem, 2vw, 1.2rem); }
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-top: 1.8rem;
-        }
+        .hero-copy { max-width: 720px; margin: 1.25rem 0 0; color: #625c70; font-size: clamp(1.05rem, 2vw, 1.2rem); }
+        .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
         .button {
             display: inline-flex;
             min-height: 48px;
@@ -108,7 +103,7 @@
         .content-section { margin-top: clamp(3.5rem, 7vw, 5.5rem); }
         .section-kicker { margin: 0 0 0.4rem; color: var(--violet); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
         h2 { margin: 0; font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -0.05em; line-height: 1.15; }
-        .section-intro { max-width: 720px; margin: 0.7rem 0 0; color: var(--muted); }
+        .section-intro { max-width: 760px; margin: 0.7rem 0 0; color: var(--muted); }
         .feature-grid, .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
         .card {
             min-width: 0;
@@ -141,77 +136,103 @@
     <a class="skip-link" href="#main-content">Skip to project information</a>
     <header class="site-header">
         <div class="container nav-wrap">
-            <a class="brand" href="../index.html">
+            <a class="brand" href="../../index.html">
                 <span class="brand-mark" aria-hidden="true">VP</span>
                 <span>Web Programming Coursework</span>
             </a>
-            <a class="back-link" href="../index.html">Back to homepage</a>
+            <a class="back-link" href="../../index.html">Back to homepage</a>
         </div>
     </header>
     <main class="container" id="main-content" tabindex="-1">
         <section class="hero" aria-labelledby="project-title">
-            <p class="eyebrow">Week 11 · Group Project</p>
+            <p class="eyebrow">Web Programming · Team Project</p>
             <h1 id="project-title">SeoulMate</h1>
-            <p class="hero-copy">Explore Seoul with people who know it. SeoulMate brings local guides, small-group tours, and flexible day planning together to help visitors spend less time navigating and more time discovering the city.</p>
+            <p class="hero-copy">A travel companion for discovering Seoul with local guides, small-group experiences, and a flexible day planner. SeoulMate brings these tools together to help visitors spend less time navigating and more time exploring.</p>
             <div class="actions">
                 <a class="button button-primary" href="https://seoulmate-chi.vercel.app/en" target="_blank" rel="noopener noreferrer" aria-label="Open the live SeoulMate application in a new tab">
-                    Open the live SeoulMate app <span aria-hidden="true">↗</span>
+                    Visit the live SeoulMate app <span aria-hidden="true">↗</span>
                 </a>
-                <a class="button" href="../index.html">Return to coursework</a>
+                <a class="button" href="../../index.html">Return to coursework</a>
             </div>
         </section>
 
-        <section class="content-section" aria-labelledby="purpose-heading">
-            <p class="section-kicker">The idea</p>
-            <h2 id="purpose-heading">A more personal way to explore Seoul</h2>
-            <p class="section-intro">SeoulMate is a travel-guide project for visitors who want help discovering the city. It connects travelers with local guides and group experiences, while giving independent visitors tools and information to plan their own days.</p>
+        <section class="content-section" aria-labelledby="introduction-heading">
+            <p class="section-kicker">01 · Introduction</p>
+            <h2 id="introduction-heading">A more connected way to explore Seoul</h2>
+            <p class="section-intro">SeoulMate is a web travel guide for visitors who want help discovering the city. Its purpose is to bring trip planning, local knowledge, and group experiences together in one place, whether someone wants to explore with a guide or plan a day independently.</p>
+        </section>
+
+        <section class="content-section" aria-labelledby="approach-heading">
+            <p class="section-kicker">02 · Problem and solution</p>
+            <h2 id="approach-heading">From travel planning to city exploring</h2>
+            <div class="feature-grid">
+                <article class="card">
+                    <h3>The problem</h3>
+                    <p>Visitors may have to piece together places to visit, route planning, local guidance, and group activities across different services. Navigating an unfamiliar city and finding experiences that fit their language and interests can add friction to a trip.</p>
+                </article>
+                <article class="card">
+                    <h3>The solution</h3>
+                    <p>SeoulMate brings local guide discovery, group tours, day planning, and practical city information into one travel companion, with options for guided and independent exploration.</p>
+                </article>
+            </div>
         </section>
 
         <section class="content-section" aria-labelledby="features-heading">
-            <p class="section-kicker">What you can do</p>
-            <h2 id="features-heading">Main features</h2>
+            <p class="section-kicker">03 · Platform features</p>
+            <h2 id="features-heading">Ways to explore Seoul</h2>
             <div class="feature-grid">
                 <article class="card">
-                    <h3>Join a group tour</h3>
-                    <p>Browse upcoming small-group walks and experiences, including details such as meeting points, duration, available seats, and who is joining.</p>
+                    <h3>Group tours</h3>
+                    <p>Browse upcoming small-group experiences, see who is joining, and find tour details before booking.</p>
                 </article>
                 <article class="card">
-                    <h3>Find a local guide</h3>
-                    <p>Explore guide profiles by specialty and language, review ratings, and discover private-tour options.</p>
+                    <h3>Local guides</h3>
+                    <p>Explore guide profiles with languages, specialties, and traveller reviews, and find options for private guiding.</p>
                 </article>
                 <article class="card">
-                    <h3>Plan a day in Seoul</h3>
-                    <p>Choose places to visit and use the day planner to organize an itinerary across the city.</p>
+                    <h3>Day planner</h3>
+                    <p>Choose places to visit and organize a day with suggested stop order and walking or subway travel times.</p>
                 </article>
                 <article class="card">
-                    <h3>Explore practical city information</h3>
-                    <p>Find guides to places, food, hotels, and transport, along with a Seoul weather forecast and interactive map.</p>
+                    <h3>Practical travel information</h3>
+                    <p>Check Seoul weather and browse city guidance. The site offers English and Korean language options.</p>
                 </article>
             </div>
         </section>
 
-        <section class="content-section" aria-labelledby="project-details-heading">
-            <p class="section-kicker">Project details</p>
-            <h2 id="project-details-heading">A completed group project</h2>
+        <section class="content-section" aria-labelledby="technology-heading">
+            <p class="section-kicker">04 · Development</p>
+            <h2 id="technology-heading">Technologies and services</h2>
             <div class="details-grid">
                 <article class="card">
-                    <h3>Team</h3>
-                    <p>SeoulMate was completed as a group project. Individual member names were not provided for this project page.</p>
-                </article>
-                <article class="card">
-                    <h3>Verified technologies and services</h3>
+                    <h3>Verified in the deployed project</h3>
                     <ul>
-                        <li><strong>Next.js</strong> — the deployed site serves Next.js-generated assets.</li>
-                        <li><strong>Stripe</strong> — the site states that payments run in test mode.</li>
+                        <li><strong>Next.js</strong> — the deployed application serves Next.js-generated assets.</li>
+                        <li><strong>Stripe</strong> — used for checkout; the application notes that payment details go directly to Stripe.</li>
                         <li><strong>Open-Meteo</strong> — credited as the weather data provider.</li>
+                        <li><strong>Vercel</strong> — the live application is deployed at a Vercel domain.</li>
                     </ul>
                 </article>
+                <article class="card">
+                    <h3>Project links</h3>
+                    <p>The deployed SeoulMate application is available to explore:</p>
+                    <p><a href="https://seoulmate-chi.vercel.app/en" target="_blank" rel="noopener noreferrer">Open SeoulMate on Vercel <span aria-hidden="true">↗</span></a></p>
+                    <p class="note">A separate SeoulMate source-code repository URL could not be verified, so no GitHub repository link is included.</p>
+                </article>
             </div>
-            <p class="note">The deployed site describes SeoulMate as a demo travel guide. A separate source-code repository URL was not available, so no source repository link is listed here.</p>
+        </section>
+
+        <section class="content-section" aria-labelledby="team-heading">
+            <p class="section-kicker">05 · Collaboration</p>
+            <h2 id="team-heading">Team project</h2>
+            <article class="card">
+                <h3>Team members</h3>
+                <p>SeoulMate was completed as a group project. Individual member names and responsibilities were not available in the project materials reviewed, so they are not listed here.</p>
+            </article>
         </section>
     </main>
     <footer>
-        <div class="container">SeoulMate · Week 11 Group Project</div>
+        <div class="container">SeoulMate · Web Programming Team Project</div>
     </footer>
 </body>
 </html>
