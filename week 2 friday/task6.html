@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Blog</title>
 </head>
 
@@ -11,7 +12,7 @@
         <h1>My Blog</h1>
 
         <nav>
-            <a href="/">Home</a>
+            <a href="../index.html">Home</a>
         </nav>
     </header>
 
@@ -21,8 +22,13 @@
             <h2>Semantic HTML</h2>
 
             <figure>
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80"
-                     alt="Computer screen showing web programming code">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+                     alt="Computer screen showing web programming code"
+                     width="600"
+                     height="400"
+                     style="max-width: 100%; height: auto;"
+                     loading="lazy"
+                     decoding="async">
             </figure>
         </article>
 
@@ -31,7 +37,7 @@
 
             <p>
                 Related:
-                <a href="/html">HTML Guide</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer">HTML Guide</a>
             </p>
         </aside>
 

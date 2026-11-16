@@ -49,8 +49,23 @@ const autoButton = document.getElementById("autoRefresh");
 const status = document.getElementById("status");
 const postsElement = document.getElementById("posts");
 let timer = null;
+let isLoading = false;
+let autoRefreshEnabled = false;
+
+function scheduleAutoRefresh() {
+  if (!autoRefreshEnabled || isLoading) return;
+
+  if (timer !== null) clearTimeout(timer);
+  timer = setTimeout(() => {
+    timer = null;
+    void loadPosts();
+  }, 30000);
+}
 
 async function loadPosts() {
+  if (isLoading) return;
+
+  isLoading = true;
   refreshButton.disabled = true;
   postsElement.replaceChildren();
   status.className = "";
@@ -103,21 +118,31 @@ async function loadPosts() {
       : `Could not load the data stream: ${error.message}`;
     console.error(error);
   } finally {
+    isLoading = false;
     refreshButton.disabled = false;
+    scheduleAutoRefresh();
   }
 }
 
 function setAutoRefresh(enabled) {
-  if (timer !== null) clearInterval(timer);
-  timer = enabled ? setInterval(loadPosts, 30000) : null;
+  autoRefreshEnabled = enabled;
+
+  if (timer !== null) {
+    clearTimeout(timer);
+    timer = null;
+  }
+
+  scheduleAutoRefresh();
   autoButton.textContent = enabled ? "Pause auto-refresh" : "Resume auto-refresh";
   autoButton.setAttribute("aria-pressed", String(enabled));
 }
 
-refreshButton.addEventListener("click", loadPosts);
-autoButton.addEventListener("click", () => setAutoRefresh(timer === null));
+refreshButton.addEventListener("click", () => {
+  void loadPosts();
+});
+autoButton.addEventListener("click", () => setAutoRefresh(!autoRefreshEnabled));
 setAutoRefresh(true);
-loadPosts();
+void loadPosts();
 </script>
 </body>
 </html>

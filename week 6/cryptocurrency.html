@@ -84,7 +84,10 @@ async function loadCoins() {
         const image = document.createElement("img");
         image.src = coin.image;
         image.alt = "";
+        image.width = 42;
+        image.height = 42;
         image.loading = "lazy";
+        image.decoding = "async";
         heading.append(image);
       }
       const title = document.createElement("h2");

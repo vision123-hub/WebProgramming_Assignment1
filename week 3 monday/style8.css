@@ -47,6 +47,7 @@ p {
 
 .nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 
@@ -63,6 +64,7 @@ p {
 
 .nav-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
 }
 
@@ -167,8 +169,12 @@ p {
     .nav {
         flex-direction: column;
         gap: 15px;
+        align-items: flex-start;
     }
 
+    .nav-links {
+        gap: 12px 20px;
+    }
     .skills-grid {
         flex-direction: column;
     }

@@ -26,7 +26,8 @@ nav {
 
 .nav-links {
     display: flex;
-    gap: 28px;
+    flex-wrap: wrap;
+    gap: 12px 28px;
 }
 
 .nav-links a {
@@ -36,4 +37,21 @@ nav {
 
 .nav-links a:hover {
     color: #10B981;
-}2
+}
+
+.nav-links a:focus-visible {
+    outline: 2px solid #10B981;
+    outline-offset: 4px;
+}
+
+@media (max-width: 560px) {
+    nav {
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .nav-links {
+        gap: 12px 18px;
+    }
+}

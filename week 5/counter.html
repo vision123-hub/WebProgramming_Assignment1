@@ -10,10 +10,12 @@
             font-family: Arial, sans-serif;
             background-color: #fdf2f8;
             text-align: center;
-            padding: 50px;
+            padding: clamp(16px, 5vw, 50px);
         }
 
         .container {
+            box-sizing: border-box;
+            width: min(480px, 100%);
             background-color: white;
             padding: 40px;
             max-width: 400px;
@@ -82,6 +84,7 @@
 
 <body>
 
+    <main>
     <div class="container">
 
         <h1>JavaScript Counter</h1>
@@ -101,11 +104,12 @@
         <a href="index.html">Back to Home</a>
 
     </div>
-
     <figure class="evidence-figure">
         <img src="../assets/screenshots/week5-javascript-counter.png" width="1440" height="900" loading="lazy" decoding="async" alt="Deployed JavaScript counter after two real Add button clicks, displaying 2.">
         <figcaption>Deployed counter interaction: the count updates to 2 after two button clicks.</figcaption>
     </figure>
+    </main>
+
     <script>
 
         let count = 0;

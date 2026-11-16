@@ -6,15 +6,27 @@
     <title>Week 4 Monday - Task 2</title>
 
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            padding: 40px;
+            padding: clamp(16px, 5vw, 40px);
+            display: flex;
+            justify-content: center;
+        }
+
+        main {
+            width: 100%;
             display: flex;
             justify-content: center;
         }
 
         .card {
-            width: 300px;
+            width: min(360px, 100%);
             padding: 30px;
             text-align: center;
             border-radius: 15px;
@@ -55,20 +67,22 @@
 
 <body>
 
+    <main>
     <div id="card" class="card">
 
         <div class="avatar">👩‍💻</div>
 
-        <h2>Vision Parajuli</h2>
+        <h1>Vision Parajuli</h1>
 
         <p>Computer Major</p>
 
         <p>Web Programming Student</p>
 
-        <button id="toggle-btn">🌙 Dark Mode</button>
+        <button id="toggle-btn" type="button">🌙 Dark Mode</button>
 
     </div>
 
+    </main>
     <script>
         const card = document.querySelector("#card");
         const btn = document.querySelector("#toggle-btn");

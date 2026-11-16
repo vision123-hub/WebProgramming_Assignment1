@@ -159,7 +159,10 @@ form.addEventListener("submit", async event => {
       const flag = document.createElement("img");
       flag.src = `https://flagcdn.com/w160/${country.iso2Code.toLowerCase()}.png`;
       flag.alt = `Flag of ${title.textContent}`;
+      flag.width = 160;
+      flag.height = 100;
       flag.loading = "lazy";
+      flag.decoding = "async";
       card.append(flag);
       card.append(title);
       addDetail(card, "Capital", country.capitalCity);

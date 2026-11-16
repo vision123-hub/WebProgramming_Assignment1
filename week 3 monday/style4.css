@@ -1,12 +1,13 @@
 body {
     font-family: sans-serif;
     background-color: white;
-    padding: 40px;
+    padding: clamp(12px, 4vw, 40px);
 }
 
 .margin-box {
     background-color: #fbbf24;
-    width: 500px;
+    width: min(500px, 100%);
+    box-sizing: border-box;
     padding: 30px;
     margin: 0 auto;
     text-align: center;

@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 40px;
+            padding: clamp(16px, 5vw, 40px);
             text-align: center;
         }
 
@@ -20,6 +20,14 @@
             background-color: #2563eb;
             color: white;
             cursor: pointer;
+        }
+
+        main {
+            width: 100%;
+        }
+
+        #clicker {
+            max-width: 100%;
         }
 
         #clicker.done {
@@ -39,14 +47,16 @@
 
 <body>
 
+    <main>
     <h1>Task 1: Click Counter</h1>
 
-    <button id="clicker">Click me!</button>
+    <button id="clicker" type="button">Click me!</button>
 
     <p>Clicks: <span id="count">0</span></p>
 
     <p id="message">Keep clicking...</p>
 
+    </main>
     <script>
         const btn = document.querySelector("#clicker");
         const countEl = document.querySelector("#count");

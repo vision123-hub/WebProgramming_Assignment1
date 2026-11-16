@@ -25,10 +25,24 @@
 
         #todo-input {
             flex: 1;
+            min-width: 0;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
+        }
+
+        .add-row label {
+            position: absolute;
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         #add-btn {
@@ -73,22 +87,25 @@
 
 <body>
 
+    <main>
     <h1>My To-Do List</h1>
 
     <div class="add-row">
+        <label for="todo-input">New task</label>
         <input
             id="todo-input"
             type="text"
             placeholder="Add a task..."
         >
 
-        <button id="add-btn">+ Add</button>
+        <button id="add-btn" type="button">+ Add</button>
     </div>
 
     <ul id="todo-list"></ul>
 
     <p id="empty-msg">No tasks yet! Add one above.</p>
 
+    </main>
     <script>
         const input = document.querySelector("#todo-input");
         const addBtn = document.querySelector("#add-btn");
@@ -108,13 +125,18 @@
             }
 
             const li = document.createElement("li");
-
             li.className = "todo-item";
 
-            li.innerHTML = `
-                <span>${text}</span>
-                <button class="del-btn">✕</button>
-            `;
+            const task = document.createElement("span");
+            task.textContent = text;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "del-btn";
+            deleteButton.setAttribute("aria-label", `Delete ${text}`);
+            deleteButton.textContent = "✕";
+
+            li.append(task, deleteButton);
 
             list.appendChild(li);
 
@@ -132,7 +154,7 @@
         });
 
         list.addEventListener("click", (e) => {
-            if (e.target.classList.contains("del-btn")) {
+            if (e.target instanceof Element && e.target.closest(".del-btn")) {
                 e.target.closest("li").remove();
                 updateEmpty();
             }

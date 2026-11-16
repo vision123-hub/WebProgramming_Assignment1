@@ -38,11 +38,13 @@
   </style>
 </head>
 <body>
+  <main>
   <div class="container">
     <h1>📚 Search Books</h1>
 
     <form id="searchForm">
       <input id="query" type="search"
+             aria-label="Book title"
              placeholder="Search book title" required>
       <button type="submit">Search</button>
     </form>
@@ -50,6 +52,7 @@
     <p id="status" role="status"></p>
     <div id="results"></div>
   </div>
+  </main>
 
   <script>
     const form = document.getElementById("searchForm");

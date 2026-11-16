@@ -170,6 +170,7 @@
         <input
           id="searchInput"
           type="search"
+          aria-label="Book title, author, or keyword"
           placeholder="Search for a book..."
           required
         >
@@ -282,8 +283,11 @@
           ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
           : "https://placehold.co/130x190?text=No+Cover";
 
-        image.alt = "Cover of " + book.title;
+        image.alt = book.title ? `Cover of ${book.title}` : "Book cover";
+        image.width = 130;
+        image.height = 190;
         image.loading = "lazy";
+        image.decoding = "async";
 
         const title = document.createElement("h2");
         title.textContent = book.title || "Unknown title";

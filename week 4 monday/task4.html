@@ -27,6 +27,11 @@
             margin-bottom: 15px;
         }
 
+        label {
+            display: block;
+            margin-bottom: 6px;
+        }
+
         .student {
             padding: 12px;
             margin-bottom: 8px;
@@ -49,11 +54,13 @@
 
 <body>
 
+    <main>
     <h1>Student Search</h1>
 
+    <label for="search">Search students by name</label>
     <input
         id="search"
-        type="text"
+        type="search"
         placeholder="Search students..."
     >
 
@@ -91,41 +98,47 @@
 
     <p id="no-results">No students found.</p>
 
+    </main>
     <script>
         const searchInp = document.querySelector("#search");
-        const students = document.querySelectorAll(".student");
+        const students = Array.from(document.querySelectorAll(".student"), (element) => ({
+            element,
+            name: element.dataset.name,
+            major: element.textContent.split("—").slice(1).join("—").trim()
+        }));
         const noResults = document.querySelector("#no-results");
 
         searchInp.addEventListener("input", (e) => {
-            const term = e.target.value.toLowerCase();
+            const term = e.target.value.trim().toLocaleLowerCase();
 
             let visible = 0;
 
-            students.forEach((student) => {
-                const name = student.dataset.name.toLowerCase();
+            students.forEach(({ element, name, major }) => {
+                const normalizedName = name.toLocaleLowerCase();
 
-                if (name.includes(term)) {
-                    student.style.display = "";
+                if (normalizedName.includes(term)) {
+                    element.hidden = false;
                     visible++;
 
                     if (term) {
-                        const regex = new RegExp(`(${term})`, "gi");
-
-                        student.innerHTML =
-                            student.dataset.name.replace(
-                                regex,
-                                "<mark>$1</mark>"
-                            )
-                            + " — "
-                            + student.textContent.split("—")[1].trim();
+                        const fragment = document.createDocumentFragment();
+                        let start = 0;
+                        let match = normalizedName.indexOf(term, start);
+                        while (match !== -1) {
+                            fragment.append(document.createTextNode(name.slice(start, match)));
+                            const highlight = document.createElement("mark");
+                            highlight.textContent = name.slice(match, match + term.length);
+                            fragment.append(highlight);
+                            start = match + term.length;
+                            match = normalizedName.indexOf(term, start);
+                        }
+                        fragment.append(document.createTextNode(`${name.slice(start)} — ${major}`));
+                        element.replaceChildren(fragment);
                     } else {
-                        student.textContent =
-                            student.dataset.name
-                            + " — "
-                            + student.textContent.split("—")[1].trim();
+                        element.textContent = `${name} — ${major}`;
                     }
                 } else {
-                    student.style.display = "none";
+                    element.hidden = true;
                 }
             });
 

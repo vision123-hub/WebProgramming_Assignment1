@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             background-color: #eef2ff;
             text-align: center;
-            padding: 40px;
+            padding: clamp(16px, 5vw, 40px);
         }
 
         h1 {
@@ -18,10 +18,11 @@
         }
 
         .box {
+            box-sizing: border-box;
             background-color: white;
             padding: 25px;
             margin: 20px auto;
-            width: 350px;
+            width: min(400px, 100%);
             border-radius: 10px;
             box-shadow: 0 2px 8px #ccc;
         }
@@ -43,6 +44,7 @@
 
 <body>
 
+    <main>
     <h1>Web Programming - Week 5</h1>
     <p>JavaScript Practice Assignments</p>
 
@@ -57,6 +59,7 @@
         <p>Increase, decrease, and reset a number.</p>
         <a href="counter.html">Open Task 2</a>
     </div>
+    </main>
 
 </body>
 </html>

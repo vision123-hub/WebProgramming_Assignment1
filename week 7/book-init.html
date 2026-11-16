@@ -38,18 +38,21 @@
   </style>
 </head>
 <body>
+  <main>
   <div class="container">
     <h1>📚 Book Finder</h1>
     <p>Find your next favorite book!</p>
 
     <form id="searchForm">
       <input id="bookInput" type="search"
+             aria-label="Book title"
              placeholder="Enter a book title..." required>
       <button type="submit">Search</button>
     </form>
 
     <p id="message" role="status"></p>
   </div>
+  </main>
 
   <script>
     const form = document.getElementById("searchForm");
