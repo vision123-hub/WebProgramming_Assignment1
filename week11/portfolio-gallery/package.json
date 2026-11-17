@@ -2,7 +2,7 @@
   "name": "portfolio-gallery",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://vision123-hub.github.io/WebProgramming_Assignment1/portfolio-gallery",
   "dependencies": {
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.9.1",
