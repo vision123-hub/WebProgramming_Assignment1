@@ -1,0 +1,83 @@
+.assignment {
+  width: min(100% - 2rem, 58rem);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 5rem) 0;
+}
+
+.assignment__header {
+  max-width: 42rem;
+  margin-bottom: 3.5rem;
+}
+
+.assignment__eyebrow {
+  margin: 0 0 0.9rem;
+  color: #9a5d42;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.assignment__header h1 {
+  margin: 0;
+  color: #29251f;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.8rem, 9vw, 4.5rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+
+.assignment__intro {
+  max-width: 38rem;
+  margin: 1rem 0 0;
+  color: #625e56;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.assignment__section-heading {
+  margin-bottom: 1.2rem;
+}
+
+.assignment__section-heading h2,
+.assignment__usage h2 {
+  margin: 0;
+  color: #29251f;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+}
+
+.assignment__section-heading p {
+  margin: 0.45rem 0 0;
+  color: #716b61;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+}
+
+.assignment__usage {
+  margin-top: 2.5rem;
+}
+
+.assignment__usage pre {
+  overflow-x: auto;
+  margin: 0.9rem 0 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid #e6e1d8;
+  border-radius: 0.75rem;
+  background: #eeece6;
+  color: #39352e;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 36rem) {
+  .assignment__header {
+    margin-bottom: 2.5rem;
+  }
+}

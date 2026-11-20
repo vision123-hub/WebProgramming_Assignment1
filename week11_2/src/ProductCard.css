@@ -1,0 +1,65 @@
+.product-card {
+  display: flex;
+  min-height: 13rem;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid #e6e1d8;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 0.75rem 2rem rgb(43 37 29 / 6%);
+}
+
+.product-card__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.product-card__eyebrow {
+  color: #777064;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.product-card__availability {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: #fcebea;
+  color: #a33b35;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.product-card__availability--available {
+  background: #e8f4ec;
+  color: #28643c;
+}
+
+.product-card__name {
+  margin: 1.5rem 0 0.5rem;
+  color: #28251f;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.product-card__price {
+  margin: 0;
+  color: #534637;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.product-card__rating {
+  margin: auto 0 0;
+  padding-top: 1.25rem;
+  color: #625e56;
+  font-size: 0.9rem;
+}
+
+.product-card__rating span {
+  color: #c58a27;
+}

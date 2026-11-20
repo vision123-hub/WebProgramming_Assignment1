@@ -1,4 +1,4 @@
-# Week 11 — Portfolio Gallery
+# Week 11_1 — Portfolio Gallery
 
 An editorial-style, responsive React portfolio for Vision Parajuli. The gallery
 keeps six genuine screenshots from the existing Web Programming coursework.
